@@ -10,6 +10,8 @@ use Propel\Runtime\Propel;
 use Propel\Runtime\Connection\ConnectionInterface;
 use SprykerFeature\Zed\Sales\Persistence\Propel\SpySalesOrderNumberSequence;
 use SprykerFeature\Zed\Sales\Persistence\Propel\SpySalesOrderNumberSequenceQuery;
+use SprykerFeature\Zed\SequenceNumber\Business\Generator\RandomNumberGenerator;
+use SprykerFeature\Zed\SequenceNumber\Business\Generator\RandomNumberGeneratorInterface;
 
 class OrderSequence implements OrderSequenceInterface
 {
