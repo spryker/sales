@@ -6,7 +6,7 @@
 
 namespace SprykerFeature\Zed\Sales\Persistence\Propel;
 
-use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrder as BaseSpySalesOrder;
+use Orm\Zed\Sales\Persistence\Base\SpySalesOrder as BaseSpySalesOrder;
 
 /**
  * Skeleton subclass for representing a row from the 'spy_sales_order' table.
@@ -17,7 +17,7 @@ use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrder as BaseSpySal
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpySalesOrder extends BaseSpySalesOrder
+abstract class AbstractSpySalesOrder extends BaseSpySalesOrder
 {
 
     /**
@@ -27,7 +27,7 @@ class SpySalesOrder extends BaseSpySalesOrder
      *
      * @deprecated
      *
-     * @return $this|\SprykerFeature\Zed\Sales\Persistence\Propel\SpySalesOrder The current object (for fluent API support)
+     * @return \Orm\Zed\Sales\Persistence\SpySalesOrder The current object (for fluent API support)
      */
     public function setIncrementId($v)
     {

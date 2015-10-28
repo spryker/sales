@@ -6,10 +6,10 @@
 
 namespace SprykerFeature\Zed\Sales\Persistence\Propel;
 
-use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderAddressQuery as BaseSpySalesOrderAddressQuery;
+use Orm\Zed\Sales\Persistence\Base\SpySalesExpenseQuery as BaseSpySalesExpenseQuery;
 
 /**
- * Skeleton subclass for performing query and update operations on the 'spy_sales_order_address' table.
+ * Skeleton subclass for performing query and update operations on the 'spy_sales_expense' table.
  *
  *
  *
@@ -17,8 +17,8 @@ use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderAddressQuery a
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpySalesOrderAddressQuery extends BaseSpySalesOrderAddressQuery
+abstract class AbstractSpySalesExpenseQuery extends BaseSpySalesExpenseQuery
 {
 
-} // SpySalesOrderAddressQuery
+} // SpySalesExpenseQuery
 

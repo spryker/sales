@@ -6,10 +6,10 @@
 
 namespace SprykerFeature\Zed\Sales\Persistence\Propel;
 
-use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderAddress as BaseSpySalesOrderAddress;
+use Orm\Zed\Sales\Persistence\Base\SpySalesOrderAddressHistory as BaseSpySalesOrderAddressHistory;
 
 /**
- * Skeleton subclass for representing a row from the 'spy_sales_order_address' table.
+ * Skeleton subclass for representing a row from the 'spy_sales_order_address_history' table.
  *
  *
  *
@@ -17,7 +17,7 @@ use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderAddress as Bas
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpySalesOrderAddress extends BaseSpySalesOrderAddress
+abstract class AbstractSpySalesOrderAddressHistory extends BaseSpySalesOrderAddressHistory
 {
 
 }

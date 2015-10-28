@@ -6,10 +6,10 @@
 
 namespace SprykerFeature\Zed\Sales\Persistence\Propel;
 
-use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderComment as BaseSpySalesOrderComment;
+use Orm\Zed\Sales\Persistence\Base\SpySalesOrderItemBundleItem as BaseSpySalesOrderItemBundleItem;
 
 /**
- * Skeleton subclass for representing a row from the 'spy_sales_order_comment' table.
+ * Skeleton subclass for representing a row from the 'spy_sales_order_item_bundle_item' table.
  *
  *
  *
@@ -17,7 +17,7 @@ use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderComment as Bas
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpySalesOrderComment extends BaseSpySalesOrderComment
+abstract class AbstractSpySalesOrderItemBundleItem extends BaseSpySalesOrderItemBundleItem
 {
 
 }

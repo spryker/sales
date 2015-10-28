@@ -6,7 +6,7 @@
 
 namespace SprykerFeature\Zed\Sales\Persistence\Propel;
 
-use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderItemBundleQuery as BaseSpySalesOrderItemBundleQuery;
+use Orm\Zed\Sales\Persistence\Base\SpySalesOrderItemBundleQuery as BaseSpySalesOrderItemBundleQuery;
 
 /**
  * Skeleton subclass for performing query and update operations on the 'spy_sales_order_item_bundle' table.
@@ -17,7 +17,7 @@ use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderItemBundleQuer
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpySalesOrderItemBundleQuery extends BaseSpySalesOrderItemBundleQuery
+abstract class AbstractSpySalesOrderItemBundleQuery extends BaseSpySalesOrderItemBundleQuery
 {
 
 } // SpySalesOrderItemBundleQuery
