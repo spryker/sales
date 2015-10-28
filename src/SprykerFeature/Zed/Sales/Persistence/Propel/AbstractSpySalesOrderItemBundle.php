@@ -6,10 +6,10 @@
 
 namespace SprykerFeature\Zed\Sales\Persistence\Propel;
 
-use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesDiscountCode as BaseSpySalesDiscountCode;
+use Orm\Zed\Sales\Persistence\Base\SpySalesOrderItemBundle as BaseSpySalesOrderItemBundle;
 
 /**
- * Skeleton subclass for representing a row from the 'spy_sales_discount_code' table.
+ * Skeleton subclass for representing a row from the 'spy_sales_order_item_bundle' table.
  *
  *
  *
@@ -17,7 +17,7 @@ use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesDiscountCode as Bas
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpySalesDiscountCode extends BaseSpySalesDiscountCode
+abstract class AbstractSpySalesOrderItemBundle extends BaseSpySalesOrderItemBundle
 {
 
 }

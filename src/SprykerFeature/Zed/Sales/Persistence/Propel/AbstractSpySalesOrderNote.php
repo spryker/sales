@@ -6,7 +6,7 @@
 
 namespace SprykerFeature\Zed\Sales\Persistence\Propel;
 
-use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderNote as BaseSpySalesOrderNote;
+use Orm\Zed\Sales\Persistence\Base\SpySalesOrderNote as BaseSpySalesOrderNote;
 
 /**
  * Skeleton subclass for representing a row from the 'spy_sales_order_note' table.
@@ -17,7 +17,7 @@ use SprykerFeature\Zed\Sales\Persistence\Propel\Base\SpySalesOrderNote as BaseSp
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpySalesOrderNote extends BaseSpySalesOrderNote
+abstract class AbstractSpySalesOrderNote extends BaseSpySalesOrderNote
 {
 
 }
