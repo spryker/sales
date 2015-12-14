@@ -4,11 +4,11 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Client\Sales\Service\Zed;
+namespace SprykerFeature\Client\Sales\Zed;
 
 use Generated\Shared\Transfer\OrderListTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
-use SprykerFeature\Client\ZedRequest\Service\ZedRequestClient;
+use SprykerFeature\Client\ZedRequest\ZedRequestClient;
 
 class SalesStub implements SalesStubInterface
 {
