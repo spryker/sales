@@ -4,14 +4,14 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace SprykerFeature\Client\Sales\Service;
+namespace SprykerFeature\Client\Sales;
 
-use SprykerFeature\Client\Sales\Service\Zed\SalesStub;
-use SprykerEngine\Client\Kernel\Service\AbstractServiceDependencyContainer;
-use SprykerFeature\Client\Sales\Service\Zed\SalesStubInterface;
+use SprykerFeature\Client\Sales\Zed\SalesStub;
+use SprykerEngine\Client\Kernel\AbstractDependencyContainer;
+use SprykerFeature\Client\Sales\Zed\SalesStubInterface;
 use SprykerFeature\Client\Sales\SalesDependencyProvider;
 
-class SalesDependencyContainer extends AbstractServiceDependencyContainer
+class SalesDependencyContainer extends AbstractDependencyContainer
 {
 
     /**
