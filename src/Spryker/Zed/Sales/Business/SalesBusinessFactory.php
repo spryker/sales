@@ -25,7 +25,7 @@ use Spryker\Zed\SequenceNumber\Business\SequenceNumberFacade;
 /**
  * @method SalesConfig getConfig()
  */
-class SalesDependencyContainer extends AbstractBusinessFactory
+class SalesBusinessFactory extends AbstractBusinessFactory
 {
 
     public function createOrderManager()

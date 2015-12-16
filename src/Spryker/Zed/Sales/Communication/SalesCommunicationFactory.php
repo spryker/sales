@@ -20,7 +20,7 @@ use Spryker\Zed\Sales\Communication\Form\AddressForm;
 /**
  * @method SalesQueryContainerInterface getQueryContainer()
  */
-class SalesDependencyContainer extends AbstractCommunicationFactory
+class SalesCommunicationFactory extends AbstractCommunicationFactory
 {
 
     /**
