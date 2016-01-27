@@ -12,7 +12,7 @@ use Spryker\Zed\Sales\Dependency\Plugin\OrderTotalsAggregatePluginInterface;
 /**
  * @method SalesFacade getFacade()
  */
-class ItemAggregatorPlugin extends AbstractPlugin implements OrderTotalsAggregatePluginInterface
+class ItemGrossPriceAggregatorPlugin extends AbstractPlugin implements OrderTotalsAggregatePluginInterface
 {
     /**
      * @param OrderTransfer $orderTransfer
