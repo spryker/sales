@@ -5,10 +5,10 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Acceptance\Sales\Order\Zed;
+namespace ZedPresentation\Sales\Order\Zed;
 
-use Acceptance\Sales\Order\Zed\PageObject\SalesDetailPage;
-use Acceptance\Sales\Order\Zed\Tester\SalesListTester;
+use ZedPresentation\Sales\Order\Zed\PageObject\SalesDetailPage;
+use ZedPresentation\Sales\Order\Zed\Tester\SalesListTester;
 
 /**
  * @group Acceptance
@@ -21,7 +21,7 @@ class SalesListCest
 {
 
     /**
-     * @param \Acceptance\Sales\Order\Zed\Tester\SalesListTester $i
+     * @param \ZedPresentation\Sales\Order\Zed\Tester\SalesListTester $i
      *
      * @return void
      */
@@ -32,7 +32,7 @@ class SalesListCest
     }
 
     /**
-     * @param \Acceptance\Sales\Order\Zed\Tester\SalesListTester $i
+     * @param \ZedPresentation\Sales\Order\Zed\Tester\SalesListTester $i
      *
      * @return void
      */

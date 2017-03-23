@@ -4,7 +4,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Functional\Spryker\Zed\Sales\Business;
+namespace ZedCommunication\Business;
 
 use Codeception\TestCase\Test;
 use Generated\Shared\Transfer\AddressTransfer;
@@ -109,7 +109,7 @@ class SalesFacadeTest extends Test
     }
 
     /**
-     * @return \Functional\Spryker\Zed\Sales\Business\TestOrderCreator
+     * @return \ZedCommunication\Business\TestOrderCreator
      */
     protected function createTestOrderCreator()
     {

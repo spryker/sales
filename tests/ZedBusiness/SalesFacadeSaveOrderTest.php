@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Functional\Spryker\Zed\Sales\Business;
+namespace ZedCommunication\Business;
 
 use Codeception\TestCase\Test;
 use DateTime;

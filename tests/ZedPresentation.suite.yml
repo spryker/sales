@@ -1,4 +1,4 @@
-class_name: AcceptanceTester
+class_name: ZedPresentationTester
 modules:
     enabled:
         - WebDriver:
@@ -9,4 +9,4 @@ modules:
         - \Application\Module\Yves
         - \Application\Module\Zed
         - \Sales\Module\Sales
-        - Asserts
+        - \Sales\Helper\ZedPresentation
