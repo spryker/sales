@@ -6,6 +6,7 @@
 
 namespace Sales\Module;
 
+use Codeception\Lib\ModuleContainer;
 use Codeception\Module;
 use Codeception\TestCase;
 use Propel\Runtime\Propel;
@@ -16,11 +17,12 @@ class Functional extends Module
 {
 
     /**
-     * @param array|null $config
+     * @param \Codeception\Lib\ModuleContainer $moduleContainer
+     * @param null $config
      */
-    public function __construct($config = null)
+    public function __construct(ModuleContainer $moduleContainer, $config = null)
     {
-        parent::__construct($config);
+        parent::__construct($moduleContainer, $config);
 
         $propelServiceProvider = new PropelServiceProvider();
         $propelServiceProvider->boot(new Application());
