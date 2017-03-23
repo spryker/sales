@@ -5,9 +5,9 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Acceptance\Sales\Order\Zed\Tester;
+namespace ZedPresentation\Sales\Order\Zed\Tester;
 
-use Acceptance\Sales\Order\Zed\PageObject\SalesDetailPage;
+use ZedPresentation\Sales\Order\Zed\PageObject\SalesDetailPage;
 
 class SalesDetailPageTester extends SalesTester
 {
