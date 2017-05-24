@@ -13,6 +13,10 @@ interface HydrateOrderPluginInterface
 {
 
     /**
+     * Specification:
+     *   - Its a plugin which hydrates OrderTransfer when order read is persistence,
+     *   - Can be used to add additional data to OrderTransfer
+     *
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
