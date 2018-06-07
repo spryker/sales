@@ -10,13 +10,13 @@ namespace Spryker\Zed\Sales\Communication\Plugin\SalesExtension;
 use ArrayObject;
 use Generated\Shared\Transfer\ItemTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use Spryker\Zed\SalesExtension\Dependency\Plugin\SalesOrderItemTransformerPluginInterface;
+use Spryker\Zed\SalesExtension\Dependency\Plugin\SalesItemTransformerPluginInterface;
 
 /**
  * @method \Spryker\Zed\Sales\Business\SalesFacadeInterface getFacade()
  * @method \Spryker\Zed\Sales\Communication\SalesCommunicationFactory getFactory()
  */
-class SingleQuantityBasedOrderItemTransformerPlugin extends AbstractPlugin implements SalesOrderItemTransformerPluginInterface
+class SingleQuantityBasedItemTransformerPlugin extends AbstractPlugin implements SalesItemTransformerPluginInterface
 {
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
@@ -37,8 +37,8 @@ class SingleQuantityBasedOrderItemTransformerPlugin extends AbstractPlugin imple
      *
      * @return \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[]
      */
-    public function transformOrderItem(ItemTransfer $itemTransfer): ArrayObject
+    public function transformItem(ItemTransfer $itemTransfer): ArrayObject
     {
-        return $this->getFacade()->transformOrderItem($itemTransfer);
+        return $this->getFacade()->transformItem($itemTransfer);
     }
 }
