@@ -27,7 +27,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class AddressForm extends AbstractType
 {
-    public const FIELD_ID = 'address_id';
     public const FIELD_SALUTATION = 'salutation';
     public const FIELD_FIRST_NAME = 'first_name';
     public const FIELD_MIDDLE_NAME = 'middle_name';
@@ -98,7 +97,6 @@ class AddressForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this
-            ->addAddressIdField($builder)
             ->addSalutationField($builder, $options[self::OPTION_SALUTATION_CHOICES])
             ->addFirstNameField($builder)
             ->addMiddleNameField($builder)
@@ -115,23 +113,6 @@ class AddressForm extends AbstractType
             ->addCellPhoneField($builder)
             ->addDescriptionField($builder)
             ->addCommentField($builder);
-    }
-
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $choices
-     *
-     * @return $this
-     */
-    protected function addAddressIdField(FormBuilderInterface $builder)
-    {
-        $builder->add(self::FIELD_ID, HiddenType::class, [
-            'label' => 'Address ID',
-            'constraints' => [
-            ],
-        ]);
-
-        return $this;
     }
 
     /**
