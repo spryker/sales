@@ -7,7 +7,6 @@
 namespace Spryker\Zed\Sales\Business\Order;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverInterface;
 
 interface OrderSaverStrategyResolverInterface
 {
@@ -17,7 +16,7 @@ interface OrderSaverStrategyResolverInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverInterface
+     * @return \Spryker\Zed\Sales\Business\Order\SalesOrderSaverInterface
      */
     public function resolveByQuote(QuoteTransfer $quoteTransfer): SalesOrderSaverInterface;
 }
