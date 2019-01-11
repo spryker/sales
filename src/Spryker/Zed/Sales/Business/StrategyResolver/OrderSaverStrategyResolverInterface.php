@@ -4,9 +4,10 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Sales\Business\Order;
+namespace Spryker\Zed\Sales\Business\StrategyResolver;
 
 use Generated\Shared\Transfer\QuoteTransfer;
+use Spryker\Zed\Sales\Business\Order\SalesOrderSaverInterface;
 
 interface OrderSaverStrategyResolverInterface
 {
