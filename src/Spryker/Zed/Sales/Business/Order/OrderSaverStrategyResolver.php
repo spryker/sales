@@ -8,7 +8,6 @@ namespace Spryker\Zed\Sales\Business\Order;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException;
-use Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverInterface;
 use Spryker\Zed\Sales\Dependency\Service\SalesToSalesServiceInterface;
 
 class OrderSaverStrategyResolver implements OrderSaverStrategyResolverInterface
@@ -16,22 +15,22 @@ class OrderSaverStrategyResolver implements OrderSaverStrategyResolverInterface
     /**
      * @var \Spryker\Zed\Sales\Dependency\Service\SalesToSalesServiceInterface
      */
-    protected $salesService;
+    protected $service;
 
     /**
-     * @var \Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverInterface[]
+     * @var \Spryker\Zed\Sales\Business\Order\SalesOrderSaverInterface[]
      */
     protected $strategyContainer;
 
     /**
      * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      *
-     * @param \Spryker\Zed\Sales\Dependency\Service\SalesToSalesServiceInterface $salesService
-     * @param array|\Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverInterface[] $strategyContainer
+     * @param \Spryker\Zed\Sales\Dependency\Service\SalesToSalesServiceInterface $service
+     * @param array|\Spryker\Zed\Sales\Business\Order\SalesOrderSaverInterface[] $strategyContainer
      */
-    public function __construct(SalesToSalesServiceInterface $salesService, array $strategyContainer)
+    public function __construct(SalesToSalesServiceInterface $service, array $strategyContainer)
     {
-        $this->salesService = $salesService;
+        $this->service = $service;
         $this->strategyContainer = $strategyContainer;
 
         $this->assertRequiredStrategyContainerItems();
@@ -40,11 +39,11 @@ class OrderSaverStrategyResolver implements OrderSaverStrategyResolverInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverInterface
+     * @return \Spryker\Zed\Sales\Business\Order\SalesOrderSaverInterface
      */
     public function resolveByQuote(QuoteTransfer $quoteTransfer): SalesOrderSaverInterface
     {
-        if ($this->salesService->checkQuoteItemHasOwnShipmentTransfer($quoteTransfer) === false) {
+        if ($this->service->checkQuoteItemHasOwnShipmentTransfer($quoteTransfer) === false) {
             return $this->strategyContainer[static::STRATEGY_KEY_WITHOUT_MULTI_SHIPMENT];
         }
 

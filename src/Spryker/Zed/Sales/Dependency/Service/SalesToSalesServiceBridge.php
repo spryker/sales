@@ -9,21 +9,21 @@ namespace Spryker\Zed\Sales\Dependency\Service;
 
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Sales\Shipment\SalesServiceInterface;
+use Spryker\Service\Sales\SalesServiceInterface;
 
 class SalesToSalesServiceBridge implements SalesToSalesServiceInterface
 {
     /**
-     * @var \Spryker\Sales\Shipment\SalesServiceInterface
+     * @var \Spryker\Service\Sales\SalesServiceInterface
      */
-    private $salesService;
+    private $service;
 
     /**
-     * @param \Spryker\Sales\Shipment\SalesServiceInterface $salesService
+     * @param \Spryker\Service\Sales\SalesServiceInterface $service
      */
-    public function __construct(SalesServiceInterface $salesService)
+    public function __construct(SalesServiceInterface $service)
     {
-        $this->salesService = $salesService;
+        $this->service = $service;
     }
 
     /**
@@ -33,7 +33,7 @@ class SalesToSalesServiceBridge implements SalesToSalesServiceInterface
      */
     public function checkQuoteItemHasOwnShipmentTransfer(QuoteTransfer $quoteTransfer): bool
     {
-        return $this->salesService->checkQuoteItemHasOwnShipmentTransfer($quoteTransfer);
+        return $this->service->checkQuoteItemHasOwnShipmentTransfer($quoteTransfer);
     }
 
     /**
@@ -43,6 +43,6 @@ class SalesToSalesServiceBridge implements SalesToSalesServiceInterface
      */
     public function checkOrderItemHasOwnShipmentTransfer(OrderTransfer $orderTransfer): bool
     {
-        return $this->salesService->checkOrderItemHasOwnShipmentTransfer($orderTransfer);
+        return $this->service->checkOrderItemHasOwnShipmentTransfer($orderTransfer);
     }
 }
