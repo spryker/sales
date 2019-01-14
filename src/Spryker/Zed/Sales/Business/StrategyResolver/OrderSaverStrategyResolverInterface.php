@@ -9,6 +9,9 @@ namespace Spryker\Zed\Sales\Business\StrategyResolver;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Sales\Business\Order\SalesOrderSaverInterface;
 
+/**
+ * @deprecated Remove strategy resolver after multiple shipment will be released.
+ */
 interface OrderSaverStrategyResolverInterface
 {
     public const STRATEGY_KEY_WITHOUT_MULTI_SHIPMENT = 'STRATEGY_KEY_WITHOUT_MULTI_SHIPMENT';
