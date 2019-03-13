@@ -15,16 +15,9 @@ use Generated\Shared\Transfer\ShipmentGroupCollectionTransfer;
 interface SalesOrderItemGrouperInterface
 {
     /**
-     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
+     * @param iterable|\Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
      *
      * @return \Generated\Shared\Transfer\ItemCollectionTransfer
      */
-    public function getUniqueOrderItems(ArrayObject $itemTransfers): ItemCollectionTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\ShipmentGroupCollectionTransfer
-     */
-    public function getUniqueOrderItemsForShipmentGroups(OrderTransfer $orderTransfer): ShipmentGroupCollectionTransfer;
+    public function getUniqueOrderItems(iterable $itemTransfers): ItemCollectionTransfer;
 }
