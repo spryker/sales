@@ -7,15 +7,20 @@
 
 namespace SprykerTest\Zed\Sales\Business\Facade;
 
+use BadMethodCallException;
 use Codeception\TestCase\Test;
 use Generated\Shared\DataBuilder\ItemBuilder;
 use Generated\Shared\DataBuilder\QuoteBuilder;
+use Generated\Shared\DataBuilder\SequenceNumberSettingsBuilder;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
+use Generated\Shared\Transfer\SequenceNumberSettingsTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddressQuery;
 use Orm\Zed\Sales\Persistence\SpySalesOrderQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
+use Spryker\Shared\Kernel\Store;
+use Spryker\Shared\Sales\SalesConstants;
 use Spryker\Zed\Sales\Business\SalesBusinessFactory;
 use Spryker\Zed\Sales\Business\SalesFacade;
 use Spryker\Zed\Sales\Business\SalesFacadeInterface;
@@ -48,15 +53,14 @@ class ShippingAddressSaveTest extends Test
      */
     public function testSaveOrderAddressShouldPersistAddressEntity(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer)
     {
-//        dd($quoteTransfer->getShippingAddress());
-
         // Arrange
         $salesOrderQuery = SpySalesOrderQuery::create()->orderByIdSalesOrder(Criteria::DESC);
         $shippingAddressTransfer = $quoteTransfer->getShippingAddress();
         $salesOrderAddressQuery = SpySalesOrderAddressQuery::create()->filterByAddress1($shippingAddressTransfer->getAddress1());
+        $salesFacade = $this->getSalesFacadeWithMockedConfig();
 
         // Act
-        $this->getSalesFacadeWithMockedConfig($quoteTransfer)->saveSalesOrder($quoteTransfer, $saveOrderTransfer);
+        $salesFacade->saveSalesOrder($quoteTransfer, $saveOrderTransfer);
 
         // Assert
         $this->assertTrue($salesOrderAddressQuery->count() === 1, 'Shipping address should have been saved');
@@ -73,16 +77,19 @@ class ShippingAddressSaveTest extends Test
      */
     public function testSaveOrderAddressShouldntPersistAddressEntity(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer)
     {
-        // assign
+        // Arrange
+        $salesOrderQuery = SpySalesOrderQuery::create()->orderByIdSalesOrder(Criteria::DESC);
         $salesOrderAddressQuery = SpySalesOrderAddressQuery::create();
         $countBefore = $salesOrderAddressQuery->count();
+        $salesFacade = $this->getSalesFacadeWithMockedConfig();
 
-        // act
-        $this->tester->getFacade()->saveSalesOrder($quoteTransfer, $saveOrderTransfer);
+        // Act
+        $salesFacade->saveSalesOrder($quoteTransfer, $saveOrderTransfer);
 
-        // assert
+        // Assert
         $expectedOrderAddressCount = $countBefore + 1;
         $this->assertEquals($expectedOrderAddressCount, $salesOrderAddressQuery->count(), 'Address count mismatch! Only billing address should have been saved.');
+        $this->assertNull($salesOrderQuery->findOne()->getShippingAddress(), 'Shipping address should not have been assigned on sales order level.');
     }
 
     /**
@@ -110,19 +117,14 @@ class ShippingAddressSaveTest extends Test
      */
     protected function getDataWithQuoteLevelShippingAddress()
     {
-        $itemTransfer1 = (new ItemBuilder([
-           'unitPrice' => 1001,
-        ]));
-
-        $itemTransfer2 = (new ItemBuilder([
-            'unitPrice' => 2002,
-        ]));
+        $itemTransferBuilder1 = $this->createItemTransferBuilder(1001);
+        $itemTransferBuilder2 = $this->createItemTransferBuilder(2002);
 
         $quoteTransfer = (new QuoteBuilder())
             ->withShippingAddress()
-            ->withBillingAddress()
-            ->withItem($itemTransfer1)
-            ->withItem($itemTransfer2)
+            ->withAnotherBillingAddress()
+            ->withAnotherItem($itemTransferBuilder1)
+            ->withAnotherItem($itemTransferBuilder2)
             ->withTotals()
             ->withCustomer()
             ->withCurrency()
@@ -136,18 +138,13 @@ class ShippingAddressSaveTest extends Test
      */
     protected function getDataWithoutQuoteLevelShippingAddress()
     {
-        $itemTransfer1 = (new ItemBuilder([
-            'unitPrice' => 1001,
-        ]));
-
-        $itemTransfer2 = (new ItemBuilder([
-            'unitPrice' => 2002,
-        ]));
+        $itemTransferBuilder1 = $this->createItemTransferBuilder(1001);
+        $itemTransferBuilder2 = $this->createItemTransferBuilder(2002);
 
         $quoteTransfer = (new QuoteBuilder())
-            ->withBillingAddress()
-            ->withItem($itemTransfer1)
-            ->withItem($itemTransfer2)
+            ->withAnotherBillingAddress()
+            ->withAnotherItem($itemTransferBuilder1)
+            ->withAnotherItem($itemTransferBuilder2)
             ->withTotals()
             ->withCustomer()
             ->withCurrency()
@@ -157,97 +154,17 @@ class ShippingAddressSaveTest extends Test
     }
 
     /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    private function getValidBaseQuoteTransfer(): QuoteTransfer
-    {
-        $country = new SpyCountry();
-        $country->setIso2Code('ix');
-        $country->save();
-
-        $quoteTransfer = new QuoteTransfer();
-        $currencyTransfer = new CurrencyTransfer();
-        $currencyTransfer->setCode('EUR');
-        $quoteTransfer->setCurrency($currencyTransfer);
-
-        $quoteTransfer->setPriceMode(PriceMode::PRICE_MODE_GROSS);
-        $billingAddress = new AddressTransfer();
-
-        $billingAddress->setIso2Code('ix')
-            ->setAddress1('address-1-1-test')
-            ->setFirstName('Max')
-            ->setLastName('Mustermann')
-            ->setZipCode('1337')
-            ->setCity('SpryHome');
-
-        $shippingAddress = new AddressTransfer();
-        $shippingAddress->setIso2Code('ix')
-            ->setAddress1('address-1-2-test')
-            ->setFirstName('Max')
-            ->setLastName('Mustermann')
-            ->setZipCode('1337')
-            ->setCity('SpryHome');
-
-        $totals = new TotalsTransfer();
-        $totals->setGrandTotal(1337)
-            ->setSubtotal(337);
-
-        $totals->setTaxTotal((new TaxTotalTransfer())->setAmount(10));
-
-        $quoteTransfer
-            ->setBillingAddress($billingAddress)
-            ->setTotals($totals);
-
-        $customerTransfer = new CustomerTransfer();
-        $customerTransfer->setEmail('max@mustermann.de');
-        $customerTransfer->setFirstName('Max');
-        $customerTransfer->setLastName('Mustermann');
-
-        $quoteTransfer->setCustomer($customerTransfer);
-
-        $shipmentTransfer = new ShipmentTransfer();
-        $shipmentTransfer
-            ->setMethod(new ShipmentMethodTransfer())
-            ->setShippingAddress($shippingAddress);
-
-        $itemTransfer = new ItemTransfer();
-        $itemTransfer
-            ->setUnitPrice(1)
-            ->setUnitGrossPrice(1)
-            ->setSumGrossPrice(1)
-            ->setQuantity(1)
-            ->setShipment($shipmentTransfer)
-            ->setName('test-name')
-            ->setSku('sku-test');
-        $quoteTransfer->addItem($itemTransfer);
-
-        $paymentTransfer = new PaymentTransfer();
-        $paymentTransfer->setPaymentSelection('dummyPaymentInvoice');
-
-        $quoteTransfer->setPayment($paymentTransfer);
-
-        return $quoteTransfer;
-    }
-
-    /**
-     * @param QuoteTransfer $quoteTransfer
-     *
      * @return \Spryker\Zed\Sales\Business\SalesFacadeInterface
      */
-    protected function getSalesFacadeWithMockedConfig(
-        QuoteTransfer $quoteTransfer
-    ): SalesFacadeInterface {
+    protected function getSalesFacadeWithMockedConfig(): SalesFacadeInterface {
         $salesFacade = $this->createSalesFacade();
         $salesBusinessFactory = $this->createBusinessFactory();
 
         $salesConfigMock = $this->createSalesConfigMock();
-        $res = $salesConfigMock->isTestOrder($quoteTransfer);
-        $salesConfigMock->method('determineProcessForOrderItem')->willReturn([
-            'function' => 'determineProcessForOrderItem',
-        ]);
-        $salesConfigMock->method('getOrderReferenceDefaults')->willReturn([
-            'function' => 'getOrderReferenceDefaults',
-        ]);
+        $salesConfigMock->method('determineProcessForOrderItem')->willReturn('DummyPayment01');
+        $salesConfigMock->method('getOrderReferenceDefaults')->willReturn(
+            $this->createSequenceNumberSettingsTransfer()
+        );
 
         $salesBusinessFactory->setConfig($salesConfigMock);
         $salesFacade->setFactory($salesBusinessFactory);
@@ -256,9 +173,21 @@ class ShippingAddressSaveTest extends Test
     }
 
     /**
+     * @param int|null $unitPrice
+     *
+     * @return \Generated\Shared\DataBuilder\ItemBuilder
+     */
+    protected function createItemTransferBuilder($unitPrice = null): ItemBuilder
+    {
+        return (new ItemBuilder([
+            'unitPrice' => $unitPrice,
+        ]));
+    }
+
+    /**
      * @return \Spryker\Zed\Sales\Business\SalesFacadeInterface
      */
-    protected function createSalesFacade()
+    protected function createSalesFacade(): SalesFacadeInterface
     {
         return new SalesFacade();
     }
@@ -266,7 +195,7 @@ class ShippingAddressSaveTest extends Test
     /**
      * @return \Spryker\Zed\Sales\Business\SalesBusinessFactory
      */
-    protected function createBusinessFactory()
+    protected function createBusinessFactory(): SalesBusinessFactory
     {
         return new SalesBusinessFactory();
     }
@@ -274,28 +203,9 @@ class ShippingAddressSaveTest extends Test
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Sales\SalesConfig
      */
-    protected function createSalesConfigMock()
+    protected function createSalesConfigMock(): SalesConfig
     {
         return $this->getMockBuilder(SalesConfig::class)->getMock();
-    }
-
-    /**
-     * This method determines state machine process from the given quote transfer and order item.
-     *
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return string
-     */
-    public function determineProcessForOrderItem(QuoteTransfer $quoteTransfer, ItemTransfer $itemTransfer)
-    {
-        $paymentMethodStatemachineMapping = $this->getPaymentMethodStatemachineMapping();
-
-        if (!array_key_exists($quoteTransfer->getPayment()->getPaymentSelection(), $paymentMethodStatemachineMapping)) {
-            return parent::determineProcessForOrderItem($quoteTransfer, $itemTransfer);
-        }
-
-        return $paymentMethodStatemachineMapping[$quoteTransfer->getPayment()->getPaymentSelection()];
     }
 
     /**
@@ -303,18 +213,11 @@ class ShippingAddressSaveTest extends Test
      *
      * @return \Generated\Shared\Transfer\SequenceNumberSettingsTransfer
      */
-    public function getOrderReferenceDefaults()
+    protected function createSequenceNumberSettingsTransfer(): SequenceNumberSettingsTransfer
     {
-        $sequenceNumberSettingsTransfer = new SequenceNumberSettingsTransfer();
-
-        $sequenceNumberSettingsTransfer->setName(SalesConstants::NAME_ORDER_REFERENCE);
-
-        $sequenceNumberPrefixParts = [];
-        $sequenceNumberPrefixParts[] = Store::getInstance()->getStoreName();
-        $sequenceNumberPrefixParts[] = $this->get(SalesConstants::ENVIRONMENT_PREFIX);
-        $prefix = implode($this->getUniqueIdentifierSeparator(), $sequenceNumberPrefixParts) . $this->getUniqueIdentifierSeparator();
-        $sequenceNumberSettingsTransfer->setPrefix($prefix);
-
-        return $sequenceNumberSettingsTransfer;
+        return (new SequenceNumberSettingsBuilder([
+            'name' => SalesConstants::NAME_ORDER_REFERENCE,
+            'prefix' => 'DE--',
+        ]))->build();
     }
 }
