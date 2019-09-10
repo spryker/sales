@@ -55,7 +55,8 @@
   "prefer-stable": true,
   "extra": {
     "branch-alias": {
-      "dev-master": "5.0.x-dev"
+      "dev-master": "5.0.x-dev",
+      "dev-backport/glue-5578-glue-api-pagination-offset": "8.0.x-dev"
     }
   },
   "config": {
