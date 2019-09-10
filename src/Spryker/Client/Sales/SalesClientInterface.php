@@ -26,7 +26,9 @@ interface SalesClientInterface
 
     /**
      * Specification:
+     * - Makes Zed request.
      * - Returns the sales orders for the given customer and filters.
+     * - Uses OrderListTransfer::$pagination to pull parameters for page-based pagination strategy.
      *
      * @api
      *
@@ -35,6 +37,22 @@ interface SalesClientInterface
      * @return \Generated\Shared\Transfer\OrderListTransfer
      */
     public function getPaginatedOrder(OrderListTransfer $orderListTransfer);
+
+    /**
+     * Specification:
+     * - Makes Zed request.
+     * - Returns a transfer with the filtered list of orders for the given customer.
+     * - Uses OrderListTransfer::$filter to pull params for offset-based pagination strategy.
+     * - customerReference must be set in the OrderListTransfer.
+     * - Updates the total number of orders for the customer to the pagination transfer.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
+     *
+     * @return \Generated\Shared\Transfer\OrderListTransfer
+     */
+    public function getOffsetPaginatedCustomerOrderList(OrderListTransfer $orderListTransfer): OrderListTransfer;
 
     /**
      * Specification:

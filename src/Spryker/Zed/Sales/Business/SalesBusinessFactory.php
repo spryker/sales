@@ -15,6 +15,8 @@ use Spryker\Zed\Sales\Business\Model\Comment\OrderCommentReader;
 use Spryker\Zed\Sales\Business\Model\Comment\OrderCommentSaver;
 use Spryker\Zed\Sales\Business\Model\Customer\CustomerOrderOverviewInterface;
 use Spryker\Zed\Sales\Business\Model\Customer\CustomerOrderReader;
+use Spryker\Zed\Sales\Business\Model\Customer\OffsetPaginatedCustomerOrderListReader;
+use Spryker\Zed\Sales\Business\Model\Customer\OffsetPaginatedCustomerOrderListReaderInterface;
 use Spryker\Zed\Sales\Business\Model\Customer\PaginatedCustomerOrderOverview;
 use Spryker\Zed\Sales\Business\Model\Customer\PaginatedCustomerOrderReader;
 use Spryker\Zed\Sales\Business\Model\Order\CustomerOrderOverviewHydrator;
@@ -60,6 +62,18 @@ class SalesBusinessFactory extends AbstractBusinessFactory
     {
         return new PaginatedCustomerOrderReader(
             $this->getQueryContainer(),
+            $this->createOrderHydrator(),
+            $this->getOmsFacade()
+        );
+    }
+
+    /**
+     * @return \Spryker\Zed\Sales\Business\Model\Customer\OffsetPaginatedCustomerOrderListReaderInterface
+     */
+    public function createOffsetPaginatedCustomerOrderListReader(): OffsetPaginatedCustomerOrderListReaderInterface
+    {
+        return new OffsetPaginatedCustomerOrderListReader(
+            $this->getRepository(),
             $this->createOrderHydrator(),
             $this->getOmsFacade()
         );

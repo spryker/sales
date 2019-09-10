@@ -134,9 +134,10 @@ interface SalesFacadeInterface
 
     /**
      * Specification:
-     *  - Returns a list of of orders for the given customer id and (optional) filters.
-     *  - Aggregates order totals calls -> SalesAggregator
-     *  - Paginates order list for limited result
+     * - Returns a list of of orders for the given customer id and (optional) filters.
+     * - Aggregates order totals calls -> SalesAggregator.
+     * - Paginates order list for limited result.
+     * - Uses OrderListTransfer::$pagination to pull parameters for page-based pagination strategy.
      *
      * @api
      *
@@ -146,6 +147,22 @@ interface SalesFacadeInterface
      * @return \Generated\Shared\Transfer\OrderListTransfer
      */
     public function getPaginatedCustomerOrders(OrderListTransfer $orderListTransfer, $idCustomer);
+
+    /**
+     * Specification:
+     * - Returns a transfer with the filtered list of orders for the given customer.
+     * - Uses OrderListTransfer::$filter to pull params for offset-based pagination strategy.
+     * - customerReference must be set in the OrderListTransfer.
+     * - Hydrates OrderTransfer with data from persistence by idSaleOrder.
+     * - Updates the total number of orders for the customer to the pagination transfer.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
+     *
+     * @return \Generated\Shared\Transfer\OrderListTransfer
+     */
+    public function getOffsetPaginatedCustomerOrderList(OrderListTransfer $orderListTransfer): OrderListTransfer;
 
     /**
      * Specification:
