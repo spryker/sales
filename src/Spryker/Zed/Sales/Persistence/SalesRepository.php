@@ -61,6 +61,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
 
         return $this->getFactory()
             ->createSalesOrderMapper()
-            ->mapPaginatedOrderListTransfer($orderListTransfer, $orderListQuery->find()->getArrayCopy(), $ordersCount);
+            ->mapSalesOrderEntitiesToOrderListTransfer($orderListQuery->find()->getArrayCopy(), $orderListTransfer, $ordersCount);
     }
 }
