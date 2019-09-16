@@ -22,9 +22,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class DetailController extends AbstractController
 {
-    protected const PARAM_ID_SALES_ORDER = 'id-sales-order';
-    public const ROUTE_REDIRECT = '/sales/detail';
-
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -58,22 +55,7 @@ class DetailController extends AbstractController
             'distinctOrderStates' => $distinctOrderStates,
             'order' => $orderTransfer,
             'orderItemSplitFormCollection' => $orderItemSplitFormCollection,
-            'changeStatusRedirectUrl' => $this->createRedirectLink($idSalesOrder),
         ], $blockResponseData);
-    }
-
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return string
-     */
-    protected function createRedirectLink(int $idSalesOrder): string
-    {
-        $redirectUrlParams = [
-            static::PARAM_ID_SALES_ORDER => $idSalesOrder,
-        ];
-
-        return Url::generate(static::ROUTE_REDIRECT, $redirectUrlParams);
     }
 
     /**

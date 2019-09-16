@@ -37,14 +37,14 @@ class OrderHydrator implements OrderHydratorInterface
     protected $omsFacade;
 
     /**
-     * @var \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderExpanderPluginInterface[]
+     * @var array|\Spryker\Zed\Sales\Dependency\Plugin\HydrateOrderPluginInterface[]
      */
     protected $hydrateOrderPlugins;
 
     /**
      * @param \Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface $queryContainer
      * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToOmsInterface $omsFacade
-     * @param \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderExpanderPluginInterface[] $hydrateOrderPlugins
+     * @param \Spryker\Zed\Sales\Dependency\Plugin\HydrateOrderPluginInterface[] $hydrateOrderPlugins
      */
     public function __construct(
         SalesQueryContainerInterface $queryContainer,

@@ -61,10 +61,10 @@ class PaginatedCustomerOrderOverview implements CustomerOrderOverviewInterface
             $orderListTransfer->getFilter()
         );
 
-        if (!$ordersQuery->getOrderByColumns()) {
-            $ordersQuery->addDescendingOrderByColumn(SpySalesOrderTableMap::COL_CREATED_AT);
-        }
+        $ordersQuery
+            ->clearOrderByColumns()
 
+            ->addDescendingOrderByColumn(SpySalesOrderTableMap::COL_CREATED_AT);
         $orderCollection = $this->getOrderCollection($orderListTransfer, $ordersQuery);
 
         $orders = new ArrayObject();

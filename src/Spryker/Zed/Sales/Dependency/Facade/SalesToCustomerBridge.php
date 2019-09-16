@@ -27,7 +27,7 @@ class SalesToCustomerBridge implements SalesToCustomerInterface
      *
      * @return \Generated\Shared\Transfer\CustomerTransfer|null
      */
-    public function findByReference($customerReference)
+    public function findCustomerByReference($customerReference)
     {
         return $this->customerFacade->findByReference($customerReference);
     }
