@@ -7,12 +7,12 @@
 
 namespace Spryker\Zed\Sales\Business\Expander;
 
-interface ItemExpanderInterface
+interface ItemCurrencyExpanderInterface
 {
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer[] $itemTransfers
      *
      * @return \Generated\Shared\Transfer\ItemTransfer[]
      */
-    public function expandItemsWithCurrencyIsoCode(array $itemTransfers): array;
+    public function expandOrderItemsWithCurrencyIsoCode(array $itemTransfers): array;
 }
