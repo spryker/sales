@@ -420,6 +420,7 @@
 
     <transfer name="OrderFilter">
         <property name="salesOrderId" type="int"/>
+        <property name="orderReference" type="string"/>
         <property name="filter" type="Filter"/>
     </transfer>
 

@@ -487,6 +487,10 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
             $salesOrderQuery->filterByIdSalesOrder($orderFilterTransfer->getSalesOrderId());
         }
 
+        if ($orderFilterTransfer->getOrderReference() !== null) {
+            $salesOrderQuery->filterByOrderReference($orderFilterTransfer->getOrderReference());
+        }
+
         return $salesOrderQuery;
     }
 

@@ -291,9 +291,11 @@ interface SalesFacadeInterface
 
     /**
      * Specification:
-     *  - Returns persisted order information for the given sales order id.
-     *  - Hydrates order by calling HydrateOrderPlugins registered in project dependency provider.
-     *  - Hydrates order using quote level (BC) or item level shipping addresses.
+     * - Finds persisted order information using OrderFilterTransfer.
+     * - Adds information about the order items to the found order.
+     * - Hydrates order by calling HydrateOrderPlugins registered in project dependency provider.
+     * - Hydrates order using quote level (BC) or item level shipping addresses.
+     * - Returns the found order with hydrated information.
      *
      * @api
      *

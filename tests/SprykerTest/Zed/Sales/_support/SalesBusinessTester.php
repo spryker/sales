@@ -8,9 +8,11 @@
 namespace SprykerTest\Zed\Sales;
 
 use Codeception\Actor;
+use Generated\Shared\DataBuilder\OrderFilterBuilder;
 use Generated\Shared\DataBuilder\OrderListRequestBuilder;
 use Generated\Shared\DataBuilder\QuoteBuilder;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\OrderFilterTransfer;
 use Generated\Shared\Transfer\OrderListRequestTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -115,5 +117,15 @@ class SalesBusinessTester extends Actor
             ->build();
 
         return $quoteTransfer;
+    }
+
+    /**
+     * @param mixed[] $seedData
+     *
+     * @return \Generated\Shared\Transfer\OrderFilterTransfer
+     */
+    public function getOrderFilterTransfer(array $seedData = []): OrderFilterTransfer
+    {
+        return (new OrderFilterBuilder($seedData))->build();
     }
 }
