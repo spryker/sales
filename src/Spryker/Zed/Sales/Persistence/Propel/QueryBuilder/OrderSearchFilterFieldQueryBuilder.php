@@ -51,6 +51,7 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
      * @var string
      */
     protected const SEARCH_TYPE_DATE_FROM = 'dateFrom';
+
     /**
      * @var string
      */
@@ -79,6 +80,7 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
      * @var string
      */
     protected const FILTER_FIELD_TYPE_CUSTOMER_REFERENCE = 'customerReference';
+
     /**
      * @var string
      */
@@ -122,21 +124,21 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
         if ($filterFieldType === static::SEARCH_TYPE_DATE_FROM || $filterFieldType === static::SEARCH_TYPE_DATE_TO) {
             return $this->addDateFilter(
                 $salesOrderQuery,
-                $filterFieldTransfer
+                $filterFieldTransfer,
             );
         }
 
         if ($filterFieldType === static::SEARCH_TYPE_ALL || isset(static::ORDER_SEARCH_TYPE_MAPPING[$filterFieldType])) {
             return $this->addSearchTypeFilter(
                 $salesOrderQuery,
-                $filterFieldTransfer
+                $filterFieldTransfer,
             );
         }
 
         if ($filterFieldType === static::FILTER_FIELD_TYPE_ORDER_BY) {
             return $this->addOrderByFilter(
                 $salesOrderQuery,
-                $filterFieldTransfer
+                $filterFieldTransfer,
             );
         }
 
@@ -168,7 +170,7 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
             $salesOrderQuery->add(
                 static::ORDER_SEARCH_TYPE_MAPPING[$searchType],
                 $this->generateLikePattern($searchValue),
-                Criteria::LIKE
+                Criteria::LIKE,
             );
 
             return $salesOrderQuery;
@@ -198,7 +200,7 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
                 $conditionName,
                 static::ORDER_SEARCH_TYPE_MAPPING[$searchType],
                 $this->generateLikePattern($searchValue),
-                Criteria::LIKE
+                Criteria::LIKE,
             );
 
             $conditions[] = $conditionName;
@@ -207,7 +209,7 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
         $salesOrderQuery->combine(
             $conditions,
             Criteria::LOGICAL_OR,
-            static::CONDITION_GROUP_ALL
+            static::CONDITION_GROUP_ALL,
         );
 
         return $salesOrderQuery;

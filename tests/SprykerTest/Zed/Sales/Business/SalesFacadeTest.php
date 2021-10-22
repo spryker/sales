@@ -37,10 +37,12 @@ class SalesFacadeTest extends Unit
      * @var string
      */
     protected const DEFAULT_OMS_PROCESS_NAME = 'Test01';
+
     /**
      * @var string
      */
     protected const DEFAULT_ITEM_STATE = 'test';
+
     /**
      * @var string
      */
@@ -144,7 +146,7 @@ class SalesFacadeTest extends Unit
             $this->createOrderTransferWithParams([
                 OrderTransfer::ORDER_REFERENCE => $orderEntity->getOrderReference(),
                 OrderTransfer::CUSTOMER_REFERENCE => $orderEntity->getCustomerReference(),
-            ])
+            ]),
         );
 
         //Assert
@@ -227,7 +229,7 @@ class SalesFacadeTest extends Unit
         $salesFacade = $this->createSalesFacade();
 
         $order = $salesFacade->getCustomerOrderByOrderReference(
-            $this->createOrderTransferWithParams(static::ORDER_WRONG_SEARCH_PARAMS)
+            $this->createOrderTransferWithParams(static::ORDER_WRONG_SEARCH_PARAMS),
         );
 
         $this->assertNull($order->getIdSalesOrder());
