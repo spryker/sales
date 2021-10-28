@@ -72,7 +72,7 @@ class OrderReader implements OrderReaderInterface
     protected function getOrderItemsCollectionTransfer(OrderTransfer $orderTransfer): ItemCollectionTransfer
     {
         $orderItemFilterTransfer = (new OrderItemFilterTransfer())
-            ->addSalesOrderId($orderTransfer->getIdSalesOrder());
+            ->addOrderReference($orderTransfer->getOrderReference());
 
         return $this->orderItemReader->getOrderItems($orderItemFilterTransfer);
     }
