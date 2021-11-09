@@ -120,7 +120,7 @@ class SalesBusinessTester extends Actor
     }
 
     /**
-     * @param mixed[] $seedData
+     * @param array<mixed> $seedData
      *
      * @return \Generated\Shared\Transfer\OrderFilterTransfer
      */
