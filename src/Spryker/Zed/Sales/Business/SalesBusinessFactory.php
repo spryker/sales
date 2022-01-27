@@ -153,11 +153,12 @@ class SalesBusinessFactory extends AbstractBusinessFactory
             $this->createReferenceGenerator(),
             $this->getConfig(),
             $this->getLocaleQueryContainer(),
-            $this->getStore(),
             $this->getOrderExpanderPreSavePlugins(),
             $this->createSalesOrderSaverPluginExecutor(),
             $this->createSalesOrderItemMapper(),
             $this->getOrderPostSavePlugins(),
+            $this->getStoreFacade(),
+            $this->getLocaleFacade(),
         );
     }
 
@@ -172,11 +173,12 @@ class SalesBusinessFactory extends AbstractBusinessFactory
             $this->createReferenceGenerator(),
             $this->getConfig(),
             $this->getLocaleQueryContainer(),
-            $this->getStore(),
             $this->getOrderExpanderPreSavePlugins(),
             $this->createSalesOrderSaverPluginExecutor(),
             $this->createSalesOrderItemMapper(),
             $this->getOrderPostSavePlugins(),
+            $this->getStoreFacade(),
+            $this->getLocaleFacade(),
         );
     }
 
@@ -321,7 +323,9 @@ class SalesBusinessFactory extends AbstractBusinessFactory
      */
     public function createReferenceGenerator()
     {
-        $sequenceNumberSettings = $this->getConfig()->getOrderReferenceDefaults();
+        $sequenceNumberSettings = $this->getConfig()->getOrderReferenceDefaults(
+            $this->getStoreFacade()->getCurrentStore()->getNameOrFail(),
+        );
 
         return new OrderReferenceGenerator(
             $this->getSequenceNumberFacade(),
@@ -488,14 +492,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
     public function getLocaleQueryContainer()
     {
         return $this->getProvidedDependency(SalesDependencyProvider::QUERY_CONTAINER_LOCALE);
-    }
-
-    /**
-     * @return \Spryker\Shared\Kernel\Store
-     */
-    public function getStore()
-    {
-        return $this->getProvidedDependency(SalesDependencyProvider::STORE);
     }
 
     /**
