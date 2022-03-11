@@ -94,6 +94,9 @@ class OrderUpdater implements OrderUpdaterInterface
      */
     protected function createOrderTotals(OrderTransfer $orderTransfer, SpySalesOrder $orderEntity)
     {
+        if (!$orderTransfer->getTotals()) {
+            return;
+        }
         $taxTotal = 0;
         if ($orderTransfer->getTotals()->getTaxTotal()) {
             $taxTotal = $orderTransfer->getTotals()->getTaxTotal()->getAmount();
