@@ -40,7 +40,7 @@ class OrderItemsTableExpander implements OrderItemsTableExpanderInterface
     /**
      * @param \ArrayObject<int, \Generated\Shared\Transfer\ItemTransfer> $itemTransfers
      *
-     * @return array<int, array<string>>
+     * @return array<int, array<int, string>>
      */
     public function getColumnCellsContent(ArrayObject $itemTransfers): array
     {
@@ -48,10 +48,11 @@ class OrderItemsTableExpander implements OrderItemsTableExpanderInterface
         /** @var \Generated\Shared\Transfer\ItemTransfer $itemTransfer */
         foreach ($itemTransfers as $itemTransfer) {
             foreach ($this->orderItemsTableExpanderPlugins as $orderItemsTableExpanderPlugin) {
-                $columnCellsContentGroupedByIdItem[$itemTransfer->getIdSalesOrderItem()][] = $orderItemsTableExpanderPlugin->getColumnCellContent($itemTransfer);
+                $columnCellsContentGroupedByIdItem[$itemTransfer->getIdSalesOrderItemOrFail()][] = $orderItemsTableExpanderPlugin->getColumnCellContent($itemTransfer);
             }
         }
 
+        /** @phpstan-var array<int, array<int, string>> */
         return $columnCellsContentGroupedByIdItem;
     }
 }
