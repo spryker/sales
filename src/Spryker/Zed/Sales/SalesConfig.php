@@ -33,6 +33,11 @@ class SalesConfig extends AbstractBundleConfig
     public const TEST_CUSTOMER_FIRST_NAME = 'test order';
 
     /**
+     * @var bool
+     */
+    protected const DEFAULT_PROCESS_FOR_ORDER_ITEM_DETERMINATION_ALLOWED = false;
+
+    /**
      * Separator for the sequence number
      *
      * @api
@@ -45,15 +50,19 @@ class SalesConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @example The format of returned array is:
      * [
      *    'PAYMENT_METHOD_1' => 'StateMachineProcess_1',
      *    'PAYMENT_METHOD_2' => 'StateMachineProcess_2',
      * ]
      *
+     * @deprecated Use {@link \Spryker\Zed\Sales\Business\StateMachineResolver\OrderStateMachineResolver::resolve()} instead.
+     *
      * @return array<string, string>
      */
-    protected function getPaymentMethodStatemachineMapping()
+    public function getPaymentMethodStatemachineMapping()
     {
         return $this->get(SalesConstants::PAYMENT_METHOD_STATEMACHINE_MAPPING, []);
     }
@@ -213,5 +222,15 @@ class SalesConfig extends AbstractBundleConfig
     protected function resolveStoreName(?string $storeName): string
     {
         return $storeName ?? Store::getInstance()->getStoreName();
+    }
+
+    /**
+     * @api
+     *
+     * @return bool
+     */
+    public function isDefaultProcessForOrderItemDeterminationAllowed(): bool
+    {
+        return static::DEFAULT_PROCESS_FOR_ORDER_ITEM_DETERMINATION_ALLOWED;
     }
 }
