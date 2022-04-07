@@ -158,11 +158,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
     public const FACADE_CALCULATION = 'FACADE_CALCULATION';
 
     /**
-     * @var string
-     */
-    public const SERVICE_PAYMENT = 'SERVICE_PAYMENT';
-
-    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -190,7 +185,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addOrderSearchQueryExpanderPlugins($container);
         $container = $this->addCustomerOrderAccessCheckPlugins($container);
         $container = $this->addOrderItemsPostSavePlugins($container);
-        $container = $this->addPaymentService($container);
 
         return $container;
     }
@@ -690,19 +684,5 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
     protected function getOrderItemsPostSavePlugins(): array
     {
         return [];
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addPaymentService(Container $container): Container
-    {
-        $container->set(static::SERVICE_PAYMENT, function (Container $container) {
-            return $container->getLocator()->payment()->service();
-        });
-
-        return $container;
     }
 }

@@ -8,8 +8,8 @@
 namespace Spryker\Zed\Sales\Business\StateMachineResolver;
 
 use Generated\Shared\Transfer\ItemTransfer;
+use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Service\Payment\PaymentServiceInterface;
 use Spryker\Zed\Sales\SalesConfig;
 
 class OrderStateMachineResolver implements OrderStateMachineResolverInterface
@@ -20,18 +20,11 @@ class OrderStateMachineResolver implements OrderStateMachineResolverInterface
     protected $salesConfig;
 
     /**
-     * @var \Spryker\Service\Payment\PaymentServiceInterface
-     */
-    protected $paymentService;
-
-    /**
      * @param \Spryker\Zed\Sales\SalesConfig $salesConfig
-     * @param \Spryker\Service\Payment\PaymentServiceInterface $paymentService
      */
-    public function __construct(SalesConfig $salesConfig, PaymentServiceInterface $paymentService)
+    public function __construct(SalesConfig $salesConfig)
     {
         $this->salesConfig = $salesConfig;
-        $this->paymentService = $paymentService;
     }
 
     /**
@@ -46,7 +39,7 @@ class OrderStateMachineResolver implements OrderStateMachineResolverInterface
             return $this->salesConfig->determineProcessForOrderItem($quoteTransfer, $itemTransfer);
         }
 
-        $paymentSelectionKey = $this->paymentService->getPaymentSelectionKey($quoteTransfer->getPayment());
+        $paymentSelectionKey = $this->getPaymentSelectionKey($quoteTransfer->getPayment());
         $paymentMethodStatemachine = $this->salesConfig->getPaymentMethodStatemachineMapping()[$paymentSelectionKey];
 
         if ($paymentMethodStatemachine) {
@@ -54,5 +47,27 @@ class OrderStateMachineResolver implements OrderStateMachineResolverInterface
         }
 
         return $this->salesConfig->determineProcessForOrderItem($quoteTransfer, $itemTransfer);
+    }
+
+    /**
+     * Uses `Payment.paymentSelection`.
+     * Returns only the first matching string for the pattern `[a-zA-Z0-9_]+`.
+     * Returns the unchanged value if there is no match.
+     *
+     * @example 'foreignPayments[paymentKey]' becomes 'foreignPayments'
+     *
+     * @param \Generated\Shared\Transfer\PaymentTransfer $paymentTransfer
+     *
+     * @return string
+     */
+    protected function getPaymentSelectionKey(PaymentTransfer $paymentTransfer): string
+    {
+        preg_match('/^([\w]+)/', $paymentTransfer->getPaymentSelectionOrFail(), $matches);
+
+        if (!isset($matches[0])) {
+            return $paymentTransfer->getPaymentSelectionOrFail();
+        }
+
+        return $matches[0];
     }
 }

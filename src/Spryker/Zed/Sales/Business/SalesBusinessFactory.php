@@ -679,18 +679,10 @@ class SalesBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Spryker\Service\Payment\PaymentServiceInterface
-     */
-    public function getPaymentService()
-    {
-        return $this->getProvidedDependency(SalesDependencyProvider::SERVICE_PAYMENT);
-    }
-
-    /**
      * @return \Spryker\Zed\Sales\Business\StateMachineResolver\OrderStateMachineResolverInterface
      */
     public function createOrderStateMachineResolver(): OrderStateMachineResolverInterface
     {
-        return new OrderStateMachineResolver($this->getConfig(), $this->getPaymentService());
+        return new OrderStateMachineResolver($this->getConfig());
     }
 }

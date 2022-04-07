@@ -447,5 +447,6 @@
     </transfer>
 
     <transfer name="Payment">
+        <property name="paymentSelection" type="string"/>
     </transfer>
 </transfers>
