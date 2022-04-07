@@ -10,13 +10,11 @@ namespace SprykerTest\Zed\Sales\Business;
 use Codeception\Test\Unit;
 use Generated\Shared\DataBuilder\OrderBuilder;
 use Generated\Shared\Transfer\AddressTransfer;
-use Generated\Shared\Transfer\OrderFilterTransfer;
 use Generated\Shared\Transfer\OrderListRequestTransfer;
 use Generated\Shared\Transfer\OrderListTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\StockProductTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
-use Spryker\Zed\Sales\Business\Exception\InvalidSalesOrderException;
 use Spryker\Zed\Sales\Business\SalesFacadeInterface;
 use SprykerTest\Zed\Sales\Helper\BusinessHelper;
 
@@ -233,93 +231,6 @@ class SalesFacadeTest extends Unit
         );
 
         $this->assertNull($order->getIdSalesOrder());
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetOrderReturnsFoundOrderWithCorrectIdSalesOrder(): void
-    {
-        // Arrange
-        $salesFacade = $this->createSalesFacade();
-        $orderEntity = $this->tester->haveSalesOrderEntity();
-        $orderFilterTransfer = $this->tester->getOrderFilterTransfer([
-            OrderFilterTransfer::SALES_ORDER_ID => $orderEntity->getIdSalesOrder(),
-        ]);
-
-        // Act
-        $foundOrderTransfer = $salesFacade->getOrder($orderFilterTransfer);
-
-        // Assert
-        $this->assertInstanceOf(OrderTransfer::class, $foundOrderTransfer);
-        $this->assertEquals($orderEntity->getIdSalesOrder(), $foundOrderTransfer->getIdSalesOrder());
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetOrderReturnsFoundOrderWithCorrectOrderReference(): void
-    {
-        // Arrange
-        $salesFacade = $this->createSalesFacade();
-        $orderEntity = $this->tester->haveSalesOrderEntity();
-        $orderFilterTransfer = $this->tester->getOrderFilterTransfer([
-            OrderFilterTransfer::ORDER_REFERENCE => $orderEntity->getOrderReference(),
-        ]);
-
-        // Act
-        $foundOrderTransfer = $salesFacade->getOrder($orderFilterTransfer);
-
-        // Assert
-        $this->assertInstanceOf(OrderTransfer::class, $foundOrderTransfer);
-        $this->assertEquals($orderEntity->getIdSalesOrder(), $foundOrderTransfer->getIdSalesOrder());
-        $this->assertEquals($orderEntity->getOrderReference(), $foundOrderTransfer->getOrderReference());
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetOrderReturnsFoundOrderAndOrderItemsDataWithCorrectDataProvided(): void
-    {
-        // Arrange
-        $salesFacade = $this->createSalesFacade();
-        $orderEntity = $this->tester->haveSalesOrderEntity();
-        $orderFilterTransfer = $this->tester->getOrderFilterTransfer([
-            OrderFilterTransfer::SALES_ORDER_ID => $orderEntity->getIdSalesOrder(),
-        ]);
-        $orderItemEntities = $orderEntity->getItems();
-
-        // Act
-        $foundOrderTransfer = $salesFacade->getOrder($orderFilterTransfer);
-
-        // Assert
-        $this->assertInstanceOf(OrderTransfer::class, $foundOrderTransfer);
-        $this->assertSame($orderEntity->getIdSalesOrder(), $foundOrderTransfer->getIdSalesOrder());
-        $this->assertIsIterable($foundOrderTransfer->getItems());
-        $this->assertGreaterThan(1, $foundOrderTransfer->getItems()->count());
-        $this->assertCount(count($orderItemEntities), $foundOrderTransfer->getItems());
-
-        foreach ($orderItemEntities as $key => $orderItemEntity) {
-            $this->assertSame($orderItemEntity->getSku(), $foundOrderTransfer->getItems()[$key]->getSku());
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetOrderThrowsExceptionWithIncorrectData(): void
-    {
-        // Arrange
-        $salesFacade = $this->createSalesFacade();
-        $orderFilterTransfer = $this->tester->getOrderFilterTransfer([
-            OrderFilterTransfer::ORDER_REFERENCE => 'wrong order reference',
-        ]);
-
-        // Assert
-        $this->expectException(InvalidSalesOrderException::class);
-
-        // Act
-        $salesFacade->getOrder($orderFilterTransfer);
     }
 
     /**

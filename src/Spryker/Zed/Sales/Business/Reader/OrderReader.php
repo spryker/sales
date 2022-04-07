@@ -7,19 +7,12 @@
 
 namespace Spryker\Zed\Sales\Business\Reader;
 
-use Generated\Shared\Transfer\ItemCollectionTransfer;
 use Generated\Shared\Transfer\OrderFilterTransfer;
-use Generated\Shared\Transfer\OrderItemFilterTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Zed\Sales\Persistence\SalesRepositoryInterface;
 
 class OrderReader implements OrderReaderInterface
 {
-    /**
-     * @var \Spryker\Zed\Sales\Business\Reader\OrderItemReaderInterface
-     */
-    protected $orderItemReader;
-
     /**
      * @var \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface
      */
@@ -31,16 +24,11 @@ class OrderReader implements OrderReaderInterface
     protected $hydrateOrderPlugins;
 
     /**
-     * @param \Spryker\Zed\Sales\Business\Reader\OrderItemReaderInterface $orderItemReader
      * @param \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface $salesRepository
      * @param array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrderExpanderPluginInterface> $hydrateOrderPlugins
      */
-    public function __construct(
-        OrderItemReaderInterface $orderItemReader,
-        SalesRepositoryInterface $salesRepository,
-        array $hydrateOrderPlugins = []
-    ) {
-        $this->orderItemReader = $orderItemReader;
+    public function __construct(SalesRepositoryInterface $salesRepository, array $hydrateOrderPlugins = [])
+    {
         $this->salesRepository = $salesRepository;
         $this->hydrateOrderPlugins = $hydrateOrderPlugins;
     }
@@ -53,28 +41,11 @@ class OrderReader implements OrderReaderInterface
     public function getOrderTransfer(OrderFilterTransfer $orderFilterTransfer): OrderTransfer
     {
         $orderTransfer = $this->salesRepository->getSalesOrderDetails($orderFilterTransfer);
-
-        $itemCollectionTransfer = $this->getOrderItemsCollectionTransfer($orderTransfer);
-        $orderTransfer->setItems($itemCollectionTransfer->getItems());
-
         $orderTransfer = $this->expandOrderTransferWithOrderTotals($orderTransfer);
-        $orderTransfer = $this->expandOrderTransferWithUniqueProductsQuantity($orderTransfer);
+        $orderTransfer = $this->expandOrderTransferWithUniqueProductsQuantity($orderTransfer, $orderFilterTransfer);
         $orderTransfer = $this->executeHydrateOrderPlugins($orderTransfer);
 
         return $orderTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemCollectionTransfer
-     */
-    protected function getOrderItemsCollectionTransfer(OrderTransfer $orderTransfer): ItemCollectionTransfer
-    {
-        $orderItemFilterTransfer = (new OrderItemFilterTransfer())
-            ->addOrderReference($orderTransfer->getOrderReference());
-
-        return $this->orderItemReader->getOrderItems($orderItemFilterTransfer);
     }
 
     /**
@@ -95,12 +66,13 @@ class OrderReader implements OrderReaderInterface
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\OrderFilterTransfer $orderFilterTransfer
      *
      * @return \Generated\Shared\Transfer\OrderTransfer
      */
-    protected function expandOrderTransferWithUniqueProductsQuantity(OrderTransfer $orderTransfer): OrderTransfer
+    protected function expandOrderTransferWithUniqueProductsQuantity(OrderTransfer $orderTransfer, OrderFilterTransfer $orderFilterTransfer): OrderTransfer
     {
-        $uniqueProductQuantity = $this->salesRepository->countUniqueProductsForOrder($orderTransfer->getIdSalesOrder());
+        $uniqueProductQuantity = $this->salesRepository->countUniqueProductsForOrder($orderFilterTransfer->getSalesOrderId());
         $orderTransfer->setUniqueProductQuantity($uniqueProductQuantity);
 
         return $orderTransfer;

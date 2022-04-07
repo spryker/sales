@@ -58,8 +58,6 @@ class SalesConfig extends AbstractBundleConfig
      *    'PAYMENT_METHOD_2' => 'StateMachineProcess_2',
      * ]
      *
-     * @deprecated Use {@link \Spryker\Zed\Sales\Business\StateMachineResolver\OrderStateMachineResolver::resolve()} instead.
-     *
      * @return array<string, string>
      */
     public function getPaymentMethodStatemachineMapping()
@@ -115,6 +113,8 @@ class SalesConfig extends AbstractBundleConfig
      * This method determines state machine process from the given quote transfer and order item.
      *
      * @api
+     *
+     * @deprecated Use {@link \Spryker\Zed\Sales\Business\StateMachineResolver\OrderStateMachineResolver::resolve()} instead.
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer

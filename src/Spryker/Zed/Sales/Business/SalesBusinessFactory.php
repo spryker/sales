@@ -317,7 +317,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
     public function createSalesOrderReader(): SalesOrderReaderInterface
     {
         return new SalesOrderReader(
-            $this->createOrderItemReader(),
             $this->getRepository(),
             $this->getHydrateOrderPlugins(),
         );
