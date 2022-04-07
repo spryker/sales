@@ -210,7 +210,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
     {
         return new OrderItemsSaver(
             $this->getOmsFacade(),
-            $this->getConfig(),
             $this->createSalesOrderSaverPluginExecutor(),
             $this->getEntityManager(),
             $this->getOrderItemsPostSavePlugins(),

@@ -19,7 +19,6 @@ use Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverPluginExecutorInterfac
 use Spryker\Zed\Sales\Business\StateMachineResolver\OrderStateMachineResolverInterface;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToOmsInterface;
 use Spryker\Zed\Sales\Persistence\SalesEntityManagerInterface;
-use Spryker\Zed\Sales\SalesConfig;
 
 class OrderItemsSaver implements OrderItemsSaverInterface
 {
@@ -29,11 +28,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
      * @var \Spryker\Zed\Sales\Dependency\Facade\SalesToOmsInterface
      */
     protected $omsFacade;
-
-    /**
-     * @var \Spryker\Zed\Sales\SalesConfig
-     */
-    protected $salesConfiguration;
 
     /**
      * @var \Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverPluginExecutorInterface
@@ -75,14 +69,12 @@ class OrderItemsSaver implements OrderItemsSaverInterface
      */
     public function __construct(
         SalesToOmsInterface $omsFacade,
-        SalesConfig $salesConfiguration,
         SalesOrderSaverPluginExecutorInterface $salesOrderSaverPluginExecutor,
         SalesEntityManagerInterface $entityManager,
         array $orderItemsPostSavePlugins,
         OrderStateMachineResolverInterface $orderStateMachineResolver
     ) {
         $this->omsFacade = $omsFacade;
-        $this->salesConfiguration = $salesConfiguration;
         $this->salesOrderSaverPluginExecutor = $salesOrderSaverPluginExecutor;
         $this->entityManager = $entityManager;
         $this->orderItemsPostSavePlugins = $orderItemsPostSavePlugins;
