@@ -10,6 +10,7 @@ namespace Spryker\Zed\Sales\Business\StateMachineResolver;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use Spryker\Zed\Sales\Business\Exception\MissingOrderItemProcessStatemachineMapping;
 use Spryker\Zed\Sales\SalesConfig;
 
 class OrderStateMachineResolver implements OrderStateMachineResolverInterface
@@ -31,22 +32,27 @@ class OrderStateMachineResolver implements OrderStateMachineResolverInterface
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
      *
+     * @throws \Spryker\Zed\Sales\Business\Exception\MissingOrderItemProcessStatemachineMapping
+     *
      * @return string
      */
     public function resolve(QuoteTransfer $quoteTransfer, ItemTransfer $itemTransfer): string
     {
-        if (!$this->salesConfig->isExtendedDeterminationForOrderItemProcessEnabled()) {
+        // BC only purposes, will be removed in next major
+        if ($this->salesConfig->isOldDeterminationForOrderItemProcessEnabled()) {
             return $this->salesConfig->determineProcessForOrderItem($quoteTransfer, $itemTransfer);
         }
 
         $paymentSelectionKey = $this->getPaymentSelectionKey($quoteTransfer->getPayment());
         $paymentMethodStatemachine = $this->salesConfig->getPaymentMethodStatemachineMapping()[$paymentSelectionKey] ?? null;
 
-        if ($paymentMethodStatemachine) {
-            return $paymentMethodStatemachine;
+        if (!$paymentMethodStatemachine) {
+            throw new MissingOrderItemProcessStatemachineMapping(
+                'You need to provide at least one state machine process for given method!',
+            );
         }
 
-        return $this->salesConfig->determineProcessForOrderItem($quoteTransfer, $itemTransfer);
+        return $paymentMethodStatemachine;
     }
 
     /**

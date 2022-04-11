@@ -33,11 +33,6 @@ class SalesConfig extends AbstractBundleConfig
     public const TEST_CUSTOMER_FIRST_NAME = 'test order';
 
     /**
-     * @var bool
-     */
-    protected const EXTENDED_DETERMINATION_FOR_ORDER_ITEM_PROCESS_ENABLED = false;
-
-    /**
      * Separator for the sequence number
      *
      * @api
@@ -227,10 +222,12 @@ class SalesConfig extends AbstractBundleConfig
     /**
      * @api
      *
+     * @deprecated Will be removed without replacement.
+     *
      * @return bool
      */
-    public function isExtendedDeterminationForOrderItemProcessEnabled(): bool
+    public function isOldDeterminationForOrderItemProcessEnabled(): bool
     {
-        return static::EXTENDED_DETERMINATION_FOR_ORDER_ITEM_PROCESS_ENABLED;
+        return true;
     }
 }
