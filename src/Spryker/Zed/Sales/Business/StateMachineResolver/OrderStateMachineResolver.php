@@ -35,13 +35,15 @@ class OrderStateMachineResolver implements OrderStateMachineResolverInterface
      */
     public function resolve(QuoteTransfer $quoteTransfer, ItemTransfer $itemTransfer): string
     {
-        if ($this->salesConfig->isDefaultProcessForOrderItemDeterminationAllowed()) {
-            $paymentSelectionKey = $this->getPaymentSelectionKey($quoteTransfer->getPayment());
-            $paymentMethodStatemachine = $this->salesConfig->getPaymentMethodStatemachineMapping()[$paymentSelectionKey] ?? null;
+        if (!$this->salesConfig->isExtendedDeterminationForOrderItemProcessEnabled()) {
+            return $this->salesConfig->determineProcessForOrderItem($quoteTransfer, $itemTransfer);
+        }
 
-            if ($paymentMethodStatemachine) {
-                return $paymentMethodStatemachine;
-            }
+        $paymentSelectionKey = $this->getPaymentSelectionKey($quoteTransfer->getPayment());
+        $paymentMethodStatemachine = $this->salesConfig->getPaymentMethodStatemachineMapping()[$paymentSelectionKey] ?? null;
+
+        if ($paymentMethodStatemachine) {
+            return $paymentMethodStatemachine;
         }
 
         return $this->salesConfig->determineProcessForOrderItem($quoteTransfer, $itemTransfer);

@@ -35,7 +35,7 @@ class SalesConfig extends AbstractBundleConfig
     /**
      * @var bool
      */
-    protected const DEFAULT_PROCESS_FOR_ORDER_ITEM_DETERMINATION_ALLOWED = false;
+    protected const EXTENDED_DETERMINATION_FOR_ORDER_ITEM_PROCESS_ENABLED = false;
 
     /**
      * Separator for the sequence number
@@ -229,8 +229,8 @@ class SalesConfig extends AbstractBundleConfig
      *
      * @return bool
      */
-    public function isDefaultProcessForOrderItemDeterminationAllowed(): bool
+    public function isExtendedDeterminationForOrderItemProcessEnabled(): bool
     {
-        return static::DEFAULT_PROCESS_FOR_ORDER_ITEM_DETERMINATION_ALLOWED;
+        return static::EXTENDED_DETERMINATION_FOR_ORDER_ITEM_PROCESS_ENABLED;
     }
 }
