@@ -12,10 +12,8 @@ use Codeception\TestCase\Test;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Zed\Sales\Business\SalesBusinessFactory;
-use Spryker\Zed\Sales\SalesConfig;
-use Spryker\Zed\Setup\Business\SetupBusinessFactory;
 use Spryker\Zed\Sales\Business\StateMachineResolver\OrderStateMachineResolver;
+use Spryker\Zed\Sales\SalesConfig;
 
 /**
  * Auto-generated group annotations
@@ -117,7 +115,7 @@ class OrderStateMachineResolverTest extends Test
 
         $salesConfigMock
             ->method('isExtendedDeterminationForOrderItemProcessEnabled')
-            ->willReturn( $isDefaultProcessAllowed);
+            ->willReturn($isDefaultProcessAllowed);
 
         return $salesConfigMock;
     }
