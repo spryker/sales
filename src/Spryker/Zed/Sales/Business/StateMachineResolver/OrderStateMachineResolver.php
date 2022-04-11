@@ -40,7 +40,7 @@ class OrderStateMachineResolver implements OrderStateMachineResolverInterface
         }
 
         $paymentSelectionKey = $this->getPaymentSelectionKey($quoteTransfer->getPayment());
-        $paymentMethodStatemachine = $this->salesConfig->getPaymentMethodStatemachineMapping()[$paymentSelectionKey];
+        $paymentMethodStatemachine = $this->salesConfig->getPaymentMethodStatemachineMapping()[$paymentSelectionKey] ?? null;
 
         if ($paymentMethodStatemachine) {
             return $paymentMethodStatemachine;
