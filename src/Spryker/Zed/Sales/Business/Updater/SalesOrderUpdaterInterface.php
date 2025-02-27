@@ -5,23 +5,18 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Sales\Business\ItemSaver;
+namespace Spryker\Zed\Sales\Business\Updater;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 
-interface OrderItemsSaverInterface
+interface SalesOrderUpdaterInterface
 {
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param bool|null $skipOrderItemsPostSavePlugins
      *
      * @return \Generated\Shared\Transfer\SaveOrderTransfer
      */
-    public function saveOrderItems(
-        QuoteTransfer $quoteTransfer,
-        SaveOrderTransfer $saveOrderTransfer,
-        ?bool $skipOrderItemsPostSavePlugins = false
-    ): SaveOrderTransfer;
+    public function updateOrderByQuote(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer): SaveOrderTransfer;
 }
