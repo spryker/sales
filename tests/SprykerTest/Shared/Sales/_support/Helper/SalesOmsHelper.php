@@ -85,7 +85,7 @@ class SalesOmsHelper extends Module
     public function setupStateMachine(): void
     {
         $this->stateMachineName = $this->config[static::STATE_MACHINE_NAME];
-        $xmlFileDirectory = APPLICATION_VENDOR_DIR . 'spryker/spryker/Bundles/SalesPayment/config/Zed/Oms/';
+        $xmlFileDirectory = rtrim(APPLICATION_SOURCE_DIR, '/') . '/Spryker/SalesPayment/config/Zed/Oms/';
 
         $this->getOmsHelper()->configureTestStateMachine([$this->stateMachineName], $xmlFileDirectory);
     }
