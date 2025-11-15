@@ -1,5 +1,5 @@
 {% macro item(urlTarget, label, fontAwesomeIcon, fontAwesomeText='') %}
-    <div class="nav-item pull-left">
+    <div class="nav-item pull-left float-start">
         <div>
             <a href="{{ urlTarget }}" title="{{ label | trans | escape }}">
                 <span class="icon fa fa-{{ fontAwesomeIcon }}">{{ fontAwesomeText | default('') | raw }}</span>
