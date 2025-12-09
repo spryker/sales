@@ -61,9 +61,14 @@
         orderItem: orderItem,
     } %}
 
-    {% include '@SelfServicePortal/Partials/schedule-item-date.twig' ignore missing with {
+     {% include '@SelfServicePortal/Partials/schedule-item-date.twig' ignore missing with {
         orderItem: orderItem,
     } %}
+
+     {% include '@SelfServicePortal/Partials/schedule-item-button.twig' ignore missing with {
+        orderItem: orderItem,
+    } %}
+
 </td>
 <td>
     x {{ orderItem.quantity | executeFilterIfExists('formatInt', app.locale) }}
@@ -118,10 +123,6 @@
             eventsFormAttributeMap: eventsFormAttributeMap | default([]),
         } only %}
     {% endif %}
-
-    {% include '@SelfServicePortal/Partials/schedule-item-button.twig' ignore missing with {
-        orderItem: orderItem,
-    } %}
 </td>
 {% if tableColumnCellsContent[orderItem.idSalesOrderItem] is defined %}
     {% for tableColumnCellContent in tableColumnCellsContent[orderItem.idSalesOrderItem] %}
