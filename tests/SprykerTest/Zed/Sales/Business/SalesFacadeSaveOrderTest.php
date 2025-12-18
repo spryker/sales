@@ -638,6 +638,81 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertSame(1, $item2Entity->getQuantity());
     }
 
+    public function testSaveOrderRawWithSameShippingAddressByReference(): void
+    {
+        //Arrange
+        $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
+        $checkoutResponseTransfer = $this->getValidBaseResponseTransfer();
+        $saveOrderTransfer = $checkoutResponseTransfer->getSaveOrder();
+        $quoteTransfer->getShippingAddress()->setAddress1('testSaveOrderRawWithSameShippingAddressByReference');
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            $itemTransfer->getShipment()->setShippingAddress($quoteTransfer->getShippingAddress());
+        }
+
+        //Act
+        $this->salesFacade->saveOrderRaw($quoteTransfer, $saveOrderTransfer);
+        $this->salesFacade->saveSalesOrderItems($quoteTransfer, $saveOrderTransfer);
+
+        //Assert
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            $this->assertSame(
+                $quoteTransfer->getShippingAddress()->getIdSalesOrderAddress(),
+                $itemTransfer->getShipment()->getShippingAddress()->getIdSalesOrderAddress(),
+            );
+        }
+    }
+
+    public function testSaveOrderRawWithSameShippingAddressByData(): void
+    {
+        //Arrange
+        $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
+        $checkoutResponseTransfer = $this->getValidBaseResponseTransfer();
+        $saveOrderTransfer = $checkoutResponseTransfer->getSaveOrder();
+        $quoteTransfer->getShippingAddress()->setAddress1('testSaveOrderRawWithSameShippingAddressByData');
+
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            $itemTransfer->getShipment()->setShippingAddress(clone $quoteTransfer->getShippingAddress());
+        }
+
+        //Act
+        $this->salesFacade->saveOrderRaw($quoteTransfer, $saveOrderTransfer);
+
+        //Assert
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            $this->assertSame(
+                $quoteTransfer->getShippingAddress()->getIdSalesOrderAddress(),
+                $itemTransfer->getShipment()->getShippingAddress()->getIdSalesOrderAddress(),
+            );
+        }
+    }
+
+    public function testSaveOrderRawWithDifferentShippingAddressByData(): void
+    {
+        //Arrange
+        $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
+        $checkoutResponseTransfer = $this->getValidBaseResponseTransfer();
+        $saveOrderTransfer = $checkoutResponseTransfer->getSaveOrder();
+        $quoteTransfer->getShippingAddress()->setAddress1('testSaveOrderRawWithDifferentShippingAddressByData');
+
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            $itemTransfer->getShipment()->setShippingAddress(clone $quoteTransfer->getShippingAddress());
+            $itemTransfer->getShipment()->getShippingAddress()->setAddress1(
+                'testSaveOrderRawWithDifferentShippingAddressByData2',
+            );
+        }
+
+        //Act
+        $this->salesFacade->saveOrderRaw($quoteTransfer, $saveOrderTransfer);
+
+        //Assert
+        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+            $this->assertNotSame(
+                $quoteTransfer->getShippingAddress()->getIdSalesOrderAddress(),
+                $itemTransfer->getShipment()->getShippingAddress()->getIdSalesOrderAddress(),
+            );
+        }
+    }
+
     /**
      * @return void
      */

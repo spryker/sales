@@ -404,7 +404,32 @@ class SalesOrderWriter implements SalesOrderWriterInterface
                 continue;
             }
 
-            if ($itemTransfer->getShipmentOrFail()->getShippingAddress() !== $quoteShippingAddress) {
+            if ($this->haveDifferentAddressData($itemTransfer->getShipmentOrFail()->getShippingAddress(), $quoteShippingAddress)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected function haveDifferentAddressData(?AddressTransfer $sourceAddress, ?AddressTransfer $targetAddress): bool
+    {
+        if ($sourceAddress === $targetAddress) {
+            return false;
+        }
+
+        if ($sourceAddress !== null && $targetAddress === null || $sourceAddress === null && $targetAddress !== null) {
+            return true;
+        }
+
+        $sourceAddressData = $sourceAddress?->modifiedToArray(camelCasedKeys: true) ?? [];
+        $targetAddressData = $targetAddress?->modifiedToArray(camelCasedKeys: true) ?? [];
+
+        foreach ($this->salesConfiguration->getAddressFieldsToCompare() as $fieldName) {
+            $sourceValue = $sourceAddressData[$fieldName] ?? null;
+            $targetValue = $targetAddressData[$fieldName] ?? null;
+
+            if ($sourceValue !== $targetValue) {
                 return true;
             }
         }

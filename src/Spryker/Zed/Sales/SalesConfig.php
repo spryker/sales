@@ -8,6 +8,7 @@
 namespace Spryker\Zed\Sales;
 
 use BadMethodCallException;
+use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SequenceNumberSettingsTransfer;
@@ -344,5 +345,35 @@ class SalesConfig extends AbstractBundleConfig
     public function getItemHashColumn(): string
     {
         return '';
+    }
+
+    /**
+     * Specification:
+     * - Returns the list of address fields to compare when checking if addresses differ.
+     *
+     * @api
+     *
+     * @return list<string>
+     */
+    public function getAddressFieldsToCompare(): array
+    {
+        return [
+            AddressTransfer::ADDRESS1,
+            AddressTransfer::ADDRESS2,
+            AddressTransfer::ADDRESS3,
+            AddressTransfer::CELL_PHONE,
+            AddressTransfer::CITY,
+            AddressTransfer::COMMENT,
+            AddressTransfer::COMPANY,
+            AddressTransfer::DESCRIPTION,
+            AddressTransfer::EMAIL,
+            AddressTransfer::FIRST_NAME,
+            AddressTransfer::LAST_NAME,
+            AddressTransfer::MIDDLE_NAME,
+            AddressTransfer::PHONE,
+            AddressTransfer::PO_BOX,
+            AddressTransfer::SALUTATION,
+            AddressTransfer::ZIP_CODE,
+        ];
     }
 }
