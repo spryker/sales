@@ -584,7 +584,7 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
     }
 
     /**
-     * @return list<string>
+     * @return array<string>
      */
     public function getOmsOrderItemStates(): array
     {

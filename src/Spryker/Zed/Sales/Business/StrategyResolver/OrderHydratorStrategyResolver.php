@@ -88,6 +88,7 @@ class OrderHydratorStrategyResolver implements OrderHydratorStrategyResolverInte
     {
         if (
             !isset($this->strategyContainer[static::STRATEGY_KEY_WITHOUT_MULTI_SHIPMENT])
+            // @phpstan-ignore instanceof.alwaysTrue (defensive programming for type safety)
             || !($this->strategyContainer[static::STRATEGY_KEY_WITHOUT_MULTI_SHIPMENT] instanceof Closure)
         ) {
             throw new ContainerKeyNotFoundException($this, static::STRATEGY_KEY_WITHOUT_MULTI_SHIPMENT);
@@ -103,6 +104,7 @@ class OrderHydratorStrategyResolver implements OrderHydratorStrategyResolverInte
     {
         if (
             !isset($this->strategyContainer[static::STRATEGY_KEY_WITH_MULTI_SHIPMENT])
+            // @phpstan-ignore instanceof.alwaysTrue (defensive programming for type safety)
             || !($this->strategyContainer[static::STRATEGY_KEY_WITH_MULTI_SHIPMENT] instanceof Closure)
         ) {
             throw new ContainerKeyNotFoundException($this, static::STRATEGY_KEY_WITH_MULTI_SHIPMENT);

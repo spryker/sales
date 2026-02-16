@@ -63,8 +63,9 @@ class AbstractSpySalesOrderItem extends BaseSpySalesOrderItem implements BatchEn
      */
     public function preUpdate(?ConnectionInterface $con = null): bool
     {
-        // This code originates from the Spryker Propel UuidBehavior module and should only be executed when the behavior is enabled in the project configuration.
+        // @phpstan-ignore function.alreadyNarrowedType (BC for supporting projects with UuidBehavior enabled)
         if (method_exists($this, 'updateUuidBeforeUpdate')) {
+            // @phpstan-ignore method.notFound (conditional method call based on behavior configuration)
             $this->updateUuidBeforeUpdate();
         }
 
@@ -79,10 +80,10 @@ class AbstractSpySalesOrderItem extends BaseSpySalesOrderItem implements BatchEn
     public function postSave(?ConnectionInterface $con = null): void
     {
         if ($this->statusChanged && $this->getIdSalesOrderItem()) {
-            /** @var \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItemEntity */
             $salesOrderItemEntity = $this;
             // FIXME Wrong dependency direction
             $omsOrderItemStateHistoryEntity = $this->createOmsOrderItemStateHistoryEntity();
+            // @phpstan-ignore argument.type (polymorphic assignment for child class)
             $omsOrderItemStateHistoryEntity->setOrderItem($salesOrderItemEntity);
             $omsOrderItemStateHistoryEntity->setState($this->getState());
             $omsOrderItemStateHistoryEntity->save();
@@ -96,9 +97,9 @@ class AbstractSpySalesOrderItem extends BaseSpySalesOrderItem implements BatchEn
     public function batchPostSave(): void
     {
         if ($this->statusChanged && $this->getIdSalesOrderItem()) {
-            /** @var \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItemEntity */
             $salesOrderItemEntity = $this;
             $omsOrderItemStateHistoryEntity = $this->createOmsOrderItemStateHistoryEntity();
+            // @phpstan-ignore argument.type (polymorphic assignment for child class)
             $omsOrderItemStateHistoryEntity->setOrderItem($salesOrderItemEntity);
             $omsOrderItemStateHistoryEntity->setFkOmsOrderItemState($this->getFkOmsOrderItemState());
 

@@ -102,7 +102,7 @@ class SalesOrderSaver implements SalesOrderSaverInterface
      * @param \Spryker\Zed\Sales\Business\Model\Order\OrderReferenceGeneratorInterface $orderReferenceGenerator
      * @param \Spryker\Zed\Sales\SalesConfig $salesConfiguration
      * @param \Orm\Zed\Locale\Persistence\SpyLocaleQuery $localePropelQuery
-     * @param list<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrderExpanderPreSavePluginInterface> $orderExpanderPreSavePlugins
+     * @param array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrderExpanderPreSavePluginInterface> $orderExpanderPreSavePlugins
      * @param \Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverPluginExecutorInterface $salesOrderSaverPluginExecutor
      * @param \Spryker\Zed\Sales\Persistence\Propel\Mapper\SalesOrderItemMapperInterface $salesOrderItemMapper
      * @param \Spryker\Shared\Kernel\StrategyResolverInterface<list<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrderPostSavePluginInterface>> $orderPostSavePluginStrategyResolver

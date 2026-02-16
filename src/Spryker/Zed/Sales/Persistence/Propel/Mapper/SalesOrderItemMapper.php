@@ -108,6 +108,7 @@ class SalesOrderItemMapper implements SalesOrderItemMapperInterface
             $salesOrderItemEntity->setFkOmsOrderProcess($salesOrderItemEntityTransfer->getProcess()->getIdOmsOrderProcess());
         }
 
+        // @phpstan-ignore notIdentical.alwaysTrue (defensive null check for database field)
         if ($originalLastStateChange !== null && $salesOrderItemEntityTransfer->getLastStateChange() === null) {
             $salesOrderItemEntity->setLastStateChange($originalLastStateChange);
         }

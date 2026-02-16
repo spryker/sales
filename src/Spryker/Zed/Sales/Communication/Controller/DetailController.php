@@ -166,8 +166,9 @@ class DetailController extends AbstractController
     protected function setOrderFallback(Request $subRequest, OrderTransfer $orderTransfer): Request
     {
         // symfony/http-foundation: <6.0.0
+        // @phpstan-ignore if.alwaysFalse (BC for symfony/http-foundation <6.0.0)
         if (method_exists(JsonResponse::class, 'create')) {
-            /** @phpstan-var array $orderTransfer */
+            // @phpstan-ignore argument.type (BC for symfony/http-foundation <6.0.0 expects array)
             $subRequest->request->set('orderTransfer', $orderTransfer);
         }
 

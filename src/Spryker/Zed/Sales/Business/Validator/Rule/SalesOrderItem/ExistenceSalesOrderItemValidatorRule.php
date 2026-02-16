@@ -55,9 +55,9 @@ class ExistenceSalesOrderItemValidatorRule implements SalesOrderItemValidatorRul
     }
 
     /**
-     * @param list<\Generated\Shared\Transfer\ItemTransfer> $salesOrderItems
+     * @param array<\Generated\Shared\Transfer\ItemTransfer> $salesOrderItems
      *
-     * @return list<int>
+     * @return array<int>
      */
     protected function extractSalesOrderItemIds(array $salesOrderItems): array
     {
