@@ -32,6 +32,7 @@ use Spryker\Shared\CheckoutExtension\CheckoutExtensionContextsInterface;
 use Spryker\Shared\SalesOrderAmendmentExtension\SalesOrderAmendmentExtensionContextsInterface;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Locale\Business\LocaleFacade;
+use Spryker\Zed\Oms\Business\OmsFacadeInterface;
 use Spryker\Zed\Oms\OmsConfig;
 use Spryker\Zed\Sales\Business\SalesBusinessFactory;
 use Spryker\Zed\Sales\Business\SalesFacade;
@@ -39,7 +40,6 @@ use Spryker\Zed\Sales\Dependency\Facade\SalesToCountryBridge;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToCountryInterface;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToLocaleBridge;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToOmsBridge;
-use Spryker\Zed\Sales\Dependency\Facade\SalesToOmsInterface;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToSequenceNumberBridge;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToStoreBridge;
 use Spryker\Zed\Sales\Dependency\Service\SalesToUtilUuidGeneratorBridge;
@@ -101,25 +101,7 @@ class SalesFacadeSaveOrderTest extends Unit
 
         $omsOrderProcessEntity = $this->getProcessEntity();
 
-        $omsFacadeMock = $this->getMockBuilder(SalesToOmsInterface::class)
-            ->addMethods([
-                'selectProcess',
-            ])
-            ->onlyMethods([
-                'getInitialStateEntity',
-                'getProcessEntity',
-                'getManualEvents',
-                'getItemsWithFlag',
-                'getManualEventsByIdSalesOrder',
-                'getDistinctManualEventsByIdSalesOrder',
-                'getGroupedDistinctManualEventsByIdSalesOrder',
-                'getOrderItemMatrix',
-                'isOrderFlaggedExcludeFromCustomer',
-                'triggerEventForOrderItems',
-            ])
-            ->getMock();
-        $omsFacadeMock->method('selectProcess')
-            ->will($this->returnValue('CheckoutTest01'));
+        $omsFacadeMock = $this->createMock(OmsFacadeInterface::class);
 
         $omcConfig = new OmsConfig();
 
@@ -129,10 +111,10 @@ class SalesFacadeSaveOrderTest extends Unit
         $initialStateEntity->save();
 
         $omsFacadeMock->method('getInitialStateEntity')
-            ->will($this->returnValue($initialStateEntity));
+            ->willReturn($initialStateEntity);
 
         $omsFacadeMock->method('getProcessEntity')
-            ->will($this->returnValue($omsOrderProcessEntity));
+            ->willReturn($omsOrderProcessEntity);
 
         $sequenceNumberFacade = new SequenceNumberFacade();
         $utilUuidGeneratorService = new UtilUuidGeneratorService();
