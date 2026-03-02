@@ -20,61 +20,20 @@ use Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer;
  */
 interface SalesEntityManagerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer
-     */
     public function createSalesExpense(ExpenseTransfer $expenseTransfer): ExpenseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer
-     */
     public function updateSalesExpense(ExpenseTransfer $expenseTransfer): ExpenseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function createSalesOrderAddress(AddressTransfer $addressTransfer): AddressTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function updateSalesOrderAddress(AddressTransfer $addressTransfer): AddressTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     public function saveOrderEntity(SpySalesOrderEntityTransfer $salesOrderEntityTransfer): SpySalesOrderEntityTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return void
-     */
     public function saveSalesOrderTotals(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer): void;
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer
-     */
     public function saveSalesOrderAddressEntity(SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer): SpySalesOrderAddressEntityTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer $salesOrderItemEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer
-     */
     public function saveSalesOrderItems(SpySalesOrderItemEntityTransfer $salesOrderItemEntityTransfer): SpySalesOrderItemEntityTransfer;
 
     /**
@@ -84,11 +43,6 @@ interface SalesEntityManagerInterface
      */
     public function saveSalesOrderItemsBatch(array $salesOrderItemEntityTransfers): array;
 
-    /**
-     * @param int $idSalesOrderAddress
-     *
-     * @return void
-     */
     public function unsetSalesOrderShippingAddress(int $idSalesOrderAddress): void;
 
     /**

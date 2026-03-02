@@ -15,11 +15,6 @@ use Spryker\Zed\Sales\SalesConfig;
 
 class UniqueRandomIdOrderReferenceGenerator implements OrderReferenceGeneratorInterface
 {
-    /**
-     * @param \Spryker\Zed\Sales\Dependency\Service\SalesToUtilUuidGeneratorInterface $utilUuidGeneratorService
-     * @param \Spryker\Zed\Sales\SalesConfig $salesConfig
-     * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToStoreInterface $storeFacade
-     */
     public function __construct(
         protected SalesToUtilUuidGeneratorInterface $utilUuidGeneratorService,
         protected SalesConfig $salesConfig,
@@ -27,11 +22,6 @@ class UniqueRandomIdOrderReferenceGenerator implements OrderReferenceGeneratorIn
     ) {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return string
-     */
     public function generateOrderReference(QuoteTransfer $quoteTransfer): string
     {
         if ($quoteTransfer->getOrderReference()) {

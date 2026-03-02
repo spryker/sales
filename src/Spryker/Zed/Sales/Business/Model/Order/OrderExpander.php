@@ -74,12 +74,6 @@ class OrderExpander implements OrderExpanderInterface
         return $quoteTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function mapQuoteTransferToOrderTransfer(QuoteTransfer $quoteTransfer, OrderTransfer $orderTransfer): OrderTransfer
     {
         $itemTransfers = $quoteTransfer->getItems();
@@ -94,12 +88,6 @@ class OrderExpander implements OrderExpanderInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function mapOrderTransferToQuoteTransfer(OrderTransfer $orderTransfer, QuoteTransfer $quoteTransfer): QuoteTransfer
     {
         $storeTransfer = $quoteTransfer->getStore();
@@ -130,11 +118,6 @@ class OrderExpander implements OrderExpanderInterface
         return new ArrayObject($transformedItemTransfers);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemCollectionTransfer
-     */
     protected function applyItemTransformStrategyPlugin(ItemTransfer $itemTransfer): ItemCollectionTransfer
     {
         foreach ($this->itemTransformerStrategyPlugins as $itemTransformerStrategyPlugin) {
@@ -199,12 +182,6 @@ class OrderExpander implements OrderExpanderInterface
         return new ArrayObject($appliedDiscounts);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function executeItemPreTransformerPlugins(OrderTransfer $orderTransfer, QuoteTransfer $quoteTransfer): OrderTransfer
     {
         foreach ($this->itemPreTransformerPlugins as $itemPreTransformerPlugin) {

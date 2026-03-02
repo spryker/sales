@@ -24,9 +24,6 @@ class OmsEventTriggerer implements OmsEventTriggererInterface
      */
     protected $omsFacade;
 
-    /**
-     * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToOmsInterface $omsFacade
-     */
     public function __construct(SalesToOmsInterface $omsFacade)
     {
         $this->omsFacade = $omsFacade;

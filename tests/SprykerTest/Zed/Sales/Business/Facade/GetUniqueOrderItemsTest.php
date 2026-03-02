@@ -41,9 +41,6 @@ class GetUniqueOrderItemsTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testGetUniqueItemsFromOrderReturnsUniqueItemsFromOrder(): void
     {
         // Arrange
@@ -56,9 +53,6 @@ class GetUniqueOrderItemsTest extends Unit
         $this->assertCount(2, $itemTransfers);
     }
 
-    /**
-     * @return void
-     */
     public function testGetUniqueItemsFromOrderIncrementsQuantityAndSumPrice(): void
     {
         // Arrange
@@ -73,9 +67,6 @@ class GetUniqueOrderItemsTest extends Unit
         $this->assertSame(3, $itemTransfers[0]->getQuantity());
     }
 
-    /**
-     * @return void
-     */
     public function testGetUniqueItemsFromOrderWithoutRequiredSkuField(): void
     {
         // Arrange
@@ -89,9 +80,6 @@ class GetUniqueOrderItemsTest extends Unit
         $this->tester->getFacade()->getUniqueItemsFromOrder($orderTransfer);
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function createFakeOrder(): OrderTransfer
     {
         $itemTransfers = [

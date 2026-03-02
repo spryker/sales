@@ -128,9 +128,6 @@ use Spryker\Zed\Sales\SalesDependencyProvider;
  */
 class SalesBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Customer\CustomerOrderReaderInterface
-     */
     public function createCustomerOrderReader(): CustomerOrderReaderInterface
     {
         return new CustomerOrderReader(
@@ -141,9 +138,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Customer\CustomerOrderReaderInterface
-     */
     public function createPaginatedCustomerOrderReader(): CustomerOrderReaderInterface
     {
         return new PaginatedCustomerOrderReader(
@@ -154,9 +148,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Customer\OffsetPaginatedCustomerOrderListReaderInterface
-     */
     public function createOffsetPaginatedCustomerOrderListReader(): OffsetPaginatedCustomerOrderListReaderInterface
     {
         return new OffsetPaginatedCustomerOrderListReader(
@@ -167,9 +158,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Customer\CustomerOrderOverviewInterface
-     */
     public function createPaginatedCustomerOrderOverview(): CustomerOrderOverviewInterface
     {
         return new PaginatedCustomerOrderOverview(
@@ -181,9 +169,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Order\CustomerOrderOverviewHydratorInterface
-     */
     public function createCustomerOrderOverviewHydrator(): CustomerOrderOverviewHydratorInterface
     {
         return new CustomerOrderOverviewHydrator();
@@ -212,9 +197,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverInterface
-     */
     public function createSalesOrderSaver(): SalesOrderSaverInterface
     {
         return new SalesOrderSaver(
@@ -233,9 +215,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\OrderWriter\SalesOrderWriterInterface
-     */
     public function createSalesOrderWriter(): SalesOrderWriterInterface
     {
         return new SalesOrderWriter(
@@ -250,9 +229,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\ItemSaver\OrderItemsSaverInterface
-     */
     public function createOrderItemsSaver(): OrderItemsSaverInterface
     {
         return new OrderItemsSaver(
@@ -266,9 +242,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Order\OrderUpdaterInterface
-     */
     public function createOrderUpdater(): OrderUpdaterInterface
     {
         return new OrderUpdater(
@@ -278,9 +251,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Updater\SalesOrderUpdaterInterface
-     */
     public function createSalesOrderUpdater(): SalesOrderUpdaterInterface
     {
         return new SalesOrderUpdater(
@@ -294,17 +264,11 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Updater\SalesOrderAddressUpdaterInterface
-     */
     public function createSalesOrderAddressUpdater(): SalesOrderAddressUpdaterInterface
     {
         return new SalesOrderAddressUpdater($this->getEntityManager(), $this->getCountryFacade());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Order\OrderReaderInterface
-     */
     public function createOrderReader(): OrderReaderInterface
     {
         return new OrderReader(
@@ -313,9 +277,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Order\OrderRepositoryReader
-     */
     public function createOrderRepositoryReader(): OrderRepositoryReader
     {
         return new OrderRepositoryReader(
@@ -324,17 +285,11 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Comment\OrderCommentReaderInterface
-     */
     public function createOrderCommentReader(): OrderCommentReaderInterface
     {
         return new OrderCommentReader($this->getQueryContainer());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Comment\OrderCommentSaverInterface
-     */
     public function createOrderCommentSaver(): OrderCommentSaverInterface
     {
         return new OrderCommentSaver($this->getQueryContainer());
@@ -374,9 +329,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Reader\OrderReaderInterface
-     */
     public function createSalesOrderReader(): SalesOrderReaderInterface
     {
         return new SalesOrderReader(
@@ -385,9 +337,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Order\OrderReferenceGeneratorInterface
-     */
     public function createReferenceGenerator(): OrderReferenceGeneratorInterface
     {
         if ($this->getConfig()->useUniqueRandomIdOrderReferenceGenerator()) {
@@ -397,9 +346,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         return $this->createSequenceNumberOrderReferenceGenerator();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Order\OrderReferenceGeneratorInterface
-     */
     public function createSequenceNumberOrderReferenceGenerator(): OrderReferenceGeneratorInterface
     {
         return new SequenceNumberOrderReferenceGenerator(
@@ -409,9 +355,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Order\OrderReferenceGeneratorInterface
-     */
     public function createUniqueRandomIdOrderReferenceGenerator(): OrderReferenceGeneratorInterface
     {
         return new UniqueRandomIdOrderReferenceGenerator(
@@ -431,25 +374,16 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         return new OrderAddressUpdater($this->getQueryContainer());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Address\OrderAddressWriterInterface
-     */
     public function createOrderAddressWriter(): OrderAddressWriterInterface
     {
         return new OrderAddressWriter($this->getEntityManager(), $this->getCountryFacade());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Expander\SalesAddressExpanderInterface
-     */
     public function createSalesAddressExpander(): SalesAddressExpanderInterface
     {
         return new SalesAddressExpander($this->getCustomerFacade(), $this->getRepository());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Order\OrderExpanderInterface
-     */
     public function createOrderExpander(): OrderExpanderInterface
     {
         return new OrderExpander(
@@ -460,17 +394,11 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\OrderItem\OrderItemTransformerInterface
-     */
     public function createOrderItemTransformer(): OrderItemTransformerInterface
     {
         return new OrderItemTransformer();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverPluginExecutorInterface
-     */
     public function createSalesOrderSaverPluginExecutor(): SalesOrderSaverPluginExecutorInterface
     {
         return new SalesOrderSaverPluginExecutor(
@@ -488,33 +416,21 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         return new ModelSalesOrderItemMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Mapper\SalesOrderMapperInterface
-     */
     public function createSalesOrderMapper(): SalesOrderMapperInterface
     {
         return new SalesOrderMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Expense\ExpenseWriterInterface
-     */
     public function createExpenseWriter(): ExpenseWriterInterface
     {
         return new ExpenseWriter($this->getEntityManager());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Expense\ExpenseUpdaterInterface
-     */
     public function createExpenseUpdater(): ExpenseUpdaterInterface
     {
         return new ExpenseUpdater($this->getEntityManager());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\OrderItem\SalesOrderItemGrouperInterface
-     */
     public function createSalesOrderItemGrouper(): SalesOrderItemGrouperInterface
     {
         return new SalesOrderItemGrouper(
@@ -522,17 +438,11 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\Propel\Mapper\SalesOrderItemMapperInterface
-     */
     public function createSalesOrderItemMapper(): SalesOrderItemMapperInterface
     {
         return new SalesOrderItemMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\SearchReader\OrderSearchReaderInterface
-     */
     public function createOrderSearchReader(): OrderSearchReaderInterface
     {
         return new OrderSearchReader(
@@ -542,65 +452,41 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Expander\ItemCurrencyExpanderInterface
-     */
     public function createItemCurrencyExpander(): ItemCurrencyExpanderInterface
     {
         return new ItemCurrencyExpander($this->getRepository());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Dependency\Facade\SalesToCalculationInterface
-     */
     public function getCalculationFacade(): SalesToCalculationInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::FACADE_CALCULATION);
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Dependency\Facade\SalesToSequenceNumberInterface
-     */
     public function getSequenceNumberFacade(): SalesToSequenceNumberInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::FACADE_SEQUENCE_NUMBER);
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Dependency\Facade\SalesToOmsInterface
-     */
     public function getOmsFacade(): SalesToOmsInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::FACADE_OMS);
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Dependency\Facade\SalesToCountryInterface
-     */
     public function getCountryFacade(): SalesToCountryInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::FACADE_COUNTRY);
     }
 
-    /**
-     * @return \Orm\Zed\Locale\Persistence\SpyLocaleQuery
-     */
     public function getLocalePropelQuery(): SpyLocaleQuery
     {
         return $this->getProvidedDependency(SalesDependencyProvider::PROPEL_QUERY_LOCALE);
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Dependency\Facade\SalesToStoreInterface
-     */
     public function getStoreFacade(): SalesToStoreInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::FACADE_STORE);
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Dependency\Facade\SalesToLocaleInterface
-     */
     public function getLocaleFacade(): SalesToLocaleInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::FACADE_LOCALE);
@@ -688,9 +574,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         return new OrderHydratorStrategyResolver($strategyContainer);
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Reader\OrderItemReaderInterface
-     */
     public function createOrderItemReader(): OrderItemReaderInterface
     {
         return new OrderItemReader(
@@ -699,9 +582,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Writer\OrderWriterInterface
-     */
     public function createOrderWriter(): OrderWriterInterface
     {
         return new OrderWriter(
@@ -712,17 +592,11 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Triggerer\OmsEventTriggererInterface
-     */
     public function createOmsEventTriggerer(): OmsEventTriggererInterface
     {
         return new OmsEventTriggerer($this->getOmsFacade());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Checker\DuplicateOrderCheckerInterface
-     */
     public function createDuplicateOrderChecker(): DuplicateOrderCheckerInterface
     {
         return new DuplicateOrderChecker(
@@ -730,9 +604,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Deleter\SalesExpenseDeleterInterface
-     */
     public function createSalesExpenseDeleter(): SalesExpenseDeleterInterface
     {
         return new SalesExpenseDeleter(
@@ -742,9 +613,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Creator\SalesOrderItemCreatorInterface
-     */
     public function createSalesOrderItemCreator(): SalesOrderItemCreatorInterface
     {
         return new SalesOrderItemCreator(
@@ -756,9 +624,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Updater\SalesOrderItemUpdaterInterface
-     */
     public function createSalesOrderItemUpdater(): SalesOrderItemUpdaterInterface
     {
         return new SalesOrderItemUpdater(
@@ -770,9 +635,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Validator\SalesOrderItemValidatorInterface
-     */
     public function createSalesOrderItemCreateValidator(): SalesOrderItemValidatorInterface
     {
         return new SalesOrderItemValidator(
@@ -780,9 +642,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Validator\SalesOrderItemValidatorInterface
-     */
     public function createSalesOrderItemUpdateValidator(): SalesOrderItemValidatorInterface
     {
         return new SalesOrderItemValidator(
@@ -790,9 +649,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Deleter\SalesOrderItemDeleterInterface
-     */
     public function createSalesOrderItemDeleter(): SalesOrderItemDeleterInterface
     {
         return new SalesOrderItemDeleter(
@@ -823,9 +679,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         ];
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Validator\Rule\SalesOrderItem\SalesOrderItemValidatorRuleInterface
-     */
     public function createSalesOrderItemRelationValidatorRule(): SalesOrderItemValidatorRuleInterface
     {
         return new SalesOrderItemRelationValidatorRule(
@@ -834,9 +687,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Validator\Rule\SalesOrderItem\SalesOrderItemValidatorRuleInterface
-     */
     public function createExistenceSalesOrderItemValidatorRule(): SalesOrderItemValidatorRuleInterface
     {
         return new ExistenceSalesOrderItemValidatorRule(
@@ -845,9 +695,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Validator\Rule\SalesOrderItem\SalesOrderItemValidatorRuleInterface
-     */
     public function createDuplicationSalesOrderItemValidatorRule(): SalesOrderItemValidatorRuleInterface
     {
         return new DuplicationSalesOrderItemValidatorRule(
@@ -855,25 +702,16 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\Validator\Util\ErrorAdderInterface
-     */
     public function createErrorAdder(): ErrorAdderInterface
     {
         return new ErrorAdder();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Dependency\Facade\SalesToCustomerInterface
-     */
     public function getCustomerFacade(): SalesToCustomerInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::FACADE_CUSTOMER);
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Dependency\Service\SalesToUtilUuidGeneratorInterface
-     */
     public function getUtilUuidGeneratorService(): SalesToUtilUuidGeneratorInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::SERVICE_UTIL_UUID_GENERATOR);
@@ -943,9 +781,6 @@ class SalesBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(SalesDependencyProvider::PLUGINS_ORDER_POST_UPDATE);
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\StateMachineResolver\OrderStateMachineResolverInterface
-     */
     public function createOrderStateMachineResolver(): OrderStateMachineResolverInterface
     {
         return new OrderStateMachineResolver($this->getConfig());

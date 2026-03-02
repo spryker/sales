@@ -139,11 +139,6 @@ class OrdersTable extends AbstractTable
         $this->salesTablePlugins = $salesTablePlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTableCriteriaTransfer $orderTableCriteriaTransfer
-     *
-     * @return void
-     */
     public function applyCriteria(OrderTableCriteriaTransfer $orderTableCriteriaTransfer): void
     {
         $this->orderTableCriteriaTransfer = $orderTableCriteriaTransfer;
@@ -175,9 +170,6 @@ class OrdersTable extends AbstractTable
         return $config;
     }
 
-    /**
-     * @return string
-     */
     protected function getTableUrl(): string
     {
         return Url::generate(
@@ -242,22 +234,11 @@ class OrdersTable extends AbstractTable
         return $salesOrderRow;
     }
 
-    /**
-     * @param int $grandTotal
-     * @param string $currencyIsoCode
-     *
-     * @return string
-     */
     protected function formatGrandTotal(int $grandTotal, string $currencyIsoCode): string
     {
         return $this->formatPrice($grandTotal, true, $currencyIsoCode);
     }
 
-    /**
-     * @param string $itemStateNamesCsv
-     *
-     * @return string
-     */
     protected function groupItemStateNamesForCsv(string $itemStateNamesCsv): string
     {
         $itemStateNames = explode(',', $itemStateNamesCsv);
@@ -552,11 +533,6 @@ class OrdersTable extends AbstractTable
         return $results;
     }
 
-    /**
-     * @param array $itemLine
-     *
-     * @return array
-     */
     protected function applyUiPlugins(array $itemLine): array
     {
         foreach ($this->salesTablePlugins as $uiPlugin) {
@@ -578,9 +554,6 @@ class OrdersTable extends AbstractTable
         return $this->generateButton($url, $title, $options);
     }
 
-    /**
-     * @return string
-     */
     protected function getFullNameSearchableField(): string
     {
         return sprintf(

@@ -12,12 +12,6 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderQuery;
 
 interface OrderSearchQueryJoinQueryBuilderInterface
 {
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\QueryJoinCollectionTransfer $queryJoinCollectionTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     public function addSalesOrderQueryFilters(
         SpySalesOrderQuery $salesOrderQuery,
         QueryJoinCollectionTransfer $queryJoinCollectionTransfer

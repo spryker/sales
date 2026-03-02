@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\OrderListTransfer;
 
 interface OffsetPaginatedCustomerOrderListReaderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\OrderListRequestTransfer $orderListRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function getOrders(OrderListRequestTransfer $orderListRequestTransfer): OrderListTransfer;
 }

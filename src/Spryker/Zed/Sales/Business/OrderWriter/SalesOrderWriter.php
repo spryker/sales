@@ -102,12 +102,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return void
-     */
     public function saveOrder(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer): void
     {
         $this->assertOrderRequirements($quoteTransfer);
@@ -118,13 +112,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         });
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param string $orderReference
-     *
-     * @return void
-     */
     protected function saveOrderTransaction(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer, string $orderReference): void
     {
         $salesOrderEntityTransfer = $this->saveOrderEntity($quoteTransfer, $orderReference);
@@ -132,12 +119,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         $this->executeOrderPostSavePlugins($saveOrderTransfer, $quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return void
-     */
     protected function executeOrderPostSavePlugins(
         SaveOrderTransfer $saveOrderTransfer,
         QuoteTransfer $quoteTransfer
@@ -150,12 +131,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param string $orderReference
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     protected function saveOrderEntity(QuoteTransfer $quoteTransfer, string $orderReference): SpySalesOrderEntityTransfer
     {
         $salesOrderEntityTransfer = new SpySalesOrderEntityTransfer();
@@ -167,13 +142,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $salesOrderEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     * @param string $orderReference
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     protected function hydrateSalesOrderEntityTransfer(
         QuoteTransfer $quoteTransfer,
         SpySalesOrderEntityTransfer $salesOrderEntityTransfer,
@@ -192,12 +160,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $salesOrderEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     protected function hydrateSalesOrderCustomer(
         QuoteTransfer $quoteTransfer,
         SpySalesOrderEntityTransfer $salesOrderEntityTransfer
@@ -218,12 +180,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $salesOrderEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     protected function executeOrderExpanderPreSavePlugins(
         QuoteTransfer $quoteTransfer,
         SpySalesOrderEntityTransfer $salesOrderEntityTransfer
@@ -235,12 +191,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $salesOrderEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     protected function hydrateAddresses(QuoteTransfer $quoteTransfer, SpySalesOrderEntityTransfer $salesOrderEntityTransfer): SpySalesOrderEntityTransfer
     {
         $billingAddressEntityTransfer = $this->saveSalesOrderAddress($quoteTransfer->getBillingAddress());
@@ -257,11 +207,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $salesOrderEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer
-     */
     protected function saveSalesOrderAddress(AddressTransfer $addressTransfer): SpySalesOrderAddressEntityTransfer
     {
         $salesOrderAddressEntityTransfer = $this->saveSalesOrderAddressEntity($addressTransfer);
@@ -270,11 +215,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $salesOrderAddressEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer
-     */
     protected function saveSalesOrderAddressEntity(AddressTransfer $addressTransfer): SpySalesOrderAddressEntityTransfer
     {
         $salesOrderAddressEntityTransfer = new SpySalesOrderAddressEntityTransfer();
@@ -284,12 +224,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $salesOrderAddressEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer
-     */
     protected function hydrateSalesOrderAddress(
         AddressTransfer $addressTransfer,
         SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer
@@ -304,11 +238,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $salesOrderAddressEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return int
-     */
     protected function getIdCountryForAddress(AddressTransfer $addressTransfer): int
     {
         $iso2code = $addressTransfer->getIso2CodeOrFail();
@@ -320,23 +249,11 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $this->idCountryCache[$iso2code];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     protected function addLocale(SpySalesOrderEntityTransfer $salesOrderEntityTransfer): SpySalesOrderEntityTransfer
     {
         return $salesOrderEntityTransfer->setFkLocale($this->localeFacade->getCurrentLocale()->getIdLocale());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     protected function hydrateSaveOrderTransfer(
         SaveOrderTransfer $saveOrderTransfer,
         QuoteTransfer $quoteTransfer,
@@ -351,11 +268,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $saveOrderTransfer->fromArray($salesOrderEntityTransfer->toArray(), true);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return void
-     */
     protected function assertOrderRequirements(QuoteTransfer $quoteTransfer): void
     {
         $quoteTransfer->requireItems()->requireTotals();
@@ -389,11 +301,6 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         return $itemTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     protected function isMultiShipmentSelectionEnabled(QuoteTransfer $quoteTransfer): bool
     {
         $itemTransfers = $quoteTransfer->getItems();

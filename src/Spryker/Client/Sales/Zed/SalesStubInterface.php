@@ -31,18 +31,8 @@ interface SalesStubInterface
      */
     public function getPaginatedOrders(OrderListTransfer $orderListTransfer);
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListRequestTransfer $orderListRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function getOffsetPaginatedCustomerOrderList(OrderListRequestTransfer $orderListRequestTransfer): OrderListTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function getPaginatedCustomerOrdersOverview(OrderListTransfer $orderListTransfer): OrderListTransfer;
 
     /**
@@ -52,31 +42,11 @@ interface SalesStubInterface
      */
     public function getOrderDetails(OrderTransfer $orderTransfer);
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getCustomerOrderByOrderReference(OrderTransfer $orderTransfer): OrderTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderItemFilterTransfer $orderItemFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemCollectionTransfer
-     */
     public function getOrderItems(OrderItemFilterTransfer $orderItemFilterTransfer): ItemCollectionTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function searchOrders(OrderListTransfer $orderListTransfer): OrderListTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderCancelRequestTransfer $orderCancelRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderCancelResponseTransfer
-     */
     public function cancelOrder(OrderCancelRequestTransfer $orderCancelRequestTransfer): OrderCancelResponseTransfer;
 }

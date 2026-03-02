@@ -61,9 +61,6 @@ class OrdersTableQueryTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -72,9 +69,6 @@ class OrdersTableQueryTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testApplyCriteriaShouldFilterOrdersByStores(): void
     {
         // Arrange
@@ -107,9 +101,6 @@ class OrdersTableQueryTest extends Unit
         $this->assertNotContains((string)$saveOrderTransfer2->getIdSalesOrder(), $resultOrderIds);
     }
 
-    /**
-     * @return void
-     */
     public function testApplyCriteriaShouldFilterOrdersByDates(): void
     {
         // Arrange
@@ -139,9 +130,6 @@ class OrdersTableQueryTest extends Unit
         $this->assertNotContains((string)$saveOrderTransfer2->getIdSalesOrder(), $resultOrderIds);
     }
 
-    /**
-     * @return void
-     */
     public function testApplyCriteriaShouldFilterOrdersByStatus(): void
     {
         // Arrange
@@ -170,9 +158,6 @@ class OrdersTableQueryTest extends Unit
         $this->assertNotContains((string)$saveOrderTransfer1->getIdSalesOrder(), $resultOrderIds);
     }
 
-    /**
-     * @return \SprykerTest\Zed\Sales\Communication\Table\OrdersTableMock
-     */
     protected function createOrdersTableMock(): OrdersTableMock
     {
         $salesOrderQuery = SpySalesOrderQuery::create();
@@ -198,9 +183,6 @@ class OrdersTableQueryTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     protected function registerTwigServiceMock(): void
     {
         $this->tester->getContainer()->set(static::SERVICE_TWIG, $this->getTwigMock());
@@ -221,9 +203,6 @@ class OrdersTableQueryTest extends Unit
         return $twigMock;
     }
 
-    /**
-     * @return \Twig\Loader\LoaderInterface
-     */
     protected function getChainLoader(): LoaderInterface
     {
         return new ChainLoader();

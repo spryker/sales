@@ -23,9 +23,6 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
  */
 class SpySalesOrderItemTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testPostSaveShouldNotCreateNewStateMachineHistoryEntryWhenStateNotChanged(): void
     {
         $salesOrderItemEntityMock = $this->createMockedSalesOrderItemEntity();
@@ -36,9 +33,6 @@ class SpySalesOrderItemTest extends Unit
         $salesOrderItemEntityMock->save();
     }
 
-    /**
-     * @return void
-     */
     public function testPostSaveShouldCreateStateMachineHistoryEntryWhenStateChanged(): void
     {
         $salesOrderItemEntityMock = $this->createMockedSalesOrderItemEntity();

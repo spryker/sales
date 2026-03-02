@@ -12,13 +12,6 @@ use Generated\Shared\Transfer\SaveOrderTransfer;
 
 interface OrderItemsSaverInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param bool|null $skipOrderItemsPostSavePlugins
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     public function saveOrderItems(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer,

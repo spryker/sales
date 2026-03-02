@@ -50,9 +50,6 @@ class CheckDuplicateOrderTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -60,9 +57,6 @@ class CheckDuplicateOrderTest extends Unit
         $this->tester->configureTestStateMachine([BusinessHelper::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testCheckDuplicateOrderWithSuccessfullyCreatedOrder(): void
     {
         // Arrange
@@ -83,9 +77,6 @@ class CheckDuplicateOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCheckDuplicateOrderWithUnsuccessfullyCreatedOrder(): void
     {
         // Arrange
@@ -106,9 +97,6 @@ class CheckDuplicateOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCheckDuplicateOrderWithNotExistingOrder(): void
     {
         // Arrange
@@ -129,9 +117,6 @@ class CheckDuplicateOrderTest extends Unit
         );
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createCustomerOrderByQuoteTransfer(): QuoteTransfer
     {
         $currencyTransfer = (new CurrencyBuilder([CurrencyTransfer::CODE => static::CURRENCY_ISO_CODE]))->build();
@@ -147,9 +132,6 @@ class CheckDuplicateOrderTest extends Unit
         return $quoteTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createQuoteTransferWithoutOrder(): QuoteTransfer
     {
         $currencyTransfer = (new CurrencyBuilder([CurrencyTransfer::CODE => static::CURRENCY_ISO_CODE]))->build();
@@ -164,9 +146,6 @@ class CheckDuplicateOrderTest extends Unit
         return $quoteTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CheckoutResponseTransfer
-     */
     protected function createCheckoutResponseTransfer(): CheckoutResponseTransfer
     {
         return (new CheckoutResponseTransfer())

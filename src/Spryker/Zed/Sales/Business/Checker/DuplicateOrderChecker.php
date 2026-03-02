@@ -29,20 +29,11 @@ class DuplicateOrderChecker implements DuplicateOrderCheckerInterface
      */
     protected $salesRepository;
 
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface $salesRepository
-     */
     public function __construct(SalesRepositoryInterface $salesRepository)
     {
         $this->salesRepository = $salesRepository;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
-     *
-     * @return bool
-     */
     public function checkDuplicateOrder(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer): bool
     {
         if (!$this->isOrderExists($quoteTransfer)) {
@@ -54,11 +45,6 @@ class DuplicateOrderChecker implements DuplicateOrderCheckerInterface
         return false;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     protected function isOrderExists(QuoteTransfer $quoteTransfer): bool
     {
         if (!$quoteTransfer->getOrderReference()) {
@@ -80,12 +66,6 @@ class DuplicateOrderChecker implements DuplicateOrderCheckerInterface
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
-     *
-     * @return void
-     */
     protected function setCheckoutResponseData(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer): void
     {
         $checkoutResponseTransfer->getSaveOrder()->setOrderReference(

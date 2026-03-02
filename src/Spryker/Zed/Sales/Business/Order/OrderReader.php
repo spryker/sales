@@ -19,10 +19,6 @@ use Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface;
 
 class OrderReader implements OrderReaderInterface
 {
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface $queryContainer
-     * @param \Spryker\Zed\Sales\Business\Model\Order\OrderHydratorInterface $orderHydrator
-     */
     public function __construct(
         protected SalesQueryContainerInterface $queryContainer,
         protected OrderHydratorInterface $orderHydrator
@@ -48,11 +44,6 @@ class OrderReader implements OrderReaderInterface
         return $states;
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer|null
-     */
     public function findOrderByIdSalesOrderItem(int $idSalesOrderItem): ?OrderTransfer
     {
         $orderItem = $this->queryContainer
@@ -95,12 +86,6 @@ class OrderReader implements OrderReaderInterface
         return $this->expandWithLocale($orderTransfer, $orderEntity);
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\OrderCriteriaTransfer $orderCriteriaTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function applyOrderCriteria(SpySalesOrderQuery $salesOrderQuery, OrderCriteriaTransfer $orderCriteriaTransfer): SpySalesOrderQuery
     {
         $orderConditions = $orderCriteriaTransfer->getOrderConditions();
@@ -120,11 +105,6 @@ class OrderReader implements OrderReaderInterface
         return $salesOrderQuery;
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer|null
-     */
     public function findOrderByIdSalesOrder(int $idSalesOrder): ?OrderTransfer
     {
         $orderEntity = $this->queryContainer
@@ -144,12 +124,6 @@ class OrderReader implements OrderReaderInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function expandWithLocale(OrderTransfer $orderTransfer, SpySalesOrder $orderEntity): OrderTransfer
     {
         if (!$orderEntity->getLocale()) {

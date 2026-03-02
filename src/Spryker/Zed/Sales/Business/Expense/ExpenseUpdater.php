@@ -17,19 +17,11 @@ class ExpenseUpdater implements ExpenseUpdaterInterface
      */
     protected $salesEntityManager;
 
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesEntityManagerInterface $salesEntityManager
-     */
     public function __construct(SalesEntityManagerInterface $salesEntityManager)
     {
         $this->salesEntityManager = $salesEntityManager;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer
-     */
     public function updateSalesExpense(ExpenseTransfer $expenseTransfer): ExpenseTransfer
     {
         return $this->salesEntityManager->updateSalesExpense($expenseTransfer);

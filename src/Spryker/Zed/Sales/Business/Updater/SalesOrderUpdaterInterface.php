@@ -12,11 +12,5 @@ use Generated\Shared\Transfer\SaveOrderTransfer;
 
 interface SalesOrderUpdaterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     public function updateOrderByQuote(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer): SaveOrderTransfer;
 }

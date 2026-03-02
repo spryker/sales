@@ -248,11 +248,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
      */
     public const SERVICE_UTIL_UUID_GENERATOR = 'SERVICE_UTIL_UUID_GENERATOR';
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
@@ -294,11 +289,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideCommunicationLayerDependencies(Container $container): Container
     {
         $container = parent::provideCommunicationLayerDependencies($container);
@@ -372,11 +362,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addItemTransformerStrategyPlugins(Container $container): Container
     {
         $container->set(static::ITEM_TRANSFORMER_STRATEGY_PLUGINS, function (Container $container) {
@@ -470,11 +455,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addLocaleFacade(Container $container): Container
     {
         $container->set(static::FACADE_LOCALE, function (Container $container) {
@@ -484,11 +464,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStoreFacade(Container $container): Container
     {
         $container->set(static::FACADE_STORE, function (Container $container) {
@@ -540,11 +515,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOmsOrderItemStatePropelQuery(Container $container): Container
     {
         $container->set(
@@ -583,11 +553,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addTranslatorFacade(Container $container): Container
     {
         $container->set(
@@ -598,11 +563,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addUtilUuidGeneratorService(Container $container): Container
     {
         $container->set(static::SERVICE_UTIL_UUID_GENERATOR, function (Container $container) {
@@ -612,11 +572,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderPostSavePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_POST_SAVE, function () {
@@ -626,11 +581,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderPostSavePluginsForOrderAmendment(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_POST_SAVE_FOR_ORDER_AMENDMENT, function () {
@@ -640,11 +590,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderPostSavePluginsForOrderAmendmentAsync(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_POST_SAVE_FOR_ORDER_AMENDMENT_ASYNC, function () {
@@ -654,11 +599,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addItemPreTransformerPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ITEM_PRE_TRANSFORMER, function () {
@@ -668,11 +608,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addUniqueOrderItemsExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_UNIQUE_ORDER_ITEMS_EXPANDER, function () {
@@ -682,11 +617,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEM_EXPANDER, function () {
@@ -696,11 +626,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addSearchOrderExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_SEARCH_ORDER_EXPANDER, function () {
@@ -710,11 +635,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderSearchQueryExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_SEARCH_QUERY_EXPANDER, function () {
@@ -724,11 +644,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCustomerOrderAccessCheckPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CUSTOMER_ORDER_ACCESS_CHECK, function () {
@@ -738,11 +653,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemsTableExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEMS_TABLE_EXPANDER, function () {
@@ -752,11 +662,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemsPostSavePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEMS_POST_SAVE, function () {
@@ -766,11 +671,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderPostUpdatePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_POST_UPDATE, function () {
@@ -780,11 +680,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderPostCancelPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_POST_CANCEL, function () {
@@ -794,11 +689,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addSalesExpensePreDeletePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_SALES_EXPENSE_PRE_DELETE, function () {
@@ -808,11 +698,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addSalesOrderItemCollectionPreDeletePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_SALES_ORDER_ITEM_COLLECTION_PRE_DELETE, function () {
@@ -822,11 +707,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCsrfProviderService(Container $container): Container
     {
         $container->set(static::SERVICE_FORM_CSRF_PROVIDER, function (Container $container) {
@@ -836,11 +716,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemPreCreatePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEMS_PRE_CREATE, function () {
@@ -850,11 +725,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemPreUpdatePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEMS_PRE_UPDATE, function () {
@@ -864,11 +734,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemCollectionPostCreatePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEM_COLLECTION_POST_CREATE, function () {
@@ -878,11 +743,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemCollectionPostUpdatePlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEM_COLLECTION_POST_UPDATE, function () {
@@ -892,11 +752,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemInitialStateProviderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEM_INITIAL_STATE_PROVIDER, function () {
@@ -906,11 +761,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemInitialStateProviderPluginsForOrderAmendment(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEM_INITIAL_STATE_PROVIDER_FOR_ORDER_AMENDMENT, function () {
@@ -920,11 +770,6 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOrderItemInitialStateProviderPluginsForOrderAmendmentAsync(Container $container): Container
     {
         $container->set(static::PLUGINS_ORDER_ITEM_INITIAL_STATE_PROVIDER_FOR_ORDER_AMENDMENT_ASYNC, function () {

@@ -11,9 +11,6 @@ use Codeception\Module;
 
 trait SalesHelperTrait
 {
-    /**
-     * @return \SprykerTest\Shared\Sales\Helper\SalesHelper
-     */
     protected function getSalesHelper(): SalesHelper
     {
         /** @var \SprykerTest\Shared\Sales\Helper\SalesHelper $salesHelper */
@@ -22,10 +19,5 @@ trait SalesHelperTrait
         return $salesHelper;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \Codeception\Module
-     */
     abstract protected function getModule(string $name): Module;
 }

@@ -73,11 +73,6 @@ class OrderUpdater implements OrderUpdaterInterface
         return true;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return void
-     */
     protected function executeOrderPostUpdatePlugins(OrderTransfer $orderTransfer): void
     {
         foreach ($this->orderPostUpdatePlugins as $orderPostUpdatePlugin) {

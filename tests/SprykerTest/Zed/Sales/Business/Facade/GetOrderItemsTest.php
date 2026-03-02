@@ -41,9 +41,6 @@ class GetOrderItemsTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -51,9 +48,6 @@ class GetOrderItemsTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderItemsRetrieveOrderItemsByOrderItemIds(): void
     {
         // Arrange
@@ -82,9 +76,6 @@ class GetOrderItemsTest extends Unit
         $this->assertNotNull($itemTransfer->getProcess());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderItemsRetrieveOrderItemsByCustomerReference(): void
     {
         // Arrange
@@ -106,9 +97,6 @@ class GetOrderItemsTest extends Unit
         $this->assertCount(2, $itemTransfers);
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderItemsRetrieveOrderItemsByFilter(): void
     {
         // Arrange
@@ -131,9 +119,6 @@ class GetOrderItemsTest extends Unit
         $this->assertCount(1, $itemTransfers);
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderItemsCopyOrderReferenceToItems(): void
     {
         // Arrange
@@ -160,9 +145,6 @@ class GetOrderItemsTest extends Unit
         $this->assertSame($saveOrderTransfer->getOrderReference(), $itemTransfer->getOrderReference());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderItemsRetrieveOrderItemsByFakeOrderItemId(): void
     {
         // Arrange
@@ -186,9 +168,6 @@ class GetOrderItemsTest extends Unit
         $this->assertCount(1, $itemTransfers);
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderItemsRetrieveOrderItemsUsingExpanderPluginStack(): void
     {
         // Arrange

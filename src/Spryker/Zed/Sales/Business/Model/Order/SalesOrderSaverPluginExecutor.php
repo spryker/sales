@@ -26,13 +26,6 @@ class SalesOrderSaverPluginExecutor implements SalesOrderSaverPluginExecutorInte
         $this->orderItemExpanderPreSavePlugins = $orderItemExpanderPreSavePlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer $salesOrderItemEntity
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer
-     */
     public function executeOrderItemExpanderPreSavePlugins(
         QuoteTransfer $quoteTransfer,
         ItemTransfer $itemTransfer,

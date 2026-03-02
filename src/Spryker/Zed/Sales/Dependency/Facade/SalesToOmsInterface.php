@@ -13,16 +13,8 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
 interface SalesToOmsInterface
 {
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemState
-     */
     public function getInitialStateEntity(): SpyOmsOrderItemState;
 
-    /**
-     * @param string $processName
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderProcess
-     */
     public function getProcessEntity(string $processName): SpyOmsOrderProcess;
 
     /**
@@ -47,18 +39,8 @@ interface SalesToOmsInterface
      */
     public function getManualEventsByIdSalesOrder(int $idSalesOrder): array;
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return array
-     */
     public function getDistinctManualEventsByIdSalesOrder(int $idSalesOrder): array;
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return array
-     */
     public function getGroupedDistinctManualEventsByIdSalesOrder(int $idSalesOrder): array;
 
     /**
@@ -68,11 +50,6 @@ interface SalesToOmsInterface
      */
     public function getOrderItemMatrix(): array;
 
-    /**
-     * @param int $idOrder
-     *
-     * @return bool
-     */
     public function isOrderFlaggedExcludeFromCustomer(int $idOrder): bool;
 
     /**

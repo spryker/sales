@@ -29,11 +29,6 @@ class SequenceNumberOrderReferenceGenerator implements OrderReferenceGeneratorIn
      */
     protected SalesToStoreInterface $storeFacade;
 
-    /**
-     * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToSequenceNumberInterface $sequenceNumberFacade
-     * @param \Spryker\Zed\Sales\SalesConfig $salesConfig
-     * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToStoreInterface $storeFacade
-     */
     public function __construct(
         SalesToSequenceNumberInterface $sequenceNumberFacade,
         SalesConfig $salesConfig,

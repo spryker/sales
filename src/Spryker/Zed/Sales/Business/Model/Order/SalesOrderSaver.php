@@ -155,13 +155,6 @@ class SalesOrderSaver implements SalesOrderSaverInterface
         });
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param string $orderReference
-     *
-     * @return void
-     */
     protected function saveOrderSalesTransaction(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer, string $orderReference): void
     {
         $salesOrderEntity = $this->saveOrderEntity($quoteTransfer, $orderReference);
@@ -174,12 +167,6 @@ class SalesOrderSaver implements SalesOrderSaverInterface
         $this->executeOrderPostSavePlugins($saveOrderTransfer, $quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     protected function executeOrderPostSavePlugins(SaveOrderTransfer $saveOrderTransfer, QuoteTransfer $quoteTransfer): SaveOrderTransfer
     {
         $quoteProcessFlowName = $quoteTransfer->getQuoteProcessFlow()?->getNameOrFail();
@@ -314,12 +301,6 @@ class SalesOrderSaver implements SalesOrderSaverInterface
         $this->hydrateSalesOrderEntityFromPlugins($quoteTransfer, $salesOrderEntity);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     *
-     * @return void
-     */
     protected function hydrateSalesOrderEntityFromPlugins(QuoteTransfer $quoteTransfer, SpySalesOrder $salesOrderEntity): void
     {
         $salesOrderEntityTransfer = new SpySalesOrderEntityTransfer();
@@ -550,13 +531,6 @@ class SalesOrderSaver implements SalesOrderSaverInterface
             ->requireTotals();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $spySalesOrderItemEntity
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem
-     */
     protected function executeOrderItemExpanderPreSavePlugins(
         QuoteTransfer $quoteTransfer,
         ItemTransfer $itemTransfer,

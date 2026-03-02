@@ -74,11 +74,6 @@ class SalesDataHelper extends Module
         return $this->persistOrder($quoteTransfer, $stateMachineProcessName);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function haveSalesOrderAddress(AddressTransfer $addressTransfer): AddressTransfer
     {
         $addressTransfer = $this->saveSalesOrderAddress($addressTransfer);
@@ -90,12 +85,6 @@ class SalesDataHelper extends Module
         return $addressTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param string $stateMachineProcessName
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     protected function persistOrder(QuoteTransfer $quoteTransfer, string $stateMachineProcessName): SaveOrderTransfer
     {
         $saveOrderTransfer = $this->createOrder($quoteTransfer, $stateMachineProcessName);
@@ -126,12 +115,6 @@ class SalesDataHelper extends Module
         return $saveOrderTransfer;
     }
 
-    /**
-     * @param \Spryker\Zed\Sales\Business\SalesFacadeInterface $salesFacade
-     * @param string $stateMachineProcessName
-     *
-     * @return \Spryker\Zed\Sales\Business\SalesFacadeInterface
-     */
     protected function configureSalesFacadeForTests(SalesFacadeInterface $salesFacade, string $stateMachineProcessName): SalesFacadeInterface
     {
         $salesBusinessFactory = new SalesBusinessFactory();
@@ -167,19 +150,11 @@ class SalesDataHelper extends Module
         return $saveOrderTransfer;
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\SalesFacadeInterface
-     */
     protected function getSalesFacade(): SalesFacadeInterface
     {
         return $this->getLocator()->sales()->facade();
     }
 
-    /**
-     * @param array $override
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createQuoteTransfer(array $override = []): QuoteTransfer
     {
         return (new QuoteBuilder($override))
@@ -193,12 +168,6 @@ class SalesDataHelper extends Module
             ->build();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return void
-     */
     protected function executeSaveOrderPlugins(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer): void
     {
         foreach ($this->saveOrderStack as $orderSaver) {
@@ -206,9 +175,6 @@ class SalesDataHelper extends Module
         }
     }
 
-    /**
-     * @return void
-     */
     public function cleanStaticProperty(): void
     {
         $reflectedClass = new ReflectionClass(PersistenceManager::class);
@@ -245,11 +211,6 @@ class SalesDataHelper extends Module
         return $this->createSalesExpenseMapper()->mapExpenseEntityToSalesExpenseTransfer($expenseTransfer, $salesExpenseEntity);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function saveSalesOrderAddress(AddressTransfer $addressTransfer): AddressTransfer
     {
         $salesOrderAddressEntity = $this->createSalesOrderAddressQuery()
@@ -262,19 +223,11 @@ class SalesDataHelper extends Module
         return $addressTransfer->fromArray($salesOrderAddressEntity->toArray(), true);
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderAddressQuery
-     */
     protected function createSalesOrderAddressQuery(): SpySalesOrderAddressQuery
     {
         return SpySalesOrderAddressQuery::create();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return void
-     */
     protected function cleanupSalesOrderAddress(AddressTransfer $addressTransfer): void
     {
         $this->createSalesOrderAddressQuery()
@@ -282,9 +235,6 @@ class SalesDataHelper extends Module
             ->delete();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\Propel\Mapper\SalesExpenseMapperInterface
-     */
     protected function createSalesExpenseMapper(): SalesExpenseMapperInterface
     {
         return new SalesExpenseMapper();

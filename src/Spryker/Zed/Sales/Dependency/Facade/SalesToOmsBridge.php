@@ -26,19 +26,11 @@ class SalesToOmsBridge implements SalesToOmsInterface
         $this->omsFacade = $omsFacade;
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemState
-     */
     public function getInitialStateEntity(): SpyOmsOrderItemState
     {
         return $this->omsFacade->getInitialStateEntity();
     }
 
-    /**
-     * @param string $processName
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderProcess
-     */
     public function getProcessEntity(string $processName): SpyOmsOrderProcess
     {
         return $this->omsFacade->getProcessEntity($processName);
@@ -85,31 +77,16 @@ class SalesToOmsBridge implements SalesToOmsInterface
         return $this->omsFacade->getManualEventsByIdSalesOrder($idSalesOrder);
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return array
-     */
     public function getDistinctManualEventsByIdSalesOrder(int $idSalesOrder): array
     {
         return $this->omsFacade->getDistinctManualEventsByIdSalesOrder($idSalesOrder);
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return array
-     */
     public function getGroupedDistinctManualEventsByIdSalesOrder(int $idSalesOrder): array
     {
         return $this->omsFacade->getGroupedDistinctManualEventsByIdSalesOrder($idSalesOrder);
     }
 
-    /**
-     * @param int $idOrder
-     *
-     * @return bool
-     */
     public function isOrderFlaggedExcludeFromCustomer(int $idOrder): bool
     {
         return $this->omsFacade->isOrderFlaggedExcludeFromCustomer($idOrder);

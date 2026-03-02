@@ -91,11 +91,6 @@ class DetailController extends AbstractController
         ], $blockResponseData);
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return string
-     */
     protected function createRedirectLink(int $idSalesOrder): string
     {
         $redirectUrlParams = [

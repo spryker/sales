@@ -78,9 +78,6 @@ class SalesFacadeTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testGetOrderByIdSalesOrderShouldReturnOrderTransferWithOrderDataAndTotals(): void
     {
         $productTransfer = $this->tester->haveProduct();
@@ -111,9 +108,6 @@ class SalesFacadeTest extends Unit
         $this->assertSame(1, $orderTransfer->getTotalOrderCount());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderByIdSalesOrderWhenGuestCustomerShouldNotCountOrders(): void
     {
         $productTransfer = $this->tester->haveProduct();
@@ -131,9 +125,6 @@ class SalesFacadeTest extends Unit
         $this->assertSame(0, $orderTransfer->getTotalOrderCount());
     }
 
-    /**
-     * @return void
-     */
     public function testCustomerOrderShouldReturnListOfCustomerPlacedOrders(): void
     {
         $salesOrderEntity = $this->tester->create();
@@ -149,9 +140,6 @@ class SalesFacadeTest extends Unit
         $this->assertInstanceOf(OrderListTransfer::class, $orderListTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testGetCustomerOrderByOrderReference(): void
     {
         //Arrange
@@ -171,9 +159,6 @@ class SalesFacadeTest extends Unit
         $this->assertSame($orderEntity->getIdSalesOrder(), $order->getIdSalesOrder());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOffsetPaginatedCustomerOrderList(): void
     {
         //Arrange
@@ -193,9 +178,6 @@ class SalesFacadeTest extends Unit
         $this->assertSame($orderEntity->getOrderReference(), $orderListTransfer->getOrders()[0]->getOrderReference());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOffsetPaginatedCustomerOrderListByOrderReference(): void
     {
         //Arrange
@@ -216,9 +198,6 @@ class SalesFacadeTest extends Unit
         $this->assertSame($orderEntity->getOrderReference(), $orderListTransfer->getOrders()[0]->getOrderReference());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOffsetPaginatedCustomerOrderListByNonExistingOrderReference(): void
     {
         //Arrange
@@ -238,9 +217,6 @@ class SalesFacadeTest extends Unit
         $this->assertEmpty($orderListTransfer->getOrders());
     }
 
-    /**
-     * @return void
-     */
     public function testGetCustomerOrderByNonExistingOrderReference(): void
     {
         $salesFacade = $this->createSalesFacade();
@@ -252,9 +228,6 @@ class SalesFacadeTest extends Unit
         $this->assertNull($order->getIdSalesOrder());
     }
 
-    /**
-     * @return void
-     */
     public function testGetPaginatedCustomerOrdersReturnsOrdersExpandedWithLastGrandTotal(): void
     {
         // Arrange
@@ -287,9 +260,6 @@ class SalesFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetOffsetPaginatedCustomerOrderListReturnsOrdersExpandedWithLastGrandTotal(): void
     {
         // Arrange
@@ -322,9 +292,6 @@ class SalesFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetCustomerOrdersReturnsOrdersExpandedWithLastGrandTotal(): void
     {
         // Arrange
@@ -357,9 +324,6 @@ class SalesFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetCustomerOrderByOrderReferenceReturnsOrderExpandedWithLastGrandTotal(): void
     {
         // Arrange
@@ -388,9 +352,6 @@ class SalesFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testFindOrderByIdSalesOrderReturnsOrderExpandedWithLastGrandTotal(): void
     {
         // Arrange
@@ -416,9 +377,6 @@ class SalesFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderReturnsOrderExpandedWithLastGrandTotal(): void
     {
         // Arrange
@@ -480,9 +438,6 @@ class SalesFacadeTest extends Unit
             ->getOrders();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\SalesFacadeInterface
-     */
     protected function createSalesFacade(): SalesFacadeInterface
     {
         return $this->tester->getLocator()->sales()->facade();
@@ -498,11 +453,6 @@ class SalesFacadeTest extends Unit
         return (new OrderBuilder())->build()->fromArray($data);
     }
 
-    /**
-     * @param bool $isExecuted
-     *
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\SearchOrderExpanderPluginInterface
-     */
     protected function createSearchOrderExpanderPluginMock(bool $isExecuted): SearchOrderExpanderPluginInterface
     {
         $searchOrderExpanderPluginMock = $this->getMockBuilder(SearchOrderExpanderPluginInterface::class)

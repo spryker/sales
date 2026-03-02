@@ -36,19 +36,11 @@ class AbstractSpySalesOrderItem extends BaseSpySalesOrderItem implements BatchEn
      */
     protected bool $statusChanged = false;
 
-    /**
-     * @return void
-     */
     public function setStatusChanged(): void
     {
         $this->statusChanged = true;
     }
 
-    /**
-     * @param \Propel\Runtime\Connection\ConnectionInterface|null $con
-     *
-     * @return bool
-     */
     public function preSave(?ConnectionInterface $con = null): bool
     {
         $this->statusChanged = array_key_exists(SpySalesOrderItemTableMap::COL_FK_OMS_ORDER_ITEM_STATE, $this->modifiedColumns);
@@ -56,11 +48,6 @@ class AbstractSpySalesOrderItem extends BaseSpySalesOrderItem implements BatchEn
         return true;
     }
 
-    /**
-     * @param \Propel\Runtime\Connection\ConnectionInterface|null $con
-     *
-     * @return bool
-     */
     public function preUpdate(?ConnectionInterface $con = null): bool
     {
         // @phpstan-ignore function.alreadyNarrowedType (BC for supporting projects with UuidBehavior enabled)
@@ -72,11 +59,6 @@ class AbstractSpySalesOrderItem extends BaseSpySalesOrderItem implements BatchEn
         return parent::preUpdate($con);
     }
 
-    /**
-     * @param \Propel\Runtime\Connection\ConnectionInterface|null $con
-     *
-     * @return void
-     */
     public function postSave(?ConnectionInterface $con = null): void
     {
         if ($this->statusChanged && $this->getIdSalesOrderItem()) {
@@ -91,9 +73,6 @@ class AbstractSpySalesOrderItem extends BaseSpySalesOrderItem implements BatchEn
         $this->statusChanged = false;
     }
 
-    /**
-     * @return void
-     */
     public function batchPostSave(): void
     {
         if ($this->statusChanged && $this->getIdSalesOrderItem()) {

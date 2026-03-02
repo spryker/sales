@@ -88,9 +88,6 @@ class SalesFacadeSaveOrderTest extends Unit
      */
     protected $businessFactoryContainer;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -181,9 +178,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->salesFacade->saveSalesOrder($quoteTransfer, $checkoutResponseTransfer->getSaveOrder());
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderPostSavePluginInterface
-     */
     protected function getNeverCalledOrderPostSavePluginMock(): OrderPostSavePluginInterface
     {
         $orderPostSavePluginMock = $this
@@ -194,9 +188,6 @@ class SalesFacadeSaveOrderTest extends Unit
         return $orderPostSavePluginMock;
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderPostSavePluginInterface
-     */
     protected function getOnceCalledOrderPostSavePluginMock(): OrderPostSavePluginInterface
     {
         $orderPostSavePluginMock = $this
@@ -246,9 +237,6 @@ class SalesFacadeSaveOrderTest extends Unit
         ];
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderCreatesBillingAddressAndAssignsItToOrder(): void
     {
         // Arrange
@@ -273,26 +261,17 @@ class SalesFacadeSaveOrderTest extends Unit
             ->getIdSalesOrderAddress());
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CheckoutResponseTransfer
-     */
     private function getValidBaseResponseTransfer(): CheckoutResponseTransfer
     {
         return (new CheckoutResponseTransfer())
             ->setSaveOrder(new SaveOrderTransfer());
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     private function createSaveOrderTransfer(): SaveOrderTransfer
     {
         return new SaveOrderTransfer();
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderCreatesShippingAddressAndAssignsItToOrder(): void
     {
         // Arrange
@@ -317,9 +296,6 @@ class SalesFacadeSaveOrderTest extends Unit
             ->getIdSalesOrderAddress());
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderAssignsSavedOrderId(): void
     {
         $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
@@ -329,9 +305,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertNotNull($checkoutResponseTransfer->getSaveOrder()->getIdSalesOrder());
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderCreatesOrderAndSavesFieldsDeprecated(): void
     {
         $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
@@ -349,9 +322,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertSame($quoteTransfer->getCustomer()->getLastName(), $orderEntity->getLastName());
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderCreatesOrderAndSavesFields(): void
     {
         $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
@@ -369,9 +339,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertSame($quoteTransfer->getCustomer()->getLastName(), $orderEntity->getLastName());
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderWhenCustomerHaveCreatedAtSetShouldNotOverwriteOrderData(): void
     {
         $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
@@ -391,9 +358,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertNotEquals($customerCreatedAt->format('Y-m-d'), $orderEntity->getCreatedAt('Y-m-d'), 'Dates are not expected to be equal.');
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderCreatesAndFillsOrderItems(): void
     {
         $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
@@ -456,9 +420,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertSame(1, $item2Entity->getQuantity());
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderGeneratesOrderReference(): void
     {
         $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
@@ -467,9 +428,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertNotNull($checkoutResponseTransfer->getSaveOrder()->getOrderReference());
     }
 
-    /**
-     * @return void
-     */
     public function testCreateSalesExpenseSavesExpense(): void
     {
         // Assign
@@ -488,11 +446,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertEquals($savedExpenseTransfer->toArray(), $expenseTransfer->toArray());
     }
 
-    /**
-     * @param int $expensePrice
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer
-     */
     protected function createExpenseTransfer(int $expensePrice = 100): ExpenseTransfer
     {
         $expenseTransfer = (new ExpenseTransfer())
@@ -512,9 +465,6 @@ class SalesFacadeSaveOrderTest extends Unit
         return $expenseTransfer;
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderProcess
-     */
     protected function getProcessEntity(): SpyOmsOrderProcess
     {
         $omsOrderProcessEntity = (new SpyOmsOrderProcessQuery())->filterByName('CheckoutTest01')->findOneOrCreate();
@@ -523,9 +473,6 @@ class SalesFacadeSaveOrderTest extends Unit
         return $omsOrderProcessEntity;
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderCreatesOrderRawAndSavesFields(): void
     {
         //Arrange
@@ -575,9 +522,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->salesFacade->saveOrderRaw($quoteTransfer, $saveOrderTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderRawCreatesAndFillsOrderItems(): void
     {
         //Arrange
@@ -695,9 +639,6 @@ class SalesFacadeSaveOrderTest extends Unit
         }
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderCreatesOrderRawAndSavesOrderTotals(): void
     {
         //Arrange
@@ -719,9 +660,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertSame(337, $orderTotalsEntity->getSubtotal());
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderRawWithUniqueRandomIdOrderReferenceGenerator(): void
     {
         //Arrange
@@ -742,9 +680,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->tester->assertRegExp('/^\w{2}--\d{6}-\d{6}-\d{4}$/', $saveOrderTransfer->getOrderReference());
     }
 
-    /**
-     * @return void
-     */
     public function testSaveOrderRawUsesSequenceGeneratorByDefault(): void
     {
         //Arrange
@@ -759,11 +694,6 @@ class SalesFacadeSaveOrderTest extends Unit
         $this->assertFalse($this->salesConfig->useUniqueRandomIdOrderReferenceGenerator());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     private function getValidItemsQuoteTransfer(QuoteTransfer $quoteTransfer): QuoteTransfer
     {
         $shippingAddress = new AddressTransfer();

@@ -14,12 +14,6 @@ use Generated\Shared\Transfer\SpySalesOrderEntityTransfer;
 
 class SalesOrderMapper implements SalesOrderMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function mapQuoteTransferToOrderTransfer(QuoteTransfer $quoteTransfer, OrderTransfer $orderTransfer): OrderTransfer
     {
         $orderTransfer = $this->mapCustomerTransferToSalesOrderTransfer($quoteTransfer->getCustomerOrFail(), $orderTransfer);
@@ -30,12 +24,6 @@ class SalesOrderMapper implements SalesOrderMapperInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     public function mapOrderTransferToSalesOrderEntityTransfer(
         OrderTransfer $orderTransfer,
         SpySalesOrderEntityTransfer $salesOrderEntityTransfer
@@ -48,12 +36,6 @@ class SalesOrderMapper implements SalesOrderMapperInterface
         return $this->mapOrderShippingAddressToSalesOrderEntityTransfer($orderTransfer, $salesOrderEntityTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function mapCustomerTransferToSalesOrderTransfer(
         CustomerTransfer $customerTransfer,
         OrderTransfer $orderTransfer

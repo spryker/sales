@@ -23,11 +23,6 @@ use SprykerTest\Zed\Sales\SalesPresentationTester;
  */
 class SalesDetailCest
 {
-    /**
-     * @param \SprykerTest\Zed\Sales\SalesPresentationTester $i
-     *
-     * @return void
-     */
     public function _before(SalesPresentationTester $i): void
     {
         $i->markTestSkipped('Requires refactoring');
@@ -35,12 +30,6 @@ class SalesDetailCest
         $i->amLoggedInUser();
     }
 
-    /**
-     * @param \SprykerTest\Zed\Sales\SalesPresentationTester $i
-     * @param \SprykerTest\Zed\Sales\PageObject\SalesListPage $salesListPage
-     *
-     * @return void
-     */
     public function testThatOrderDetailPageIsVisibleWhenOrderExists(SalesPresentationTester $i, SalesListPage $salesListPage): void
     {
         $i->markTestSkipped('Requires refactoring');

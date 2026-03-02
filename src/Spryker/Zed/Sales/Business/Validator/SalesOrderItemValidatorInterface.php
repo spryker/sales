@@ -11,11 +11,6 @@ use Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer;
 
 interface SalesOrderItemValidatorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer $salesOrderItemCollectionResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer
-     */
     public function validate(
         SalesOrderItemCollectionResponseTransfer $salesOrderItemCollectionResponseTransfer
     ): SalesOrderItemCollectionResponseTransfer;

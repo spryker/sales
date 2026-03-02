@@ -19,26 +19,10 @@ use Generated\Shared\Transfer\SalesExpenseCollectionDeleteCriteriaTransfer;
 
 interface SalesRepositoryInterface
 {
-    /**
-     * @param string $customerReference
-     * @param string $orderReference
-     *
-     * @return int|null
-     */
     public function findCustomerOrderIdByOrderReference(string $customerReference, string $orderReference): ?int;
 
-    /**
-     * @param int $idOrderAddress
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer|null
-     */
     public function findOrderAddressByIdOrderAddress(int $idOrderAddress): ?AddressTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListRequestTransfer $orderListRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function getCustomerOrderListByCustomerReference(OrderListRequestTransfer $orderListRequestTransfer): OrderListTransfer;
 
     /**
@@ -48,11 +32,6 @@ interface SalesRepositoryInterface
      */
     public function getOrderItems(OrderItemFilterTransfer $orderItemFilterTransfer): array;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function searchOrders(OrderListTransfer $orderListTransfer): OrderListTransfer;
 
     /**
@@ -76,39 +55,14 @@ interface SalesRepositoryInterface
      */
     public function getCurrencyIsoCodesBySalesOrderIds(array $salesOrderIds): array;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderFilterTransfer $orderFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getSalesOrderDetails(OrderFilterTransfer $orderFilterTransfer): OrderTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return int
-     */
     public function getTotalCustomerOrderCount(OrderTransfer $orderTransfer): int;
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return int
-     */
     public function countUniqueProductsForOrder(int $idSalesOrder): int;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderCriteriaTransfer $orderCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderCollectionTransfer
-     */
     public function getOrderCollection(OrderCriteriaTransfer $orderCriteriaTransfer): OrderCollectionTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderFilterTransfer $orderFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer|null
-     */
     public function findOrderWithoutItems(OrderFilterTransfer $orderFilterTransfer): ?OrderTransfer;
 
     /**

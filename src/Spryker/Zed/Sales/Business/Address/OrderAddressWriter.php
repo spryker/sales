@@ -23,10 +23,6 @@ class OrderAddressWriter implements OrderAddressWriterInterface
      */
     protected $countryFacade;
 
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesEntityManagerInterface $entityManager
-     * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToCountryInterface $countryFacade
-     */
     public function __construct(
         SalesEntityManagerInterface $entityManager,
         SalesToCountryInterface $countryFacade
@@ -35,11 +31,6 @@ class OrderAddressWriter implements OrderAddressWriterInterface
         $this->countryFacade = $countryFacade;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function create(AddressTransfer $addressTransfer): AddressTransfer
     {
         $addressTransfer->setFkCountry(
@@ -55,12 +46,6 @@ class OrderAddressWriter implements OrderAddressWriterInterface
         return $this->entityManager->createSalesOrderAddress($this->cleanUpAddressUuid($addressTransfer));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     * @param int $idAddress
-     *
-     * @return bool
-     */
     public function update(AddressTransfer $addressTransfer, int $idAddress): bool
     {
         if ($idAddress !== 0) {
@@ -76,11 +61,6 @@ class OrderAddressWriter implements OrderAddressWriterInterface
         return true;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function cleanUpAddressUuid(AddressTransfer $addressTransfer): AddressTransfer
     {
         return $addressTransfer->setUuid(null);

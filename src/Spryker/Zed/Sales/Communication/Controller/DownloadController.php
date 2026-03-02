@@ -18,9 +18,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class DownloadController extends AbstractController
 {
-    /**
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
-     */
     public function indexAction(): StreamedResponse
     {
         return $this->getFactory()->createOrdersTable()->streamDownload();

@@ -17,9 +17,6 @@ abstract class AbstractSalesFormDataProvider
      */
     protected $salesQueryContainer;
 
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface $salesQueryContainer
-     */
     public function __construct(SalesQueryContainerInterface $salesQueryContainer)
     {
         $this->salesQueryContainer = $salesQueryContainer;

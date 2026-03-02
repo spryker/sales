@@ -15,17 +15,7 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
  */
 interface SalesOrderItemMapperInterface
 {
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $spySalesOrderItemEntity
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer
-     */
     public function mapSpySalesOrderItemEntityToSalesOrderItemEntity(SpySalesOrderItem $spySalesOrderItemEntity): SpySalesOrderItemEntityTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer $salesOrderItemEntity
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem
-     */
     public function mapSalesOrderItemEntityToSpySalesOrderItemEntity(SpySalesOrderItemEntityTransfer $salesOrderItemEntity): SpySalesOrderItem;
 }

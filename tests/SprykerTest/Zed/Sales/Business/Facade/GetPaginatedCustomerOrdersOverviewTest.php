@@ -53,9 +53,6 @@ class GetPaginatedCustomerOrdersOverviewTest extends Unit
      */
     protected SalesBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -63,9 +60,6 @@ class GetPaginatedCustomerOrdersOverviewTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testGetPaginatedCustomerOrdersOverviewSupportsSearchOrderExpanderPluginStack(): void
     {
         // Arrange
@@ -95,9 +89,6 @@ class GetPaginatedCustomerOrdersOverviewTest extends Unit
         $this->assertTrue($orderTransfers->getIterator()->current()->getIsCancellable());
     }
 
-    /**
-     * @return void
-     */
     public function testGetPaginatedCustomerOrdersOverviewShouldNotThrowAnExceptionWhenCustomerIsNotFound(): void
     {
         // Arrange
@@ -111,9 +102,6 @@ class GetPaginatedCustomerOrdersOverviewTest extends Unit
         $this->assertCount(0, $orderListTransfer->getOrders());
     }
 
-    /**
-     * @return void
-     */
     public function testReturnsOrdersExpandedWithLastGrandTotal(): void
     {
         // Arrange

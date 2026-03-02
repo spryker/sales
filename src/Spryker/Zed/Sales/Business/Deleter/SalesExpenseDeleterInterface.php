@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\SalesExpenseCollectionResponseTransfer;
 
 interface SalesExpenseDeleterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\SalesExpenseCollectionDeleteCriteriaTransfer $salesExpenseCollectionDeleteCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesExpenseCollectionResponseTransfer
-     */
     public function deleteSalesExpenseCollection(
         SalesExpenseCollectionDeleteCriteriaTransfer $salesExpenseCollectionDeleteCriteriaTransfer
     ): SalesExpenseCollectionResponseTransfer;

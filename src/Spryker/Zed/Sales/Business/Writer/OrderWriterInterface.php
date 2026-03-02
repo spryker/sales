@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\OrderCancelResponseTransfer;
 
 interface OrderWriterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\OrderCancelRequestTransfer $orderCancelRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderCancelResponseTransfer
-     */
     public function cancelOrder(OrderCancelRequestTransfer $orderCancelRequestTransfer): OrderCancelResponseTransfer;
 }

@@ -23,11 +23,6 @@ use SprykerTest\Zed\Sales\SalesPresentationTester;
  */
 class SalesListCest
 {
-    /**
-     * @param \SprykerTest\Zed\Sales\SalesPresentationTester $i
-     *
-     * @return void
-     */
     public function _before(SalesPresentationTester $i): void
     {
         $i->markTestSkipped('Requires refactoring');
@@ -35,12 +30,6 @@ class SalesListCest
         $i->amLoggedInUser();
     }
 
-    /**
-     * @param \SprykerTest\Zed\Sales\SalesPresentationTester $i
-     * @param \SprykerTest\Zed\Sales\PageObject\SalesListPage $salesListPage
-     *
-     * @return void
-     */
     public function testOrderListShouldContainOrders(SalesPresentationTester $i, SalesListPage $salesListPage): void
     {
         $i->markTestSkipped('Requires refactoring');
@@ -48,12 +37,6 @@ class SalesListCest
         $salesListPage->seeListOfOrders();
     }
 
-    /**
-     * @param \SprykerTest\Zed\Sales\SalesPresentationTester $i
-     * @param \SprykerTest\Zed\Sales\PageObject\SalesListPage $salesListPage
-     *
-     * @return void
-     */
     public function testICanGoToLatestOrderDetailsPage(SalesPresentationTester $i, SalesListPage $salesListPage): void
     {
         $i->markTestSkipped('Requires refactoring');
@@ -66,12 +49,6 @@ class SalesListCest
         $i->canSeeCurrentUrlEquals($url);
     }
 
-    /**
-     * @param \SprykerTest\Zed\Sales\SalesPresentationTester $i
-     * @param \SprykerTest\Zed\Sales\PageObject\SalesListPage $salesListPage
-     *
-     * @return void
-     */
     public function breadcrumbIsVisible(SalesPresentationTester $i, SalesListPage $salesListPage): void
     {
         $i->markTestSkipped('Requires refactoring');

@@ -72,12 +72,6 @@ class SalesOrderMapper
         return $mappedTotalsTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderAddress $salesOrderAddressEntity
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderAddress
-     */
     public function mapSalesOrderAddressEntityTransferToSalesOrderAddressEntity(
         SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer,
         SpySalesOrderAddress $salesOrderAddressEntity
@@ -87,12 +81,6 @@ class SalesOrderMapper
         return $salesOrderAddressEntity;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderAddress $salesOrderAddressEntity
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer
-     */
     public function mapSalesOrderAddressEntityToSalesOrderAddressEntityTransfer(
         SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer,
         SpySalesOrderAddress $salesOrderAddressEntity
@@ -100,12 +88,6 @@ class SalesOrderMapper
         return $salesOrderAddressEntityTransfer->fromArray((array)$salesOrderAddressEntity->toArray(), true);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrder
-     */
     public function mapSalesOrderEntityTransferToSalesOrderEntity(
         SpySalesOrderEntityTransfer $salesOrderEntityTransfer,
         SpySalesOrder $salesOrderEntity
@@ -115,12 +97,6 @@ class SalesOrderMapper
         return $salesOrderEntity;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     public function mapSalesOrderEntityToSalesOrderEntityTransfer(
         SpySalesOrderEntityTransfer $salesOrderEntityTransfer,
         SpySalesOrder $salesOrderEntity
@@ -128,12 +104,6 @@ class SalesOrderMapper
         return $salesOrderEntityTransfer->fromArray((array)$salesOrderEntity->toArray(), true);
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function mapSalesOrderEntityToSalesOrderTransfer(
         SpySalesOrder $salesOrderEntity,
         OrderTransfer $orderTransfer
@@ -148,12 +118,6 @@ class SalesOrderMapper
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItemEntity
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemTransfer
-     */
     protected function mapSalesOrderItemEntityToItemTransfer(
         SpySalesOrderItem $salesOrderItemEntity,
         ItemTransfer $itemTransfer

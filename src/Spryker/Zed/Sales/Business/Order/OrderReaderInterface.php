@@ -21,24 +21,9 @@ interface OrderReaderInterface
      */
     public function getDistinctOrderStates(int $idSalesOrder): array;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderCriteriaTransfer $orderCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer|null
-     */
     public function findOrderByOrderCriteria(OrderCriteriaTransfer $orderCriteriaTransfer): ?OrderTransfer;
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer|null
-     */
     public function findOrderByIdSalesOrder(int $idSalesOrder): ?OrderTransfer;
 
-    /**
-     * @param int $idSalesOrderItem
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer|null
-     */
     public function findOrderByIdSalesOrderItem(int $idSalesOrderItem): ?OrderTransfer;
 }

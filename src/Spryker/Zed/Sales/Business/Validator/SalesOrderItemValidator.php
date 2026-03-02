@@ -22,11 +22,6 @@ class SalesOrderItemValidator implements SalesOrderItemValidatorInterface
     {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer $salesOrderItemCollectionResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer
-     */
     public function validate(
         SalesOrderItemCollectionResponseTransfer $salesOrderItemCollectionResponseTransfer
     ): SalesOrderItemCollectionResponseTransfer {
@@ -73,12 +68,6 @@ class SalesOrderItemValidator implements SalesOrderItemValidatorInterface
         return $postValidationErrorTransfers->count() > $initialErrorTransfers->count();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer $salesOrderItemCollectionResponseTransfer
-     * @param \Generated\Shared\Transfer\ErrorCollectionTransfer $errorCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer
-     */
     protected function mergeErrors(
         SalesOrderItemCollectionResponseTransfer $salesOrderItemCollectionResponseTransfer,
         ErrorCollectionTransfer $errorCollectionTransfer

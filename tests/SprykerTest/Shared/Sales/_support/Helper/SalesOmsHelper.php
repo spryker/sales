@@ -45,11 +45,6 @@ class SalesOmsHelper extends Module
         self::STATE_MACHINE_NAME => 'ForeignPaymentStateMachine01',
     ];
 
-    /**
-     * @param \Codeception\TestInterface $test
-     *
-     * @return void
-     */
     public function _before(TestInterface $test): void
     {
         parent::_before($test);
@@ -57,9 +52,6 @@ class SalesOmsHelper extends Module
         $this->orderReference = Uuid::uuid4()->toString();
     }
 
-    /**
-     * @return string
-     */
     public function getOrderReference(): string
     {
         return $this->orderReference;
@@ -79,9 +71,6 @@ class SalesOmsHelper extends Module
         return $this->salesOrderItemEntity;
     }
 
-    /**
-     * @return void
-     */
     public function setupStateMachine(): void
     {
         $this->stateMachineName = $this->config[static::STATE_MACHINE_NAME];
@@ -90,22 +79,11 @@ class SalesOmsHelper extends Module
         $this->getOmsHelper()->configureTestStateMachine([$this->stateMachineName], $xmlFileDirectory);
     }
 
-    /**
-     * @param string $stateMachineName
-     *
-     * @return bool
-     */
     public function isStateMachine(string $stateMachineName): bool
     {
         return $stateMachineName === $this->stateMachineName;
     }
 
-    /**
-     * @param string $stateName
-     * @param array $seed
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem
-     */
     public function haveOrderItemInState(string $stateName, array $seed = []): SpySalesOrderItem
     {
         $salesHelper = $this->getSalesHelper();
@@ -135,11 +113,6 @@ class SalesOmsHelper extends Module
         return $salesOrderItemEntity;
     }
 
-    /**
-     * @param string $expectedStatus
-     *
-     * @return void
-     */
     public function assertOrderItemIsInState(string $expectedStatus): void
     {
         $this->salesOrderItemEntity->reload();
@@ -152,11 +125,6 @@ class SalesOmsHelper extends Module
         );
     }
 
-    /**
-     * @param string|null $eventName
-     *
-     * @return void
-     */
     public function tryToTransitionOrderItems(?string $eventName = null): void
     {
         /** @var \Spryker\Zed\Oms\Business\OmsFacadeInterface $omsFacade */

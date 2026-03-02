@@ -50,9 +50,6 @@ class DeleteSalesExpenseCollectionTest extends Unit
      */
     protected SalesBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -60,9 +57,6 @@ class DeleteSalesExpenseCollectionTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesExpensesBySalesOrderIdsWhenTheCorrespondingExpensesExist(): void
     {
         // Arrange
@@ -99,9 +93,6 @@ class DeleteSalesExpenseCollectionTest extends Unit
         $this->assertContains($expenseTransfer2->getIdSalesExpenseOrFail(), $salesExpenseIds);
     }
 
-    /**
-     * @return void
-     */
     public function testReturnsDeletedSalesExpensesInResponse(): void
     {
         // Arrange
@@ -134,9 +125,6 @@ class DeleteSalesExpenseCollectionTest extends Unit
         $this->assertContains($expenseTransfer2->getIdSalesExpenseOrFail(), $deletedExpenseIds);
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesExpensesBySalesOrderIdsWhenSomeOfSpecifiedExpensesExist(): void
     {
         // Arrange
@@ -169,9 +157,6 @@ class DeleteSalesExpenseCollectionTest extends Unit
         $this->assertContains($expenseTransfer->getIdSalesExpenseOrFail(), $salesExpenseIds);
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesExpensesByTypesWhenTheCorrespondingExpensesExist(): void
     {
         // Arrange
@@ -216,9 +201,6 @@ class DeleteSalesExpenseCollectionTest extends Unit
         $this->assertContains($expenseTransfer->getIdSalesExpenseOrFail(), $salesExpenseIds);
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesExpensesByTypesWhenSomeOfSpecifiedExpensesExist(): void
     {
         // Arrange
@@ -252,9 +234,6 @@ class DeleteSalesExpenseCollectionTest extends Unit
         $this->assertContains($expenseTransfer->getIdSalesExpenseOrFail(), $salesExpenseIds);
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesExpensesByBothExpenseIdsAndTypesWhenTheCorrespondingExpensesExist(): void
     {
         // Arrange
@@ -302,9 +281,6 @@ class DeleteSalesExpenseCollectionTest extends Unit
         $this->assertContains($expenseTransfer3->getIdSalesExpenseOrFail(), $salesExpenseIds);
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesAllExpensesWhenNoCriteriaPropertiesAreProvided(): void
     {
         $this->markTestSkipped('This test is skipped because it is not possible to delete all expenses without any criteria. The test was only successful because of all data was removed from the database recursively in the setUp method.');
@@ -331,9 +307,6 @@ class DeleteSalesExpenseCollectionTest extends Unit
         $this->assertSame($expenseTransfersFromDbBeforeTest, $expenseTransfersFromDbAfterTestAfterTest);
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotDeleteAnyExpensesWhenSpecifiedExpensesDoesNotExist(): void
     {
         // Arrange

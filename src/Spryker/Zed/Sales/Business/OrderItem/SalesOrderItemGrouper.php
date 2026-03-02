@@ -101,12 +101,6 @@ class SalesOrderItemGrouper implements SalesOrderItemGrouperInterface
         return array_values($uniqueItemTransfers);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $calculatedOrderItem
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemTransfer
-     */
     protected function setQuantityAndPriceOfUniqueOrderItem(ItemTransfer $calculatedOrderItem, ItemTransfer $itemTransfer): ItemTransfer
     {
         $calculatedOrderItem->setQuantity($calculatedOrderItem->getQuantity() + $itemTransfer->getQuantity());

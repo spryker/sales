@@ -14,11 +14,6 @@ use Generated\Shared\Transfer\ProductOptionTransfer;
 
 class OrderItemTransformer implements OrderItemTransformerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemCollectionTransfer
-     */
     public function transformSplittableItem(ItemTransfer $itemTransfer): ItemCollectionTransfer
     {
         $transformedItemsCollection = new ItemCollectionTransfer();
@@ -47,11 +42,6 @@ class OrderItemTransformer implements OrderItemTransformerInterface
         return $transformedItemsCollection;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductOptionTransfer $productOptionTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductOptionTransfer
-     */
     protected function copyProductOptionTransfer(ProductOptionTransfer $productOptionTransfer): ProductOptionTransfer
     {
         $transformedProductOptionTransfer = new ProductOptionTransfer();

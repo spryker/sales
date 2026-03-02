@@ -18,22 +18,11 @@ class TesterSalesConfig extends SalesConfig
      */
     protected $stateMachineProcessName;
 
-    /**
-     * @param string $stateMachineProcessName
-     *
-     * @return void
-     */
     public function setStateMachineProcessName(string $stateMachineProcessName): void
     {
         $this->stateMachineProcessName = $stateMachineProcessName;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return string
-     */
     public function determineProcessForOrderItem(QuoteTransfer $quoteTransfer, ItemTransfer $itemTransfer): string
     {
         return $this->stateMachineProcessName;

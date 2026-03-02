@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\ExpenseTransfer;
 
 interface ExpenseUpdaterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer
-     */
     public function updateSalesExpense(ExpenseTransfer $expenseTransfer): ExpenseTransfer;
 }

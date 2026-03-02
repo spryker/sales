@@ -12,12 +12,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface SalesOrderAddressUpdaterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function updateSalesOrderAddressesByQuote(
         QuoteTransfer $quoteTransfer,
         OrderTransfer $orderTransfer

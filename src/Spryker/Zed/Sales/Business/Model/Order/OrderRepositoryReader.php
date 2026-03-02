@@ -23,10 +23,6 @@ class OrderRepositoryReader implements OrderRepositoryReaderInterface
      */
     protected $salesRepository;
 
-    /**
-     * @param \Spryker\Zed\Sales\Business\StrategyResolver\OrderHydratorStrategyResolverInterface $orderHydratorStrategyResolver
-     * @param \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface $salesRepository
-     */
     public function __construct(
         OrderHydratorStrategyResolverInterface $orderHydratorStrategyResolver,
         SalesRepositoryInterface $salesRepository
@@ -35,11 +31,6 @@ class OrderRepositoryReader implements OrderRepositoryReaderInterface
         $this->salesRepository = $salesRepository;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getCustomerOrderByOrderReference(OrderTransfer $orderTransfer): OrderTransfer
     {
         $idSalesOrder = $this->salesRepository->findCustomerOrderIdByOrderReference(

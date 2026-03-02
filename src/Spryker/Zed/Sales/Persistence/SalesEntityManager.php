@@ -33,11 +33,6 @@ class SalesEntityManager extends AbstractEntityManager implements SalesEntityMan
      */
     protected const COLUMN_FK_SALES_ORDER_ADDRESS_SHIPPING = 'FkSalesOrderAddressShipping';
 
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer
-     */
     public function createSalesExpense(ExpenseTransfer $expenseTransfer): ExpenseTransfer
     {
         $salesOrderExpenseEntity = $this->getFactory()
@@ -51,11 +46,6 @@ class SalesEntityManager extends AbstractEntityManager implements SalesEntityMan
         return $expenseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer
-     */
     public function updateSalesExpense(ExpenseTransfer $expenseTransfer): ExpenseTransfer
     {
         $expenseTransfer->requireIdSalesExpense();
@@ -73,11 +63,6 @@ class SalesEntityManager extends AbstractEntityManager implements SalesEntityMan
         return $expenseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function createSalesOrderAddress(AddressTransfer $addressTransfer): AddressTransfer
     {
         $salesOrderAddressEntity = $this->getFactory()
@@ -91,11 +76,6 @@ class SalesEntityManager extends AbstractEntityManager implements SalesEntityMan
         return $addressTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function updateSalesOrderAddress(AddressTransfer $addressTransfer): AddressTransfer
     {
         $salesOrderAddressEntity = $this->getFactory()
@@ -112,12 +92,6 @@ class SalesEntityManager extends AbstractEntityManager implements SalesEntityMan
         return $addressTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return void
-     */
     public function saveSalesOrderTotals(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer): void
     {
         $salesOrderTotalsEntity = $this->getFactory()
@@ -126,11 +100,6 @@ class SalesEntityManager extends AbstractEntityManager implements SalesEntityMan
         $salesOrderTotalsEntity->save();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     public function saveOrderEntity(SpySalesOrderEntityTransfer $salesOrderEntityTransfer): SpySalesOrderEntityTransfer
     {
         $salesOrderEntity = null;
@@ -154,11 +123,6 @@ class SalesEntityManager extends AbstractEntityManager implements SalesEntityMan
             ->mapSalesOrderEntityToSalesOrderEntityTransfer($salesOrderEntityTransfer, $salesOrderEntity);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer $salesOrderItemEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer
-     */
     public function saveSalesOrderItems(SpySalesOrderItemEntityTransfer $salesOrderItemEntityTransfer): SpySalesOrderItemEntityTransfer
     {
         $salesOrderItemEntity = null;
@@ -281,11 +245,6 @@ class SalesEntityManager extends AbstractEntityManager implements SalesEntityMan
             ->delete();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer
-     */
     public function saveSalesOrderAddressEntity(SpySalesOrderAddressEntityTransfer $salesOrderAddressEntityTransfer): SpySalesOrderAddressEntityTransfer
     {
         $salesOrderAddressEntity = $this->getFactory()
@@ -298,11 +257,6 @@ class SalesEntityManager extends AbstractEntityManager implements SalesEntityMan
             ->mapSalesOrderAddressEntityToSalesOrderAddressEntityTransfer($salesOrderAddressEntityTransfer, $salesOrderAddressEntity);
     }
 
-    /**
-     * @param int $idSalesOrderAddress
-     *
-     * @return void
-     */
     public function unsetSalesOrderShippingAddress(int $idSalesOrderAddress): void
     {
         $this->getFactory()

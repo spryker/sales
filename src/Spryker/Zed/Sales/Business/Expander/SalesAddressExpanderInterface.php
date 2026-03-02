@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\AddressTransfer;
 
 interface SalesAddressExpanderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function expandWithCustomerOrSalesAddress(AddressTransfer $addressTransfer): AddressTransfer;
 }

@@ -12,11 +12,5 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface OrderStateMachineResolverInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return string
-     */
     public function resolve(QuoteTransfer $quoteTransfer, ItemTransfer $itemTransfer): string;
 }

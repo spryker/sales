@@ -56,39 +56,21 @@ class SalesDetailPage
      */
     protected $tester;
 
-    /**
-     * @param \SprykerTest\Zed\Sales\SalesPresentationTester $tester
-     */
     public function __construct(SalesPresentationTester $tester)
     {
         $this->tester = $tester;
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return string
-     */
     public static function getOrderDetailsPageUrl(int $idSalesOrder): string
     {
         return static::URL . $idSalesOrder;
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     *
-     * @return string
-     */
     public static function getCurrentStateSelector(int $idSalesOrderItem): string
     {
         return str_replace('{{idSalesOrderItem}}', $idSalesOrderItem, static::SELECTOR_CURRENT_STATE);
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     *
-     * @return string
-     */
     public static function getItemTotalElementSelector(int $idSalesOrderItem): string
     {
         return str_replace('{{idSalesOrderItem}}', $idSalesOrderItem, static::SELECTOR_ITEM_TOTAL_ELEMENT);
@@ -114,11 +96,6 @@ class SalesDetailPage
         return str_replace('{{position}}', $rowPosition, static::SELECTOR_SALES_ORDER_ROW);
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return void
-     */
     public function openDetailPageForOrder(int $idSalesOrder): void
     {
         $this->tester->amOnPage(static::getOrderDetailsPageUrl($idSalesOrder));

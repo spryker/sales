@@ -23,21 +23,12 @@ class SalesAddressExpander implements SalesAddressExpanderInterface
      */
     protected $repository;
 
-    /**
-     * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToCustomerInterface $customerFacade
-     * @param \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface $repository
-     */
     public function __construct(SalesToCustomerInterface $customerFacade, SalesRepositoryInterface $repository)
     {
         $this->customerFacade = $customerFacade;
         $this->repository = $repository;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function expandWithCustomerOrSalesAddress(AddressTransfer $addressTransfer): AddressTransfer
     {
         if ($addressTransfer->getIdCustomerAddress() === null) {
@@ -47,11 +38,6 @@ class SalesAddressExpander implements SalesAddressExpanderInterface
         return $this->expandWithCustomerAddress($addressTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function expandWithCustomerAddress(AddressTransfer $addressTransfer): AddressTransfer
     {
         $idCustomerAddress = $addressTransfer->getIdCustomerAddress();
@@ -67,11 +53,6 @@ class SalesAddressExpander implements SalesAddressExpanderInterface
         return $foundAddressTransfer->setIdSalesOrderAddress($addressTransfer->getIdSalesOrderAddress());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function expandWithSalesAddress(AddressTransfer $addressTransfer): AddressTransfer
     {
         $idSalesOrderAddress = $addressTransfer->getIdSalesOrderAddress();

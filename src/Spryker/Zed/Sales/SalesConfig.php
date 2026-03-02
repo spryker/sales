@@ -188,11 +188,6 @@ class SalesConfig extends AbstractBundleConfig
         return true;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     protected function hasItemLevelShipment(QuoteTransfer $quoteTransfer): bool
     {
         foreach ($quoteTransfer->getItems() as $itemTransfer) {
@@ -221,11 +216,6 @@ class SalesConfig extends AbstractBundleConfig
         return true;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     protected function isTestOrderWithMultiShippingAddress(QuoteTransfer $quoteTransfer): bool
     {
         foreach ($quoteTransfer->getItems() as $itemTransfer) {

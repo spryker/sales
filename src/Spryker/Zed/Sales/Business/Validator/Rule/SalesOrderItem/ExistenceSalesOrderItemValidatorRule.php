@@ -20,10 +20,6 @@ class ExistenceSalesOrderItemValidatorRule implements SalesOrderItemValidatorRul
      */
     protected const GLOSSARY_KEY_VALIDATION_SALES_ORDER_ITEM_ENTITY_NOT_FOUND = 'sales.validation.sales_order_item_entity_not_found';
 
-    /**
-     * @param \Spryker\Zed\Sales\Business\Validator\Util\ErrorAdderInterface $errorAdder
-     * @param \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface $salesRepository
-     */
     public function __construct(protected ErrorAdderInterface $errorAdder, protected SalesRepositoryInterface $salesRepository)
     {
     }

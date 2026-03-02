@@ -19,10 +19,6 @@ class AddressFormDataProvider extends AbstractSalesFormDataProvider
      */
     protected $countryFacade;
 
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface $salesQueryContainer
-     * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToCountryInterface $countryFacade
-     */
     public function __construct(
         SalesQueryContainerInterface $salesQueryContainer,
         SalesToCountryInterface $countryFacade

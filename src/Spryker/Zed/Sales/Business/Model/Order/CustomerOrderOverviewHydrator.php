@@ -13,11 +13,6 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
 class CustomerOrderOverviewHydrator implements CustomerOrderOverviewHydratorInterface
 {
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function hydrateOrderTransfer(SpySalesOrder $orderEntity): OrderTransfer
     {
         $orderTransfer = $this->mapBaseOrderTransfer($orderEntity);
@@ -26,11 +21,6 @@ class CustomerOrderOverviewHydrator implements CustomerOrderOverviewHydratorInte
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function mapBaseOrderTransfer(SpySalesOrder $orderEntity): OrderTransfer
     {
         $orderTransfer = new OrderTransfer();
@@ -39,12 +29,6 @@ class CustomerOrderOverviewHydrator implements CustomerOrderOverviewHydratorInte
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return void
-     */
     protected function hydrateOrderTotals(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): void
     {
         $salesOrderTotalsEntity = $orderEntity->getLastOrderTotals();

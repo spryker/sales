@@ -12,18 +12,7 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 
 interface SalesOrderAddressMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderAddress
-     */
     public function mapAddressTransferToSalesOrderAddressEntity(AddressTransfer $addressTransfer): SpySalesOrderAddress;
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderAddress $salesOrderAddressEntity
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function mapAddressEntityToAddressTransfer(AddressTransfer $addressTransfer, SpySalesOrderAddress $salesOrderAddressEntity): AddressTransfer;
 }

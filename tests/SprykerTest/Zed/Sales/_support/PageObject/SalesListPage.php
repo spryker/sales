@@ -26,9 +26,6 @@ class SalesListPage
      */
     protected $tester;
 
-    /**
-     * @param \SprykerTest\Zed\Sales\SalesPresentationTester $tester
-     */
     public function __construct(SalesPresentationTester $tester)
     {
         $this->tester = $tester;
@@ -45,17 +42,11 @@ class SalesListPage
         return $this->tester->grabMultiple(static::SELECTOR_ID_SALES_ORDER_ROWS);
     }
 
-    /**
-     * @return void
-     */
     public function seeListOfOrders(): void
     {
         $this->tester->assertTrue(count($this->grabOrderIdsFromGrid()) > 0);
     }
 
-    /**
-     * @return int
-     */
     public function grabLatestOrderId(): int
     {
         return $this->grabOrderIdsFromGrid()[0];

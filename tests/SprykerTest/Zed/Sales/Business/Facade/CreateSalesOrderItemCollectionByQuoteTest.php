@@ -68,9 +68,6 @@ class CreateSalesOrderItemCollectionByQuoteTest extends Unit
      */
     protected SalesFacadeInterface $salesFacade;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -296,9 +293,6 @@ class CreateSalesOrderItemCollectionByQuoteTest extends Unit
         ];
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\SalesOrderItemsPreCreatePluginInterface
-     */
     protected function getSalesOrderItemsPreCreatePluginMock(): SalesOrderItemsPreCreatePluginInterface
     {
         $salesOrderItemsPreCreatePluginMock = $this
@@ -315,9 +309,6 @@ class CreateSalesOrderItemCollectionByQuoteTest extends Unit
         return $salesOrderItemsPreCreatePluginMock;
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\SalesOrderItemCollectionPostCreatePluginInterface
-     */
     protected function getSalesOrderItemCollectionPostCreatePluginMock(): SalesOrderItemCollectionPostCreatePluginInterface
     {
         $salesOrderItemCollectionPostCreatePluginMock = $this
@@ -334,9 +325,6 @@ class CreateSalesOrderItemCollectionByQuoteTest extends Unit
         return $salesOrderItemCollectionPostCreatePluginMock;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function prepareQuoteWithOneItem(): QuoteTransfer
     {
         $saveOrderTransfer = new SaveOrderTransfer();
@@ -350,11 +338,6 @@ class CreateSalesOrderItemCollectionByQuoteTest extends Unit
         return $quoteTransfer;
     }
 
-    /**
-     * @param string $hashColumn
-     *
-     * @return void
-     */
     protected function mockSalesConfig(string $hashColumn): void
     {
         $businessFactory = new SalesBusinessFactory();
@@ -380,11 +363,6 @@ class CreateSalesOrderItemCollectionByQuoteTest extends Unit
         $this->salesFacade->setFactory($businessFactory);
     }
 
-    /**
-     * @param string $hashColumn
-     *
-     * @return void
-     */
     protected function addOrderItemExpanderPreSavePlugins(string $hashColumn): void
     {
         if ($hashColumn === '') {

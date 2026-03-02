@@ -78,9 +78,6 @@ class SalesPersistenceFactory extends AbstractPersistenceFactory
         return SpySalesOrderCommentQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderTotalsQuery
-     */
     public function getSalesOrderTotalsPropelQuery(): SpySalesOrderTotalsQuery
     {
         return SpySalesOrderTotalsQuery::create();
@@ -96,73 +93,46 @@ class SalesPersistenceFactory extends AbstractPersistenceFactory
         return SpyOmsOrderItemStateHistoryQuery::create();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\Propel\Mapper\SalesExpenseMapperInterface
-     */
     public function createSalesExpenseMapper(): SalesExpenseMapperInterface
     {
         return new SalesExpenseMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\Propel\Mapper\SalesOrderAddressMapperInterface
-     */
     public function createSalesOrderAddressMapper(): SalesOrderAddressMapperInterface
     {
         return new SalesOrderAddressMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\Propel\Mapper\SalesOrderMapper
-     */
     public function createSalesOrderMapper(): SalesOrderMapper
     {
         return new SalesOrderMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\Propel\Mapper\SalesOrderTotalsMapper
-     */
     public function createSalesOrderTotalsMapper(): SalesOrderTotalsMapper
     {
         return new SalesOrderTotalsMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\Propel\Mapper\SalesOrderItemMapperInterface
-     */
     public function createSalesOrderItemMapper(): SalesOrderItemMapperInterface
     {
         return new SalesOrderItemMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\Propel\QueryBuilder\OrderSearchFilterFieldQueryBuilderInterface
-     */
     public function createOrderSearchFilterFieldQueryBuilder(): OrderSearchFilterFieldQueryBuilderInterface
     {
         return new OrderSearchFilterFieldQueryBuilder();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\Propel\QueryBuilder\OrderSearchQueryJoinQueryBuilderInterface
-     */
     public function createOrderSearchQueryJoinQueryBuilder(): OrderSearchQueryJoinQueryBuilderInterface
     {
         return new OrderSearchQueryJoinQueryBuilder();
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface
-     */
     public function getSalesQueryContainer(): SalesQueryContainerInterface
     {
         return $this->getQueryContainer();
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemStateQuery
-     */
     public function getOmsOrderItemStatePropelQuery(): SpyOmsOrderItemStateQuery
     {
         return $this->getProvidedDependency(SalesDependencyProvider::PROPEL_QUERY_OMS_ORDER_ITEM_STATE);

@@ -13,9 +13,6 @@ use Twig\Environment;
 
 class OrdersTableMock extends OrdersTable
 {
-    /**
-     * @return array
-     */
     public function fetchData(): array
     {
         return $this->init()->prepareData($this->config);
@@ -29,11 +26,6 @@ class OrdersTableMock extends OrdersTable
         return new Request();
     }
 
-    /**
-     * @param \Twig\Environment $twig
-     *
-     * @return void
-     */
     public function setTwig(Environment $twig): void
     {
         $this->twig = $twig;

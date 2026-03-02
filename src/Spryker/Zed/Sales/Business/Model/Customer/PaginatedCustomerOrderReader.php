@@ -89,12 +89,6 @@ class PaginatedCustomerOrderReader extends CustomerOrderReader
         return $collection;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $ordersQuery
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     protected function updatePaginationTransfer(OrderListTransfer $orderListTransfer, SpySalesOrderQuery $ordersQuery): OrderListTransfer
     {
         if ($orderListTransfer->getPagination()) {

@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\ItemTransfer;
 
 interface OrderItemTransformerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemCollectionTransfer
-     */
     public function transformSplittableItem(ItemTransfer $itemTransfer): ItemCollectionTransfer;
 }

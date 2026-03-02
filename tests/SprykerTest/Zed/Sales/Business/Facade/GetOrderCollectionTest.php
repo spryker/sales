@@ -40,9 +40,6 @@ class GetOrderCollectionTest extends Unit
      */
     protected SalesBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -50,9 +47,6 @@ class GetOrderCollectionTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnCollectionOfOrders(): void
     {
         // Arrange
@@ -69,9 +63,6 @@ class GetOrderCollectionTest extends Unit
         $this->assertCount($ordersCountBeforeTest + 2, $orderCollectionTransfer->getOrders());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnCollectionOfOrdersFilteredByIdSalesOrder(): void
     {
         // Arrange
@@ -94,9 +85,6 @@ class GetOrderCollectionTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnCollectionOfOrdersFilteredByOrderReference(): void
     {
         // Arrange
@@ -119,9 +107,6 @@ class GetOrderCollectionTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnCollectionOfOrdersFilteredByCustomerReference(): void
     {
         // Arrange
@@ -149,9 +134,6 @@ class GetOrderCollectionTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnOrderCollectionSortedByFieldAsc(): void
     {
         // Arrange
@@ -190,9 +172,6 @@ class GetOrderCollectionTest extends Unit
         $this->assertSame('AAAAA', $orderTransfers->offsetGet(2)->getOrderReference());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnOrderCollectionSortedByFieldDesc(): void
     {
         // Arrange
@@ -230,9 +209,6 @@ class GetOrderCollectionTest extends Unit
         $this->assertSame('order-reference-1', $orderTransfers->offsetGet(2)->getOrderReference());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnSalesOrderAmendmentCollectionPaginatedByLimitAndOffset(): void
     {
         // Arrange
@@ -262,9 +238,6 @@ class GetOrderCollectionTest extends Unit
         $this->assertSame($ordersCountBeforeTest + 5, $paginationTransfer->getNbResults());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnSalesOrderAmendmentCollectionPaginatedByPageAndMaxPerPage(): void
     {
         // Arrange
@@ -303,9 +276,6 @@ class GetOrderCollectionTest extends Unit
         $this->assertSame(1, $paginationTransfer->getPreviousPageOrFail());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldExecuteOrderExpanderPluginStack(): void
     {
         // Arrange
@@ -323,9 +293,6 @@ class GetOrderCollectionTest extends Unit
         $this->tester->getFacade()->getOrderCollection($orderCriteriaTransfer);
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderExpanderPluginInterface
-     */
     protected function getOrderExpanderPluginMock(): OrderExpanderPluginInterface
     {
         $orderExpanderPluginMock = $this->getMockBuilder(OrderExpanderPluginInterface::class)->getMock();

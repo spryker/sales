@@ -45,9 +45,6 @@ class ShippingAddressSaveTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -57,9 +54,6 @@ class ShippingAddressSaveTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     protected function _after(): void
     {
         parent::_after();
@@ -113,9 +107,6 @@ class ShippingAddressSaveTest extends Unit
         $this->assertNull($salesOrderQuery->findOne()->getShippingAddress(), 'Shipping address should not have been assigned on sales order level.');
     }
 
-    /**
-     * @return array
-     */
     public function saveOrderAddressShouldPersistAddressEntityDataProvider(): array
     {
         return [
@@ -123,9 +114,6 @@ class ShippingAddressSaveTest extends Unit
         ];
     }
 
-    /**
-     * @return array
-     */
     public function saveOrderAddressShouldNotPersistAddressEntityDataProvider(): array
     {
         return [
@@ -133,9 +121,6 @@ class ShippingAddressSaveTest extends Unit
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataWithQuoteLevelShippingAddress(): array
     {
         $quoteTransfer = (new QuoteBuilder())
@@ -151,9 +136,6 @@ class ShippingAddressSaveTest extends Unit
         return [$quoteTransfer, new SaveOrderTransfer()];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataWithoutQuoteLevelShippingAddress(): array
     {
         $quoteTransfer = (new QuoteBuilder())
@@ -168,9 +150,6 @@ class ShippingAddressSaveTest extends Unit
         return [$quoteTransfer, new SaveOrderTransfer()];
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Business\SalesFacadeInterface
-     */
     protected function getSalesFacadeWithMockedConfig(): SalesFacadeInterface
     {
         $salesFacade = $this->tester->getFacade();

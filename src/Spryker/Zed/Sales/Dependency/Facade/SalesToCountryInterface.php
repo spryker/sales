@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\CountryTransfer;
 
 interface SalesToCountryInterface
 {
-    /**
-     * @param string $iso2Code
-     *
-     * @return \Generated\Shared\Transfer\CountryTransfer
-     */
     public function getCountryByIso2Code(string $iso2Code): CountryTransfer;
 
     /**

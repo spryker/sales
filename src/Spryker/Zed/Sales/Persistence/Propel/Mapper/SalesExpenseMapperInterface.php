@@ -13,20 +13,8 @@ use Propel\Runtime\Collection\Collection;
 
 interface SalesExpenseMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesExpense $salesExpenseEntity
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesExpense
-     */
     public function mapExpenseTransferToSalesExpenseEntity(ExpenseTransfer $expenseTransfer, SpySalesExpense $salesExpenseEntity): SpySalesExpense;
 
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesExpense $expenseEntity
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer
-     */
     public function mapExpenseEntityToSalesExpenseTransfer(ExpenseTransfer $expenseTransfer, SpySalesExpense $expenseEntity): ExpenseTransfer;
 
     /**

@@ -123,11 +123,6 @@ class PaginatedCustomerOrderOverview implements CustomerOrderOverviewInterface
         return $orderTransfers;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     *
-     * @return bool
-     */
     protected function excludeOrder(SpySalesOrder $salesOrderEntity): bool
     {
         $excludeFromCustomer = $this->omsFacade->isOrderFlaggedExcludeFromCustomer(
@@ -188,11 +183,6 @@ class PaginatedCustomerOrderOverview implements CustomerOrderOverviewInterface
         return $collection;
     }
 
-    /**
-     * @param int $idCustomer
-     *
-     * @return bool
-     */
     protected function hasCustomer(int $idCustomer): bool
     {
         $customerTransfer = (new CustomerTransfer())->setIdCustomer($idCustomer);

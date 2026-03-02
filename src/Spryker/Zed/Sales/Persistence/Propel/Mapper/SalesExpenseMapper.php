@@ -13,12 +13,6 @@ use Propel\Runtime\Collection\Collection;
 
 class SalesExpenseMapper implements SalesExpenseMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesExpense $salesExpenseEntity
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesExpense
-     */
     public function mapExpenseTransferToSalesExpenseEntity(ExpenseTransfer $expenseTransfer, SpySalesExpense $salesExpenseEntity): SpySalesExpense
     {
         $salesExpenseEntity->fromArray($expenseTransfer->toArray());
@@ -32,12 +26,6 @@ class SalesExpenseMapper implements SalesExpenseMapperInterface
         return $salesExpenseEntity;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ExpenseTransfer $expenseTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesExpense $expenseEntity
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer
-     */
     public function mapExpenseEntityToSalesExpenseTransfer(ExpenseTransfer $expenseTransfer, SpySalesExpense $expenseEntity): ExpenseTransfer
     {
         $expenseTransfer->fromArray($expenseEntity->toArray(), true);

@@ -22,13 +22,6 @@ class SalesToUtilSanitizeBridge implements SalesToUtilSanitizeInterface
         $this->utilSanitizeService = $utilSanitizeService;
     }
 
-    /**
-     * @param string $text
-     * @param bool $double
-     * @param string|null $charset
-     *
-     * @return string
-     */
     public function escapeHtml(string $text, bool $double = true, ?string $charset = null): string
     {
         return $this->utilSanitizeService->escapeHtml($text, $double, $charset);

@@ -91,9 +91,6 @@ class SearchOrdersTest extends Unit
      */
     protected SalesBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -101,9 +98,6 @@ class SearchOrdersTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testSearchOrdersCheckLikeConditionWithLowerCase(): void
     {
         // Arrange
@@ -126,9 +120,6 @@ class SearchOrdersTest extends Unit
         $this->assertCount(1, $storedOrderListTransfer->getOrders());
     }
 
-    /**
-     * @return void
-     */
     public function testSearchOrdersCheckLastGrandTotalIsUsed(): void
     {
         // Arrange
@@ -165,9 +156,6 @@ class SearchOrdersTest extends Unit
         $this->assertEquals($salesOrderTotalsEntity2->getGrandTotal(), $resultOrderTransfer->getTotals()->getGrandTotal());
     }
 
-    /**
-     * @return void
-     */
     public function testSearchOrdersCheckLikeConditionWithFirstLetterInUpperCase(): void
     {
         // Arrange
@@ -190,9 +178,6 @@ class SearchOrdersTest extends Unit
         $this->assertCount(1, $storedOrderListTransfer->getOrders());
     }
 
-    /**
-     * @return void
-     */
     public function testSearchOrdersCheckLikeConditionWithFakeOrderReference(): void
     {
         // Arrange
@@ -215,9 +200,6 @@ class SearchOrdersTest extends Unit
         $this->assertCount(0, $storedOrderListTransfer->getOrders());
     }
 
-    /**
-     * @return void
-     */
     public function testSearchOrdersShouldFilterByConcatFields(): void
     {
         // Arrange
@@ -252,9 +234,6 @@ class SearchOrdersTest extends Unit
         $this->assertCount(1, $storedOrderListTransfer->getOrders());
     }
 
-    /**
-     * @return void
-     */
     public function testSearchOrdersShouldFilterByItemUuidsField(): void
     {
         // Arrange
@@ -301,11 +280,6 @@ class SearchOrdersTest extends Unit
         $this->assertTrue(in_array($secondResultOrderTransfer->getIdSalesOrder(), $expectedSalesOrderIds));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QueryJoinCollectionTransfer $queryJoinCollectionTransfer
-     *
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\SearchOrderQueryExpanderPluginInterface
-     */
     protected function createSearchOrderQueryExpanderPlugin(QueryJoinCollectionTransfer $queryJoinCollectionTransfer): SearchOrderQueryExpanderPluginInterface
     {
         $searchOrderQueryExpanderPluginMock = $this->getMockBuilder(SearchOrderQueryExpanderPluginInterface::class)

@@ -23,12 +23,6 @@ class OrderSearchQueryJoinQueryBuilder implements OrderSearchQueryJoinQueryBuild
      */
     protected const CONCAT = 'CONCAT';
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\QueryJoinCollectionTransfer $queryJoinCollectionTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     public function addSalesOrderQueryFilters(
         SpySalesOrderQuery $salesOrderQuery,
         QueryJoinCollectionTransfer $queryJoinCollectionTransfer
@@ -106,12 +100,6 @@ class OrderSearchQueryJoinQueryBuilder implements OrderSearchQueryJoinQueryBuild
         return $salesOrderQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\QueryJoinTransfer $queryJoinTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function addSalesOrderQueryJoin(
         SpySalesOrderQuery $salesOrderQuery,
         QueryJoinTransfer $queryJoinTransfer
@@ -134,12 +122,6 @@ class OrderSearchQueryJoinQueryBuilder implements OrderSearchQueryJoinQueryBuild
         return $salesOrderQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\QueryJoinTransfer $queryJoinTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function addSalesOrderQueryRelationJoin(
         SpySalesOrderQuery $salesOrderQuery,
         QueryJoinTransfer $queryJoinTransfer
@@ -222,13 +204,6 @@ class OrderSearchQueryJoinQueryBuilder implements OrderSearchQueryJoinQueryBuild
         return $conditions;
     }
 
-    /**
-     * @param string $conditionName
-     * @param \Generated\Shared\Transfer\QueryWhereConditionTransfer $queryWhereConditionTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function addConditionToQuery(
         string $conditionName,
         QueryWhereConditionTransfer $queryWhereConditionTransfer,
@@ -245,11 +220,6 @@ class OrderSearchQueryJoinQueryBuilder implements OrderSearchQueryJoinQueryBuild
         return $salesOrderQuery->addCond($conditionName, $column, $value, $comparison);
     }
 
-    /**
-     * @param string|null $value
-     *
-     * @return string
-     */
     protected function formatFilterValue(?string $value): string
     {
         return sprintf('%%%s%%', $value);

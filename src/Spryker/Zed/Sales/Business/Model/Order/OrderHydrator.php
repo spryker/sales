@@ -137,13 +137,6 @@ class OrderHydrator implements OrderHydratorInterface
         return $orderEntity;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder|null $orderEntity
-     *
-     * @return bool
-     */
     protected function isOrderApplicableForRetrieval(
         OrderTransfer $orderTransfer,
         CustomerTransfer $customerTransfer,
@@ -583,12 +576,6 @@ class OrderHydrator implements OrderHydratorInterface
         return $customerTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return bool
-     */
     protected function isCustomerOrderAccessGranted(SpySalesOrder $orderEntity, CustomerTransfer $customerTransfer): bool
     {
         $orderTransfer = (new OrderTransfer())->fromArray((array)$orderEntity->toArray(), true);

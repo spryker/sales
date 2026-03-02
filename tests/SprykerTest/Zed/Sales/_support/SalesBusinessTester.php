@@ -64,12 +64,6 @@ class SalesBusinessTester extends Actor
 {
     use _generated\SalesBusinessTesterActions;
 
-    /**
-     * @param string $stateMachineProcessName
-     * @param \Generated\Shared\Transfer\CustomerTransfer|null $customerTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function createOrderByStateMachineProcessName(
         string $stateMachineProcessName,
         ?CustomerTransfer $customerTransfer = null
@@ -89,12 +83,6 @@ class SalesBusinessTester extends Actor
             ->setItems($saveOrderTransfer->getOrderItems());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function buildFakeQuote(CustomerTransfer $customerTransfer, StoreTransfer $storeTransfer): QuoteTransfer
     {
         /** @var \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer */
@@ -113,11 +101,6 @@ class SalesBusinessTester extends Actor
         return $quoteTransfer;
     }
 
-    /**
-     * @param array $seed
-     *
-     * @return \Generated\Shared\Transfer\OrderListRequestTransfer
-     */
     public function createOrderListRequestTransfer(array $seed): OrderListRequestTransfer
     {
         /** @var \Generated\Shared\Transfer\OrderListRequestTransfer $orderListRequestTransfer */
@@ -127,11 +110,6 @@ class SalesBusinessTester extends Actor
         return $orderListRequestTransfer;
     }
 
-    /**
-     * @param array $seed
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function buildQuote(array $seed = []): QuoteTransfer
     {
         /** @var \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer */
@@ -172,9 +150,6 @@ class SalesBusinessTester extends Actor
         return $salesOrderTotalsEntity;
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\Base\SpyOmsOrderItemState
-     */
     public function createInitialState(): SpyOmsOrderItemState
     {
         $initialState = SpyOmsOrderItemStateQuery::create()
@@ -186,9 +161,6 @@ class SalesBusinessTester extends Actor
         return $initialState;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function getValidBaseQuoteTransfer(): QuoteTransfer
     {
         $country = new SpyCountry();
@@ -230,19 +202,11 @@ class SalesBusinessTester extends Actor
             ->setStore($storeTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function ensureSalesOrderTableIsEmpty(): void
     {
         $this->ensureDatabaseTableIsEmpty($this->getSalesOrderQuery());
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getOrderByIdSalesOrder(int $idSalesOrder): OrderTransfer
     {
         $salesOrderEntity = $this->getSalesOrderQuery()
@@ -265,11 +229,6 @@ class SalesBusinessTester extends Actor
         return $orderTransfer;
     }
 
-    /**
-     * @param int $idSalesOrderAddress
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderAddress|null
-     */
     public function findSalesOrderAddressEntityById(int $idSalesOrderAddress): ?SpySalesOrderAddress
     {
         return $this->getSalesOrderAddressQuery()
@@ -277,11 +236,6 @@ class SalesBusinessTester extends Actor
             ->findOne();
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem|null
-     */
     public function findSalesOrderItemEntityById(int $idSalesOrderItem): ?SpySalesOrderItem
     {
         return $this->getSalesOrderItemQuery()
@@ -301,9 +255,6 @@ class SalesBusinessTester extends Actor
             ->findOne();
     }
 
-    /**
-     * @return void
-     */
     public function ensureSalesExpenseTableIsEmpty(): void
     {
         $this->ensureDatabaseTableIsEmpty($this->getSalesExpenseQuery());
@@ -359,81 +310,46 @@ class SalesBusinessTester extends Actor
         return $itemTransfers;
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     *
-     * @return void
-     */
     public function clearSalesOrderItemOmsHistory(int $idSalesOrderItem): void
     {
         $this->getOmsOrderItemStateHistoryQuery()->findByFkSalesOrderItem($idSalesOrderItem)->delete();
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function getSalesOrderQuery(): SpySalesOrderQuery
     {
         return SpySalesOrderQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderAddressQuery
-     */
     protected function getSalesOrderAddressQuery(): SpySalesOrderAddressQuery
     {
         return SpySalesOrderAddressQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
     protected function getSalesOrderItemQuery(): SpySalesOrderItemQuery
     {
         return SpySalesOrderItemQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesExpenseQuery
-     */
     protected function getSalesExpenseQuery(): SpySalesExpenseQuery
     {
         return SpySalesExpenseQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemStateHistoryQuery
-     */
     protected function getOmsOrderItemStateHistoryQuery(): SpyOmsOrderItemStateHistoryQuery
     {
         return SpyOmsOrderItemStateHistoryQuery::create();
     }
 
-    /**
-     * @param string$hashColumn
-     *
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderItemExpanderPreSavePluginInterface
-     */
     public function createHashGeneratorExpanderPlugin(string $hashColumn): OrderItemExpanderPreSavePluginInterface
     {
         return new class ($hashColumn) implements OrderItemExpanderPreSavePluginInterface {
             private string $hashColumn;
 
-            /**
-             * @param string $hashColumn
-             */
             public function __construct(string $hashColumn)
             {
                 $this->hashColumn = $hashColumn;
             }
 
-            /**
-             * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-             * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-             * @param \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer $salesOrderItemEntityTransfer
-             *
-             * @return \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer
-             */
             public function expandOrderItem(
                 QuoteTransfer $quoteTransfer,
                 ItemTransfer $itemTransfer,

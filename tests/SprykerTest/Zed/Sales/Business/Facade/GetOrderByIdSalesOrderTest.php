@@ -42,9 +42,6 @@ class GetOrderByIdSalesOrderTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -52,9 +49,6 @@ class GetOrderByIdSalesOrderTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderByIdSalesOrderSupportsItemExpanderPluginStack(): void
     {
         // Arrange
@@ -75,9 +69,6 @@ class GetOrderByIdSalesOrderTest extends Unit
         $this->assertFalse($itemTransfers->getIterator()->current()->getIsReturnable());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderByIdSalesOrderEnsureThatHistoryStateWasHydrated(): void
     {
         // Arrange
@@ -96,9 +87,6 @@ class GetOrderByIdSalesOrderTest extends Unit
         $this->assertCount(2, $itemTransfers->getIterator()->current()->getStateHistory());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderByIdSalesOrderEnsureThatHistoryStateWasNotHydrated(): void
     {
         // Arrange

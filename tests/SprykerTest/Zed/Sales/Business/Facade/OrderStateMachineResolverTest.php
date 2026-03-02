@@ -29,9 +29,6 @@ use Spryker\Zed\Sales\SalesConfig;
  */
 class OrderStateMachineResolverTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testResolveReturnsStateMachineProcessNameWhenRequestIsSuccessful(): void
     {
         // Arrange
@@ -49,9 +46,6 @@ class OrderStateMachineResolverTest extends Unit
         $this->assertEquals('ForeignPaymentStateMachine01', $paymentMethodStatemachine);
     }
 
-    /**
-     * @return void
-     */
     public function testResolveThrowsExceptionWhenRequestIsNotSuccessful(): void
     {
         // Arrange
@@ -70,9 +64,6 @@ class OrderStateMachineResolverTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testResolveThrowsExceptionWhenStateMachineIsNotFound(): void
     {
         // Arrange
@@ -121,11 +112,6 @@ class OrderStateMachineResolverTest extends Unit
         return $salesConfigMock;
     }
 
-    /**
-     * @param string $paymentSelection
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createQuoteTransfer(string $paymentSelection): QuoteTransfer
     {
         $quoteTransfer = new QuoteTransfer();

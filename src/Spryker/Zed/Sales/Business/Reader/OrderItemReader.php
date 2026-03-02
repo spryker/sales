@@ -36,11 +36,6 @@ class OrderItemReader implements OrderItemReaderInterface
         $this->orderItemExpanderPlugins = $orderItemExpanderPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderItemFilterTransfer $orderItemFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemCollectionTransfer
-     */
     public function getOrderItems(OrderItemFilterTransfer $orderItemFilterTransfer): ItemCollectionTransfer
     {
         $itemTransfers = $this->salesRepository->getOrderItems($orderItemFilterTransfer);

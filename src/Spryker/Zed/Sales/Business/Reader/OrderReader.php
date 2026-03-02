@@ -35,11 +35,6 @@ class OrderReader implements OrderReaderInterface
         $this->hydrateOrderPlugins = $hydrateOrderPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderFilterTransfer $orderFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getOrderTransfer(OrderFilterTransfer $orderFilterTransfer): OrderTransfer
     {
         $orderTransfer = $this->salesRepository->getSalesOrderDetails($orderFilterTransfer);
@@ -52,11 +47,6 @@ class OrderReader implements OrderReaderInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderCriteriaTransfer $orderCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderCollectionTransfer
-     */
     public function getOrderCollection(OrderCriteriaTransfer $orderCriteriaTransfer): OrderCollectionTransfer
     {
         $orderCollectionTransfer = $this->salesRepository->getOrderCollection($orderCriteriaTransfer);
@@ -72,11 +62,6 @@ class OrderReader implements OrderReaderInterface
         return $orderCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function expandOrderTransferWithOrderTotals(OrderTransfer $orderTransfer): OrderTransfer
     {
         $orderTransfer->setTotalOrderCount(0);
@@ -88,12 +73,6 @@ class OrderReader implements OrderReaderInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\OrderFilterTransfer $orderFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function expandOrderTransferWithUniqueProductsQuantity(OrderTransfer $orderTransfer, OrderFilterTransfer $orderFilterTransfer): OrderTransfer
     {
         $uniqueProductQuantity = $this->salesRepository->countUniqueProductsForOrder($orderFilterTransfer->getSalesOrderId());
@@ -102,11 +81,6 @@ class OrderReader implements OrderReaderInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function executeHydrateOrderPlugins(OrderTransfer $orderTransfer): OrderTransfer
     {
         foreach ($this->hydrateOrderPlugins as $hydrateOrderPlugin) {

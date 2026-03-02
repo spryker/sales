@@ -54,9 +54,6 @@ class SaveSalesOrderItemsTest extends Unit
      */
     protected SalesFacadeInterface $salesFacade;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -219,11 +216,6 @@ class SaveSalesOrderItemsTest extends Unit
         ];
     }
 
-    /**
-     * @param \Orm\Zed\Oms\Persistence\Base\SpyOmsOrderItemState $omsOrderItemStateEntity
-     *
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderItemInitialStateProviderPluginInterface
-     */
     protected function getOrderItemInitialStateProviderPluginMock(
         SpyOmsOrderItemState $omsOrderItemStateEntity
     ): OrderItemInitialStateProviderPluginInterface {
@@ -239,9 +231,6 @@ class SaveSalesOrderItemsTest extends Unit
         return $orderItemInitialStateProviderPluginMock;
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderItemExpanderPreSavePluginInterface
-     */
     protected function getOrderItemExpanderPreSavePluginMock(): OrderItemExpanderPreSavePluginInterface
     {
         $orderItemExpanderPreSavePluginMock = $this
@@ -262,9 +251,6 @@ class SaveSalesOrderItemsTest extends Unit
         return $orderItemExpanderPreSavePluginMock;
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderItemsPostSavePluginInterface
-     */
     protected function getOrderItemsPostSavePluginMock(): OrderItemsPostSavePluginInterface
     {
         $orderItemsPostSavePluginMock = $this
@@ -281,11 +267,6 @@ class SaveSalesOrderItemsTest extends Unit
         return $orderItemsPostSavePluginMock;
     }
 
-    /**
-     * @param string $hashColumn
-     *
-     * @return void
-     */
     protected function mockSalesConfig(string $hashColumn): void
     {
         $businessFactory = new SalesBusinessFactory();
@@ -311,11 +292,6 @@ class SaveSalesOrderItemsTest extends Unit
         $this->salesFacade->setFactory($businessFactory);
     }
 
-    /**
-     * @param string $hashColumn
-     *
-     * @return void
-     */
     protected function addOrderItemExpanderPreSavePlugins(string $hashColumn): void
     {
         if ($hashColumn === '') {

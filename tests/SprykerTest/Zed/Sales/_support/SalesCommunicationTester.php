@@ -35,12 +35,6 @@ class SalesCommunicationTester extends Actor
 {
     use _generated\SalesCommunicationTesterActions;
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function buildFakeQuote(CustomerTransfer $customerTransfer, StoreTransfer $storeTransfer): QuoteTransfer
     {
         /** @var \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer */
@@ -59,27 +53,16 @@ class SalesCommunicationTester extends Actor
         return $quoteTransfer;
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     public function getSalesOrderPropelQuery(): SpySalesOrderQuery
     {
         return SpySalesOrderQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
     public function getSalesOrderItemPropelQuery(): SpySalesOrderItemQuery
     {
         return SpySalesOrderItemQuery::create();
     }
 
-    /**
-     * @param string $omsStateName
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemState
-     */
     public function createOmsState(string $omsStateName): SpyOmsOrderItemState
     {
         $omsStateEntity = (new SpyOmsOrderItemStateQuery())

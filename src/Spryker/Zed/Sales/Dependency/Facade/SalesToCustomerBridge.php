@@ -25,31 +25,16 @@ class SalesToCustomerBridge implements SalesToCustomerInterface
         $this->customerFacade = $customerFacade;
     }
 
-    /**
-     * @param string $customerReference
-     *
-     * @return \Generated\Shared\Transfer\CustomerTransfer|null
-     */
     public function findByReference(string $customerReference): ?CustomerTransfer
     {
         return $this->customerFacade->findByReference($customerReference);
     }
 
-    /**
-     * @param int $idCustomerAddress
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer|null
-     */
     public function findCustomerAddressById(int $idCustomerAddress): ?AddressTransfer
     {
         return $this->customerFacade->findCustomerAddressById($idCustomerAddress);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return \Generated\Shared\Transfer\CustomerTransfer|null
-     */
     public function findCustomerById(CustomerTransfer $customerTransfer): ?CustomerTransfer
     {
         return $this->customerFacade->findCustomerById($customerTransfer);

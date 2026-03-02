@@ -30,12 +30,6 @@ class TableFilterFormDataProvider
      */
     public const OPTION_CURRENT_TIMEZONE = 'current_timezone';
 
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface $queryContainer
-     * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToStoreInterface $storeFacade
-     * @param \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface $salesRepository
-     * @param \Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface $utilDateTimeService
-     */
     public function __construct(
         protected SalesQueryContainerInterface $queryContainer,
         protected SalesToStoreInterface $storeFacade,
@@ -44,9 +38,6 @@ class TableFilterFormDataProvider
     ) {
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\OrderTableCriteriaTransfer
-     */
     public function getData(): OrderTableCriteriaTransfer
     {
         return new OrderTableCriteriaTransfer();

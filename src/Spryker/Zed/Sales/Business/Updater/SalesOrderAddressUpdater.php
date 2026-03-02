@@ -19,22 +19,12 @@ class SalesOrderAddressUpdater implements SalesOrderAddressUpdaterInterface
 {
     use TransactionTrait;
 
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesEntityManagerInterface $salesEntityManager
-     * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToCountryInterface $countryFacade
-     */
     public function __construct(
         protected SalesEntityManagerInterface $salesEntityManager,
         protected SalesToCountryInterface $countryFacade
     ) {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function updateSalesOrderAddressesByQuote(QuoteTransfer $quoteTransfer, OrderTransfer $orderTransfer): OrderTransfer
     {
         return $this->getTransactionHandler()->handleTransaction(function () use ($quoteTransfer, $orderTransfer) {
@@ -42,12 +32,6 @@ class SalesOrderAddressUpdater implements SalesOrderAddressUpdaterInterface
         });
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function executeUpdateSalesOrderAddressByQuoteTransaction(QuoteTransfer $quoteTransfer, OrderTransfer $orderTransfer): OrderTransfer
     {
         $billingAddressTransfer = $this->updateSalesOrderAddress(
@@ -87,12 +71,6 @@ class SalesOrderAddressUpdater implements SalesOrderAddressUpdaterInterface
         return $this->updateExistingShippingAddress($quoteTransfer, $orderTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function createShippingAddress(QuoteTransfer $quoteTransfer, OrderTransfer $orderTransfer): OrderTransfer
     {
         $shippingAddressTransfer = $this->expandAddressWithCountry($quoteTransfer->getShippingAddress());
@@ -104,11 +82,6 @@ class SalesOrderAddressUpdater implements SalesOrderAddressUpdaterInterface
         return $orderTransfer->setShippingAddress($shippingAddressTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function removeShippingAddress(OrderTransfer $orderTransfer): OrderTransfer
     {
         $this->salesEntityManager->unsetSalesOrderShippingAddress(
@@ -118,12 +91,6 @@ class SalesOrderAddressUpdater implements SalesOrderAddressUpdaterInterface
         return $orderTransfer->setShippingAddress(null);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function updateExistingShippingAddress(QuoteTransfer $quoteTransfer, OrderTransfer $orderTransfer): OrderTransfer
     {
         $shippingAddressTransfer = $this->updateSalesOrderAddress(
@@ -156,12 +123,6 @@ class SalesOrderAddressUpdater implements SalesOrderAddressUpdaterInterface
         return $itemTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $persistedAddressTransfer
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function updateSalesOrderAddress(AddressTransfer $persistedAddressTransfer, AddressTransfer $addressTransfer): AddressTransfer
     {
         $addressTransfer->setIdSalesOrderAddress($persistedAddressTransfer->getIdSalesOrderAddressOrFail());
@@ -171,11 +132,6 @@ class SalesOrderAddressUpdater implements SalesOrderAddressUpdaterInterface
         return $this->salesEntityManager->updateSalesOrderAddress($this->cleanUpAddressUuid($persistedAddressTransfer));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function expandAddressWithCountry(AddressTransfer $addressTransfer): AddressTransfer
     {
         $countryTransfer = $this->countryFacade->getCountryByIso2Code($addressTransfer->getIso2CodeOrFail());
@@ -185,21 +141,11 @@ class SalesOrderAddressUpdater implements SalesOrderAddressUpdaterInterface
             ->setCountry($countryTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     protected function hasValidQuoteShippingAddress(QuoteTransfer $quoteTransfer): bool
     {
         return $quoteTransfer->getShippingAddress() !== null && $quoteTransfer->getShippingAddressOrFail()->getAddress1() !== null;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function cleanUpAddressUuid(AddressTransfer $addressTransfer): AddressTransfer
     {
         return $addressTransfer->setUuid(null);

@@ -24,11 +24,6 @@ class SalesOrderItemDeleter implements SalesOrderItemDeleterInterface
     {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionDeleteCriteriaTransfer $salesOrderItemCollectionDeleteCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer
-     */
     public function deleteSalesOrderItemCollection(
         SalesOrderItemCollectionDeleteCriteriaTransfer $salesOrderItemCollectionDeleteCriteriaTransfer
     ): SalesOrderItemCollectionResponseTransfer {
@@ -82,11 +77,6 @@ class SalesOrderItemDeleter implements SalesOrderItemDeleterInterface
         return $salesOrderItemIds;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionDeleteCriteriaTransfer $salesOrderItemCollectionDeleteCriteriaTransfer
-     *
-     * @return void
-     */
     protected function executeSalesOrderItemCollectionPreDeletePlugins(
         SalesOrderItemCollectionDeleteCriteriaTransfer $salesOrderItemCollectionDeleteCriteriaTransfer
     ): void {

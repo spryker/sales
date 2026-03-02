@@ -44,11 +44,6 @@ class OrderSearchReader implements OrderSearchReaderInterface
         $this->orderSearchQueryExpanderPlugins = $orderSearchQueryExpanderPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function searchOrders(OrderListTransfer $orderListTransfer): OrderListTransfer
     {
         $orderListTransfer = $this->executeOrderSearchQueryExpanderPlugins($orderListTransfer);
@@ -66,11 +61,6 @@ class OrderSearchReader implements OrderSearchReaderInterface
         return $orderListTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     protected function expandOrdersWithOrderItems(OrderListTransfer $orderListTransfer): OrderListTransfer
     {
         if (!$orderListTransfer->getFormat()->getExpandWithItems()) {
@@ -93,11 +83,6 @@ class OrderSearchReader implements OrderSearchReaderInterface
         return $orderListTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     protected function expandOrdersWithOrderTotals(OrderListTransfer $orderListTransfer): OrderListTransfer
     {
         $salesOrderIds = $this->getSalesOrderIdsFromOrderTransfers($orderListTransfer->getOrders());
@@ -140,11 +125,6 @@ class OrderSearchReader implements OrderSearchReaderInterface
         return $itemTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     protected function executeOrderSearchQueryExpanderPlugins(OrderListTransfer $orderListTransfer): OrderListTransfer
     {
         $queryJoinCollectionTransfer = new QueryJoinCollectionTransfer();

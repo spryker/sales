@@ -100,9 +100,6 @@ class CancelOrderTest extends Unit
      */
     protected SalesBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -113,9 +110,6 @@ class CancelOrderTest extends Unit
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithCancellableOrderItems(): void
     {
         // Arrange
@@ -143,9 +137,6 @@ class CancelOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithOrderReferenceAndCustomerIsSuccessful(): void
     {
         // Arrange
@@ -173,9 +164,6 @@ class CancelOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithOrderReferenceAndWithoutACustomerThrowsRequiredTransferPropertyException(): void
     {
         // Arrange
@@ -198,9 +186,6 @@ class CancelOrderTest extends Unit
             ->cancelOrder($orderCancelRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithOrderReferenceWithoutACustomerAndExplicitRequestToAllowCancellationWithoutACustomerIsSuccessful(): void
     {
         // Arrange
@@ -228,9 +213,6 @@ class CancelOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithCancellableOrderItemsForAnotherCustomer(): void
     {
         // Arrange
@@ -258,9 +240,6 @@ class CancelOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithFakeIdSalesOrder(): void
     {
         // Arrange
@@ -283,9 +262,6 @@ class CancelOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithFakeOrderReferenceResultsToNotFoundError(): void
     {
         // Arrange
@@ -308,9 +284,6 @@ class CancelOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithFakeCustomerReference(): void
     {
         // Arrange
@@ -333,9 +306,6 @@ class CancelOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithoutRequiredOrderReferenceAndIdSalesOrderPropertiesThrowsException(): void
     {
         // Arrange
@@ -394,9 +364,6 @@ class CancelOrderTest extends Unit
         $this->assertEquals($messageText, $orderCancelResponseTransfer->getMessages()[0]->getValue());
     }
 
-    /**
-     * @return void
-     */
     public function testCancelOrderWithNonCancellableOrderItems(): void
     {
         // Arrange
@@ -419,9 +386,6 @@ class CancelOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testReturnsOrderExpandedWithLastGrandTotal(): void
     {
         // Arrange
@@ -456,9 +420,6 @@ class CancelOrderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testShouldExecutePostCancelPluginStack(): void
     {
         // Assert
@@ -502,9 +463,6 @@ class CancelOrderTest extends Unit
         return $orderExpanderPluginMock;
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderPostCancelPluginInterface
-     */
     protected function getOrderPostCancelPluginMock(): OrderPostCancelPluginInterface
     {
         $orderPostCancelPluginMock = $this

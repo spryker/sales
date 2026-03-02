@@ -50,9 +50,6 @@ class CustomerForm extends AbstractType
      */
     public const OPTION_SALUTATION_CHOICES = 'salutation_choices';
 
-    /**
-     * @return string
-     */
     public function getBlockPrefix(): string
     {
         return 'customer';
@@ -68,11 +65,6 @@ class CustomerForm extends AbstractType
         return $this->getBlockPrefix();
     }
 
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     *
-     * @return void
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired(static::OPTION_SALUTATION_CHOICES);
@@ -173,17 +165,11 @@ class CustomerForm extends AbstractType
         return $this;
     }
 
-    /**
-     * @return \Symfony\Component\Validator\Constraints\NotBlank
-     */
     protected function createNotBlankConstraint(): NotBlank
     {
         return new NotBlank();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\Constraints\Regex
-     */
     protected function createFirstNameRegexConstraint(): Regex
     {
         return new Regex([
@@ -191,9 +177,6 @@ class CustomerForm extends AbstractType
         ]);
     }
 
-    /**
-     * @return \Symfony\Component\Validator\Constraints\Regex
-     */
     protected function createLastNameRegexConstraint(): Regex
     {
         return new Regex([

@@ -32,10 +32,6 @@ class SalesOrderItemRelationValidatorRule implements SalesOrderItemValidatorRule
      */
     protected const GLOSSARY_KEY_VALIDATION_ITEMS_NOT_FROM_SAME_ORDER = 'sales.validation.items_not_from_same_order';
 
-    /**
-     * @param \Spryker\Zed\Sales\Business\Validator\Util\ErrorAdderInterface $errorAdder
-     * @param \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface $salesRepository
-     */
     public function __construct(protected ErrorAdderInterface $errorAdder, protected SalesRepositoryInterface $salesRepository)
     {
     }

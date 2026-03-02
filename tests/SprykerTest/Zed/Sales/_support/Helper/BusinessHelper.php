@@ -193,17 +193,6 @@ class BusinessHelper extends Module
         return $salesOrderItems;
     }
 
-    /**
-     * @param \Orm\Zed\Oms\Persistence\SpyOmsOrderItemState $omsStateEntity
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param \Orm\Zed\Oms\Persistence\SpyOmsOrderProcess $omsOrderProcessEntity
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param int $quantity
-     * @param int $grossPrice
-     * @param int $taxRate
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem
-     */
     protected function createOrderItem(
         SpyOmsOrderItemState $omsStateEntity,
         SpySalesOrder $salesOrderEntity,
@@ -228,12 +217,6 @@ class BusinessHelper extends Module
         return $salesOrderItem;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderAddress $salesOrderAddressEntity
-     * @param array $salesOrderOverride
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrder
-     */
     protected function createSpySalesOrderEntity(SpySalesOrderAddress $salesOrderAddressEntity, array $salesOrderOverride): SpySalesOrder
     {
         $customerEntity = $this->createCustomer();
@@ -249,12 +232,6 @@ class BusinessHelper extends Module
         return $salesOrderEntity;
     }
 
-    /**
-     * @param int $idSalesOrder
-     * @param int $idSalesExpense
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesShipment
-     */
     protected function createSpySalesShipment(int $idSalesOrder, int $idSalesExpense): SpySalesShipment
     {
         $salesShipmentEntity = new SpySalesShipment();
@@ -269,9 +246,6 @@ class BusinessHelper extends Module
         return $salesShipmentEntity;
     }
 
-    /**
-     * @return \Orm\Zed\Customer\Persistence\SpyCustomer
-     */
     protected function createCustomer(): SpyCustomer
     {
         $customerEntity = (new SpyCustomerQuery())
@@ -287,11 +261,6 @@ class BusinessHelper extends Module
         return $customerEntity;
     }
 
-    /**
-     * @param string $omsStateName
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemState
-     */
     protected function createOmsState(string $omsStateName): SpyOmsOrderItemState
     {
         $omsStateEntity = (new SpyOmsOrderItemStateQuery())
@@ -303,11 +272,6 @@ class BusinessHelper extends Module
         return $omsStateEntity;
     }
 
-    /**
-     * @param string $omsProcessName
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderProcess
-     */
     protected function createOmsProcess(string $omsProcessName): SpyOmsOrderProcess
     {
         $omsProcessEntity = (new SpyOmsOrderProcessQuery())
@@ -319,11 +283,6 @@ class BusinessHelper extends Module
         return $omsProcessEntity;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesExpense
-     */
     protected function createSalesExpense(SpySalesOrder $salesOrderEntity): SpySalesExpense
     {
         $salesExpenseEntity = new SpySalesExpense();
@@ -336,9 +295,6 @@ class BusinessHelper extends Module
         return $salesExpenseEntity;
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderAddress
-     */
     protected function createSalesOrderAddress(): SpySalesOrderAddress
     {
         $salesOrderAddressEntity = new SpySalesOrderAddress();
@@ -362,11 +318,6 @@ class BusinessHelper extends Module
         return $salesOrderAddressEntity;
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderTotals
-     */
     protected function createOrderTotals(int $idSalesOrder): SpySalesOrderTotals
     {
         $salesOrderTotalsEntity = new SpySalesOrderTotals();

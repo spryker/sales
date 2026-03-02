@@ -19,9 +19,6 @@ class OrderCommentReader implements OrderCommentReaderInterface
      */
     protected $queryContainer;
 
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface $queryContainer
-     */
     public function __construct(SalesQueryContainerInterface $queryContainer)
     {
         $this->queryContainer = $queryContainer;

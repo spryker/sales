@@ -12,12 +12,6 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderQuery;
 
 interface OrderSearchFilterFieldQueryBuilderInterface
 {
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     public function addSalesOrderQueryFilters(
         SpySalesOrderQuery $salesOrderQuery,
         OrderListTransfer $orderListTransfer

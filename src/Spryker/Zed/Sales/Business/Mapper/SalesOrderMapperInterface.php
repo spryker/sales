@@ -13,20 +13,8 @@ use Generated\Shared\Transfer\SpySalesOrderEntityTransfer;
 
 interface SalesOrderMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function mapQuoteTransferToOrderTransfer(QuoteTransfer $quoteTransfer, OrderTransfer $orderTransfer): OrderTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     public function mapOrderTransferToSalesOrderEntityTransfer(
         OrderTransfer $orderTransfer,
         SpySalesOrderEntityTransfer $salesOrderEntityTransfer

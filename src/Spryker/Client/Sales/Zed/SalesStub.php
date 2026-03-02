@@ -23,9 +23,6 @@ class SalesStub implements SalesStubInterface
      */
     protected $zedStub;
 
-    /**
-     * @param \Spryker\Client\ZedRequest\ZedRequestClient $zedStub
-     */
     public function __construct(ZedRequestClient $zedStub)
     {
         $this->zedStub = $zedStub;
@@ -100,11 +97,6 @@ class SalesStub implements SalesStubInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getCustomerOrderByOrderReference(OrderTransfer $orderTransfer): OrderTransfer
     {
         /** @var \Generated\Shared\Transfer\OrderTransfer $orderTransfer */
@@ -113,11 +105,6 @@ class SalesStub implements SalesStubInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderItemFilterTransfer $orderItemFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemCollectionTransfer
-     */
     public function getOrderItems(OrderItemFilterTransfer $orderItemFilterTransfer): ItemCollectionTransfer
     {
         /** @var \Generated\Shared\Transfer\ItemCollectionTransfer $itemCollectionTransfer */

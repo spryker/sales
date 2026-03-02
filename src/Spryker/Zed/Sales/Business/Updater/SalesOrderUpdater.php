@@ -41,12 +41,6 @@ class SalesOrderUpdater implements SalesOrderUpdaterInterface
     ) {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     public function updateOrderByQuote(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer
@@ -58,12 +52,6 @@ class SalesOrderUpdater implements SalesOrderUpdaterInterface
         return $saveOrderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     protected function executeUpdateOrderByQuoteTransaction(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer
@@ -85,13 +73,6 @@ class SalesOrderUpdater implements SalesOrderUpdaterInterface
         return $this->executeOrderPostSavePlugins($saveOrderTransfer, $quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     protected function hydrateSaveOrderTransfer(
         SaveOrderTransfer $saveOrderTransfer,
         QuoteTransfer $quoteTransfer,
@@ -104,22 +85,11 @@ class SalesOrderUpdater implements SalesOrderUpdaterInterface
         return $saveOrderTransfer->fromArray($salesOrderEntityTransfer->toArray(), true);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     protected function addLocale(SpySalesOrderEntityTransfer $salesOrderEntityTransfer): SpySalesOrderEntityTransfer
     {
         return $salesOrderEntityTransfer->setFkLocale($this->localeFacade->getCurrentLocale()->getIdLocale());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderEntityTransfer $salesOrderEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderEntityTransfer
-     */
     protected function executeOrderExpanderPreSavePlugins(
         QuoteTransfer $quoteTransfer,
         SpySalesOrderEntityTransfer $salesOrderEntityTransfer
@@ -131,12 +101,6 @@ class SalesOrderUpdater implements SalesOrderUpdaterInterface
         return $salesOrderEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     protected function executeOrderPostSavePlugins(SaveOrderTransfer $saveOrderTransfer, QuoteTransfer $quoteTransfer): SaveOrderTransfer
     {
         $quoteProcessFlowName = $quoteTransfer->getQuoteProcessFlow()?->getNameOrFail();

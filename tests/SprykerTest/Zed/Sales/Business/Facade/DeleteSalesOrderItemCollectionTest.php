@@ -37,9 +37,6 @@ class DeleteSalesOrderItemCollectionTest extends Unit
      */
     protected SalesBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -47,9 +44,6 @@ class DeleteSalesOrderItemCollectionTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testExecutesSalesOrderItemCollectionPreDeletePluginsWhenItemsConditionIsSet(): void
     {
         // Assert
@@ -61,9 +55,6 @@ class DeleteSalesOrderItemCollectionTest extends Unit
         $this->tester->getFacade()->deleteSalesOrderItemCollection($salesOrderItemCollectionDeleteCriteriaTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotExecuteSalesOrderItemCollectionPreDeletePluginsWhenConditionsAreNotSet(): void
     {
         // Assert
@@ -73,9 +64,6 @@ class DeleteSalesOrderItemCollectionTest extends Unit
         $this->tester->getFacade()->deleteSalesOrderItemCollection(new SalesOrderItemCollectionDeleteCriteriaTransfer());
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesSalesOrderItemBySalesOrderItemIds(): void
     {
         // Arrange
@@ -96,9 +84,6 @@ class DeleteSalesOrderItemCollectionTest extends Unit
         $this->assertSame($salesOrderItemEntity->getIdSalesOrderItem(), $itemTransfers[0]->getIdSalesOrderItem());
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotDeleteSalesOrderItemsWhenNoCriteriaConditionsAreSet(): void
     {
         // Arrange
@@ -116,9 +101,6 @@ class DeleteSalesOrderItemCollectionTest extends Unit
         $this->assertCount(2, $itemTransfers);
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotDeleteSalesOrderItemsWhenNoEntitiesFoundBySalesOrderItemIds(): void
     {
         // Arrange

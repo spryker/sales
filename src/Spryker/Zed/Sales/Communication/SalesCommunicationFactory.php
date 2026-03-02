@@ -70,9 +70,6 @@ class SalesCommunicationFactory extends AbstractCommunicationFactory
         return new CustomerFormDataProvider($this->getQueryContainer());
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Communication\TableExpander\OrderItemsTableExpanderInterface
-     */
     public function createOrderItemsTableExpander(): OrderItemsTableExpanderInterface
     {
         return new OrderItemsTableExpander($this->getOrderItemsTableExpanderPlugins());
@@ -278,25 +275,16 @@ class SalesCommunicationFactory extends AbstractCommunicationFactory
         return $this->getProvidedDependency(SalesDependencyProvider::PLUGINS_ORDER_ITEMS_TABLE_EXPANDER);
     }
 
-    /**
-     * @return \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
-     */
     public function getCsrfTokenManager(): CsrfTokenManagerInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::SERVICE_FORM_CSRF_PROVIDER);
     }
 
-    /**
-     * @return \Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface
-     */
     public function getUtilDateTimeService(): UtilDateTimeServiceInterface
     {
         return $this->getProvidedDependency(SalesDependencyProvider::SERVICE_DATE_FORMATTER);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createTableFilterForm(): FormInterface
     {
         $dataProvider = $this->createTableFilterFormDataProvider();
@@ -308,9 +296,6 @@ class SalesCommunicationFactory extends AbstractCommunicationFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Sales\Communication\Form\DataProvider\TableFilterFormDataProvider
-     */
     protected function createTableFilterFormDataProvider(): TableFilterFormDataProvider
     {
         return new TableFilterFormDataProvider(

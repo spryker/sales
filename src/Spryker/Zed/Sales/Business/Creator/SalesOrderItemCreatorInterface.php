@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer;
 
 interface SalesOrderItemCreatorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionRequestTransfer $salesOrderItemCollectionRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer
-     */
     public function createSalesOrderItemCollectionByQuote(
         SalesOrderItemCollectionRequestTransfer $salesOrderItemCollectionRequestTransfer
     ): SalesOrderItemCollectionResponseTransfer;

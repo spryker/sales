@@ -70,12 +70,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         'updatedAt' => SpySalesOrderTableMap::COL_UPDATED_AT,
     ];
 
-    /**
-     * @param string $customerReference
-     * @param string $orderReference
-     *
-     * @return int|null
-     */
     public function findCustomerOrderIdByOrderReference(string $customerReference, string $orderReference): ?int
     {
         /** @var int|null $idSalesOrder */
@@ -89,11 +83,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $idSalesOrder;
     }
 
-    /**
-     * @param int $idOrderAddress
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer|null
-     */
     public function findOrderAddressByIdOrderAddress(int $idOrderAddress): ?AddressTransfer
     {
         $addressEntity = $this->getFactory()
@@ -159,11 +148,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $currencyIsoCodes->toKeyValue(static::ID_SALES_ORDER, SpySalesOrderTableMap::COL_CURRENCY_ISO_CODE);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function searchOrders(OrderListTransfer $orderListTransfer): OrderListTransfer
     {
         $orderListTransfer
@@ -246,12 +230,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $salesOrderTotalsSubQuery->createSelectSql($params);
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function buildSearchOrdersQuery(
         SpySalesOrderQuery $salesOrderQuery,
         OrderListTransfer $orderListTransfer
@@ -275,12 +253,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $salesOrderQuery;
     }
 
-    /**
-     * @param \Propel\Runtime\ActiveQuery\ModelCriteria $query
-     * @param \Generated\Shared\Transfer\PaginationTransfer $paginationTransfer
-     *
-     * @return \Propel\Runtime\ActiveQuery\ModelCriteria
-     */
     protected function preparePagination(
         ModelCriteria $query,
         PaginationTransfer $paginationTransfer
@@ -306,12 +278,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $propelModelPager->getQuery();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderAddress $addressEntity
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function hydrateAddressTransferFromEntity(
         AddressTransfer $addressTransfer,
         SpySalesOrderAddress $addressEntity
@@ -322,19 +288,11 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $addressTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function createOrderAddressTransfer(): AddressTransfer
     {
         return new AddressTransfer();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListRequestTransfer $orderListRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function getCustomerOrderListByCustomerReference(OrderListRequestTransfer $orderListRequestTransfer): OrderListTransfer
     {
         $orderListQuery = $this->getFactory()
@@ -361,12 +319,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderListTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $orderListQuery
-     * @param \Generated\Shared\Transfer\FilterTransfer|null $filterTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function applyFilterToQuery(SpySalesOrderQuery $orderListQuery, ?FilterTransfer $filterTransfer): SpySalesOrderQuery
     {
         if ($filterTransfer) {
@@ -382,12 +334,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderListQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery $salesOrderItemQuery
-     * @param \Generated\Shared\Transfer\OrderItemFilterTransfer $orderItemFilterTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
     protected function setOrderItemFilters(
         SpySalesOrderItemQuery $salesOrderItemQuery,
         OrderItemFilterTransfer $orderItemFilterTransfer
@@ -444,11 +390,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return false;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderFilterTransfer $orderFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getSalesOrderDetails(OrderFilterTransfer $orderFilterTransfer): OrderTransfer
     {
         $orderEntity = $this->getSalesOrderEntity($orderFilterTransfer);
@@ -456,11 +397,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $this->createOrderTransfer($orderEntity);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return int
-     */
     public function getTotalCustomerOrderCount(OrderTransfer $orderTransfer): int
     {
         $customerReference = $orderTransfer->getCustomerReference();
@@ -475,11 +411,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
             ->count();
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return int
-     */
     public function countUniqueProductsForOrder(int $idSalesOrder): int
     {
         return (int)$this->getFactory()
@@ -492,11 +423,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
             ->count();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderCriteriaTransfer $orderCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderCollectionTransfer
-     */
     public function getOrderCollection(OrderCriteriaTransfer $orderCriteriaTransfer): OrderCollectionTransfer
     {
         $orderCollectionTransfer = new OrderCollectionTransfer();
@@ -535,11 +461,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderFilterTransfer $orderFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer|null
-     */
     public function findOrderWithoutItems(OrderFilterTransfer $orderFilterTransfer): ?OrderTransfer
     {
         $orderFilterTransfer->requireSalesOrderId();
@@ -631,11 +552,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderEntity;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function createOrderTransfer(SpySalesOrder $salesOrderEntity): OrderTransfer
     {
         $orderTransfer = $this->getFactory()
@@ -650,12 +566,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\OrderFilterTransfer $orderFilterTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function setOrderFilters(SpySalesOrderQuery $salesOrderQuery, OrderFilterTransfer $orderFilterTransfer): SpySalesOrderQuery
     {
         if ($orderFilterTransfer->getSalesOrderId()) {
@@ -671,12 +581,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $salesOrderQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function setOrderTotals(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): OrderTransfer
     {
         $salesOrderTotalsEntity = $orderEntity->getLastOrderTotals();
@@ -694,12 +598,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function setBillingAddress(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): OrderTransfer
     {
         $billingAddressTransfer = $this->getFactory()
@@ -711,12 +609,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function setShippingAddress(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): OrderTransfer
     {
         $orderShippingAddressEntity = $orderEntity->getShippingAddress();
@@ -734,12 +626,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function setOrderExpenses(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): OrderTransfer
     {
         foreach ($orderEntity->getExpenses(new Criteria()) as $expenseEntity) {
@@ -753,12 +639,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function setMissingCustomer(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): OrderTransfer
     {
         if (!$orderEntity->getCustomer()) {
@@ -769,12 +649,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\OrderCriteriaTransfer $orderCriteriaTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function applySalesOrderFilters(
         SpySalesOrderQuery $salesOrderQuery,
         OrderCriteriaTransfer $orderCriteriaTransfer
@@ -819,12 +693,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $modelCriteria;
     }
 
-    /**
-     * @param \Propel\Runtime\ActiveQuery\ModelCriteria $modelCriteria
-     * @param \Generated\Shared\Transfer\PaginationTransfer $paginationTransfer
-     *
-     * @return \Propel\Runtime\ActiveQuery\ModelCriteria
-     */
     protected function applyPagination(
         ModelCriteria $modelCriteria,
         PaginationTransfer $paginationTransfer
@@ -905,12 +773,6 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         return $salesOrderEntitiesIndexedByIdSalesOrder;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesExpenseQuery $salesExpenseQuery
-     * @param \Generated\Shared\Transfer\SalesExpenseCollectionDeleteCriteriaTransfer $salesExpenseCollectionDeleteCriteriaTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesExpenseQuery
-     */
     protected function appySalesExpenseCollectionDeleteCriteriaFilters(
         SpySalesExpenseQuery $salesExpenseQuery,
         SalesExpenseCollectionDeleteCriteriaTransfer $salesExpenseCollectionDeleteCriteriaTransfer

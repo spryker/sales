@@ -108,12 +108,6 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
      */
     protected const DELIMITER_COLLECTION_TYPE_VALUE = ',';
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     public function addSalesOrderQueryFilters(
         SpySalesOrderQuery $salesOrderQuery,
         OrderListTransfer $orderListTransfer
@@ -125,12 +119,6 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
         return $salesOrderQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\FilterFieldTransfer $filterFieldTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function addQueryFilter(
         SpySalesOrderQuery $salesOrderQuery,
         FilterFieldTransfer $filterFieldTransfer
@@ -172,12 +160,6 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
         return $salesOrderQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\FilterFieldTransfer $filterFieldTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function addSearchTypeFilter(
         SpySalesOrderQuery $salesOrderQuery,
         FilterFieldTransfer $filterFieldTransfer
@@ -202,12 +184,6 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
         return $this->addAllSearchTypeFilter($salesOrderQuery, $filterFieldTransfer);
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\FilterFieldTransfer $filterFieldTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function addAllSearchTypeFilter(
         SpySalesOrderQuery $salesOrderQuery,
         FilterFieldTransfer $filterFieldTransfer
@@ -238,12 +214,6 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
         return $salesOrderQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\FilterFieldTransfer $filterFieldTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function addDateFilter(
         SpySalesOrderQuery $salesOrderQuery,
         FilterFieldTransfer $filterFieldTransfer
@@ -257,12 +227,6 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
         return $salesOrderQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\FilterFieldTransfer $filterFieldTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function addOrderByFilter(
         SpySalesOrderQuery $salesOrderQuery,
         FilterFieldTransfer $filterFieldTransfer
@@ -278,12 +242,6 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
         return $salesOrderQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderQuery $salesOrderQuery
-     * @param \Generated\Shared\Transfer\FilterFieldTransfer $filterFieldTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderQuery
-     */
     protected function addItemUuidsFilter(
         SpySalesOrderQuery $salesOrderQuery,
         FilterFieldTransfer $filterFieldTransfer
@@ -309,11 +267,6 @@ class OrderSearchFilterFieldQueryBuilder implements OrderSearchFilterFieldQueryB
         return array_keys(static::ORDER_SEARCH_TYPE_MAPPING);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
     protected function generateLikePattern(string $value): string
     {
         return sprintf('%%%s%%', $value);

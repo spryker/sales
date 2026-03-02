@@ -42,11 +42,6 @@ class SalesOrderItemUpdater implements SalesOrderItemUpdaterInterface
     ) {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionRequestTransfer $salesOrderItemCollectionRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer
-     */
     public function updateSalesOrderItemCollectionByQuote(
         SalesOrderItemCollectionRequestTransfer $salesOrderItemCollectionRequestTransfer
     ): SalesOrderItemCollectionResponseTransfer {
@@ -65,11 +60,6 @@ class SalesOrderItemUpdater implements SalesOrderItemUpdaterInterface
         });
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionRequestTransfer $salesOrderItemCollectionRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer
-     */
     protected function executeUpdateSalesOrderItemCollectionByQuoteTransaction(
         SalesOrderItemCollectionRequestTransfer $salesOrderItemCollectionRequestTransfer
     ): SalesOrderItemCollectionResponseTransfer {
@@ -88,12 +78,6 @@ class SalesOrderItemUpdater implements SalesOrderItemUpdaterInterface
         return $this->executeSalesOrderItemCollectionPostUpdatePlugins($salesOrderItemCollectionResponseTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function executeSalesOrderItemsPreUpdatePlugins(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer
@@ -105,11 +89,6 @@ class SalesOrderItemUpdater implements SalesOrderItemUpdaterInterface
         return $quoteTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer $salesOrderItemCollectionResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesOrderItemCollectionResponseTransfer
-     */
     protected function executeSalesOrderItemCollectionPostUpdatePlugins(
         SalesOrderItemCollectionResponseTransfer $salesOrderItemCollectionResponseTransfer
     ): SalesOrderItemCollectionResponseTransfer {
@@ -122,11 +101,6 @@ class SalesOrderItemUpdater implements SalesOrderItemUpdaterInterface
         return $salesOrderItemCollectionResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemCollectionRequestTransfer $salesOrderItemCollectionRequestTransfer
-     *
-     * @return void
-     */
     protected function assertRequiredFields(
         SalesOrderItemCollectionRequestTransfer $salesOrderItemCollectionRequestTransfer
     ): void {

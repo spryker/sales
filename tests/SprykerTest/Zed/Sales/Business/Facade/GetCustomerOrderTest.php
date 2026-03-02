@@ -54,9 +54,6 @@ class GetCustomerOrderTest extends Unit
      */
     protected SalesBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -64,9 +61,6 @@ class GetCustomerOrderTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testGetCustomerOrder(): void
     {
         // Arrange
@@ -82,9 +76,6 @@ class GetCustomerOrderTest extends Unit
         $this->assertSame($orderTransfer->getIdSalesOrder(), $storedOrderTransfer->getIdSalesOrder());
     }
 
-    /**
-     * @return void
-     */
     public function testGetCustomerOrderThrowsExceptionForOtherCustomer(): void
     {
         // Arrange
@@ -104,9 +95,6 @@ class GetCustomerOrderTest extends Unit
             ->getCustomerOrder($orderTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testGetCustomerOrderThrowsPropelExceptionForUndefinedCustomer(): void
     {
         // Arrange
@@ -122,9 +110,6 @@ class GetCustomerOrderTest extends Unit
             ->getCustomerOrder($orderTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testGetCustomerOrderSupportsCustomerOrderAccessCheckPluginStack(): void
     {
         // Arrange
@@ -149,9 +134,6 @@ class GetCustomerOrderTest extends Unit
         $this->assertNotSame($customerTransfer->getCustomerReference(), $storedOrderTransfer->getCustomerReference());
     }
 
-    /**
-     * @return void
-     */
     public function testReturnsOrderExpandedWithLastGrandTotal(): void
     {
         // Arrange

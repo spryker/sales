@@ -28,9 +28,6 @@ class CommentForm extends AbstractType
      */
     public const FORM_NAME = 'comment';
 
-    /**
-     * @return string
-     */
     public function getBlockPrefix(): string
     {
         return static::FORM_NAME;

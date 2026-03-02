@@ -24,9 +24,6 @@ class SalesToUserBridge implements SalesToUserInterface
         $this->userFacade = $userFacade;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\UserTransfer
-     */
     public function getCurrentUser(): UserTransfer
     {
         return $this->userFacade->getCurrentUser();

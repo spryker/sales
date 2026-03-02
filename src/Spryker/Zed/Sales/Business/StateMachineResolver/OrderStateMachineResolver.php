@@ -20,9 +20,6 @@ class OrderStateMachineResolver implements OrderStateMachineResolverInterface
      */
     protected $salesConfig;
 
-    /**
-     * @param \Spryker\Zed\Sales\SalesConfig $salesConfig
-     */
     public function __construct(SalesConfig $salesConfig)
     {
         $this->salesConfig = $salesConfig;

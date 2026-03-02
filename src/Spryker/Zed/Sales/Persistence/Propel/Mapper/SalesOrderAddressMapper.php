@@ -13,11 +13,6 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 
 class SalesOrderAddressMapper implements SalesOrderAddressMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderAddress
-     */
     public function mapAddressTransferToSalesOrderAddressEntity(AddressTransfer $addressTransfer): SpySalesOrderAddress
     {
         $salesOrderAddressEntity = new SpySalesOrderAddress();
@@ -26,12 +21,6 @@ class SalesOrderAddressMapper implements SalesOrderAddressMapperInterface
         return $salesOrderAddressEntity;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderAddress $salesOrderAddressEntity
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     public function mapAddressEntityToAddressTransfer(
         AddressTransfer $addressTransfer,
         SpySalesOrderAddress $salesOrderAddressEntity

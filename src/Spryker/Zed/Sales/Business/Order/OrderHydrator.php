@@ -75,12 +75,6 @@ class OrderHydrator extends OrderHydratorWithoutMultiShipping
         return $this->applyOrderTransferHydrators($orderEntity);
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return void
-     */
     protected function hydrateBillingAddressToOrderTransfer(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): void
     {
         $orderTransfer->setBillingAddress(
@@ -88,12 +82,6 @@ class OrderHydrator extends OrderHydratorWithoutMultiShipping
         );
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return void
-     */
     protected function hydrateShippingAddressToOrderTransfer(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): void
     {
         $shippingAddress = $orderEntity->getShippingAddress();
@@ -105,11 +93,6 @@ class OrderHydrator extends OrderHydratorWithoutMultiShipping
         $orderTransfer->setShippingAddress($this->createAddressTransfer($shippingAddress));
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderAddress $salesOrderAddressEntity
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer
-     */
     protected function createAddressTransfer(SpySalesOrderAddress $salesOrderAddressEntity): AddressTransfer
     {
         $countryEntity = $salesOrderAddressEntity->getCountry();
@@ -124,22 +107,12 @@ class OrderHydrator extends OrderHydratorWithoutMultiShipping
         return $addressTransfer;
     }
 
-    /**
-     * @param string $shipmentMethod
-     *
-     * @return \Generated\Shared\Transfer\ShipmentMethodTransfer
-     */
     protected function createShipmentMethod(string $shipmentMethod): ShipmentMethodTransfer
     {
         return (new ShipmentMethodTransfer())
             ->setName($shipmentMethod);
     }
 
-    /**
-     * @param string $carrierName
-     *
-     * @return \Generated\Shared\Transfer\ShipmentCarrierTransfer
-     */
     protected function createShipmentCarrier(string $carrierName): ShipmentCarrierTransfer
     {
         return (new ShipmentCarrierTransfer())

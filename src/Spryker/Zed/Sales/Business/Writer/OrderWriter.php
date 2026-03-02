@@ -157,12 +157,6 @@ class OrderWriter implements OrderWriterInterface
             ->setOrder($updatedOrderTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderCancelRequestTransfer $orderCancelRequestTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return bool
-     */
     protected function isApplicableForCustomer(
         OrderCancelRequestTransfer $orderCancelRequestTransfer,
         OrderTransfer $orderTransfer
@@ -172,11 +166,6 @@ class OrderWriter implements OrderWriterInterface
         return !$customerReference || $orderTransfer->getCustomerReference() === $customerReference;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderCancelRequestTransfer $orderCancelRequestTransfer
-     *
-     * @return string|null
-     */
     protected function extractCustomerReference(OrderCancelRequestTransfer $orderCancelRequestTransfer): ?string
     {
         if (!$orderCancelRequestTransfer->getCustomer()) {
@@ -186,11 +175,6 @@ class OrderWriter implements OrderWriterInterface
         return $orderCancelRequestTransfer->getCustomer()->getCustomerReference();
     }
 
-    /**
-     * @param string $message
-     *
-     * @return \Generated\Shared\Transfer\OrderCancelResponseTransfer
-     */
     protected function getErrorResponse(string $message): OrderCancelResponseTransfer
     {
         $messageTransfer = (new MessageTransfer())
@@ -201,11 +185,6 @@ class OrderWriter implements OrderWriterInterface
             ->addMessage($messageTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function executeOrderPostCancelPlugins(OrderTransfer $orderTransfer): OrderTransfer
     {
         foreach ($this->orderPostCancelPlugins as $orderPostCancelPlugin) {

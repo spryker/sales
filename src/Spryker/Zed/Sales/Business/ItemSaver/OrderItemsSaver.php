@@ -96,13 +96,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
         $this->salesConfig = $salesConfig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param bool|null $skipOrderItemsPostSavePlugins
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     public function saveOrderItems(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer,
@@ -113,13 +106,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
         });
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param bool|null $skipOrderItemsPostSavePlugins
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     protected function saveOrderItemTransaction(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer,
@@ -220,12 +206,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
         return $itemTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     protected function executeOrderItemsPostSavePlugins(SaveOrderTransfer $saveOrderTransfer, QuoteTransfer $quoteTransfer): SaveOrderTransfer
     {
         foreach ($this->orderItemsPostSavePlugins as $orderItemsPostSavePlugin) {
@@ -235,12 +215,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
         return $saveOrderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpyOmsOrderItemStateEntityTransfer|null
-     */
     protected function getInitialStateEntityTransfer(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer
@@ -263,12 +237,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
         return $spyOmsOrderItemStateEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\SaveOrderTransfer
-     */
     protected function copyQuoteItemsToSaveOrderItems(SaveOrderTransfer $saveOrderTransfer, QuoteTransfer $quoteTransfer): SaveOrderTransfer
     {
         $quoteItemTransfers = [];
@@ -282,15 +250,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
         return $saveOrderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer $salesOrderItemEntityTransfer
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\SpyOmsOrderItemStateEntityTransfer|null $initialStateEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer
-     */
     protected function hydrateSalesOrderItemEntityTransfer(
         SaveOrderTransfer $saveOrderTransfer,
         QuoteTransfer $quoteTransfer,
@@ -350,12 +309,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
         return $itemTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpyOmsOrderProcessEntityTransfer
-     */
     protected function getProcessEntityTransfer(QuoteTransfer $quoteTransfer, ItemTransfer $itemTransfer): SpyOmsOrderProcessEntityTransfer
     {
         $processName = $this->orderStateMachineResolver->resolve($quoteTransfer, $itemTransfer);
@@ -372,11 +325,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
         return $processEntityTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return void
-     */
     protected function assertItemRequirements(ItemTransfer $itemTransfer): void
     {
         $itemTransfer->requireUnitPrice()
@@ -385,13 +333,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
             ->requireSku();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer $salesOrderItemEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpySalesOrderItemEntityTransfer
-     */
     protected function executeOrderItemExpanderPreSavePlugins(
         QuoteTransfer $quoteTransfer,
         ItemTransfer $itemTransfer,
@@ -401,12 +342,6 @@ class OrderItemsSaver implements OrderItemsSaverInterface
             ->executeOrderItemExpanderPreSavePlugins($quoteTransfer, $itemTransfer, $salesOrderItemEntityTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsOrderItemStateTransfer|null
-     */
     protected function executeOrderItemInitialStateProviderPlugins(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer

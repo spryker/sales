@@ -15,12 +15,6 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderTotals;
 
 class SalesOrderTotalsMapper
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderTotals
-     */
     public function mapSalesOrderTotalsEntity(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer
@@ -39,13 +33,6 @@ class SalesOrderTotalsMapper
         return $salesOrderTotalsEntity;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderTotals $salesOrderTotalsEntity
-     * @param \Generated\Shared\Transfer\TotalsTransfer $totalsTransfer
-     * @param \Generated\Shared\Transfer\TaxTotalTransfer $taxTotalTransfer
-     *
-     * @return \Generated\Shared\Transfer\TotalsTransfer
-     */
     public function mapSalesOrderTotalsTransfer(
         SpySalesOrderTotals $salesOrderTotalsEntity,
         TotalsTransfer $totalsTransfer,

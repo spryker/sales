@@ -18,9 +18,6 @@ class DuplicationSalesOrderItemValidatorRule implements SalesOrderItemValidatorR
      */
     protected const GLOSSARY_KEY_VALIDATION_SALES_ORDER_ITEM_ENTITY_DUPLICATED = 'sales.validation.sales_order_item_entity_duplicated';
 
-    /**
-     * @param \Spryker\Zed\Sales\Business\Validator\Util\ErrorAdderInterface $errorAdder
-     */
     public function __construct(protected ErrorAdderInterface $errorAdder)
     {
     }

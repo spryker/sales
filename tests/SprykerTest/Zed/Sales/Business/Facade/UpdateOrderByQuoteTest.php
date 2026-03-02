@@ -65,9 +65,6 @@ class UpdateOrderByQuoteTest extends Unit
      */
     protected SalesBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -75,9 +72,6 @@ class UpdateOrderByQuoteTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testShouldUpdateOrderCustomerData(): void
     {
         // Arrange
@@ -105,9 +99,6 @@ class UpdateOrderByQuoteTest extends Unit
         $this->assertSame('Updated last name', $updatedOrderTransfer->getLastName());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldUpdateOrderCurrency(): void
     {
         // Arrange
@@ -133,9 +124,6 @@ class UpdateOrderByQuoteTest extends Unit
         $this->assertSame(static::TEST_CURRENCY_ISO_CODE, $updatedOrderTransfer->getCurrencyIsoCode());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldUpdateBillingAddress(): void
     {
         $customerTransfer = $this->tester->haveCustomer();
@@ -160,9 +148,6 @@ class UpdateOrderByQuoteTest extends Unit
         $this->assertSame('Billing address 1', $salesOrderAddressEntity->getAddress1());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldUpdateShippingAddress(): void
     {
         $customerTransfer = $this->tester->haveCustomer();
@@ -188,9 +173,6 @@ class UpdateOrderByQuoteTest extends Unit
         $this->assertSame('Shipping address 1', $salesOrderAddressEntity->getAddress1());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldCreateShippingAddressWhenOrderDidNotHaveItPreviously(): void
     {
         // Arrange
@@ -221,9 +203,6 @@ class UpdateOrderByQuoteTest extends Unit
         $this->assertSame($addressTransfer->getAddress1(), $updatedOrderTransfer->getShippingAddressOrFail()->getAddress1());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldResetShippingAddressWhenQuoteDoesNotHaveShippingAddress(): void
     {
         // Arrange
@@ -251,9 +230,6 @@ class UpdateOrderByQuoteTest extends Unit
         $this->assertNull($updatedOrderTransfer->getShippingAddress());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldSetCurrentLocaleId(): void
     {
         // Arrange
@@ -311,9 +287,6 @@ class UpdateOrderByQuoteTest extends Unit
         $this->tester->getFacade()->updateOrderByQuote($quoteTransfer, new SaveOrderTransfer());
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderPostSavePluginInterface
-     */
     protected function getNeverCalledOrderPostSavePluginMock(): OrderPostSavePluginInterface
     {
         $orderPostSavePluginMock = $this
@@ -324,9 +297,6 @@ class UpdateOrderByQuoteTest extends Unit
         return $orderPostSavePluginMock;
     }
 
-    /**
-     * @return \Spryker\Zed\SalesExtension\Dependency\Plugin\OrderPostSavePluginInterface
-     */
     protected function getOnceCalledOrderPostSavePluginMock(): OrderPostSavePluginInterface
     {
         $orderPostSavePluginMock = $this
@@ -499,11 +469,6 @@ class UpdateOrderByQuoteTest extends Unit
         ];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\LocaleTransfer $localeTransfer
-     *
-     * @return void
-     */
     protected function mockLocaleFacadeDependency(LocaleTransfer $localeTransfer): void
     {
         $localeFacadeMock = $this->createMock(SalesToLocaleInterface::class);

@@ -13,11 +13,6 @@ use SprykerTest\Shared\Application\Helper\ZedHelper;
 
 class PresentationHelper extends Module
 {
-    /**
-     * @param \Codeception\TestInterface $e
-     *
-     * @return void
-     */
     public function _before(TestInterface $e): void
     {
         $this->getZedModule()->amZed();

@@ -53,9 +53,6 @@ class SalesFacadeExpandItemsTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -63,9 +60,6 @@ class SalesFacadeExpandItemsTest extends Unit
         $this->tester->configureTestStateMachine([BusinessHelper::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testExpandItemsWithCurrencyIsoCodeWithOrderWithCurrencyCode(): void
     {
         // Arrange
@@ -91,9 +85,6 @@ class SalesFacadeExpandItemsTest extends Unit
         $this->assertSame($orderTransfer->getCurrencyIsoCode(), $itemTransfers[0]->getCurrencyIsoCode());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandItemsWithCurrencyIsoCodeWithOrderWithoutCurrencyCode(): void
     {
         // Arrange
@@ -119,9 +110,6 @@ class SalesFacadeExpandItemsTest extends Unit
         $this->assertEmpty($itemTransfers[0]->getCurrencyIsoCode());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandItemsWithCurrencyIsoCodeWithoutOrder(): void
     {
         // Arrange

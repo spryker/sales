@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\OrderListTransfer;
 
 interface OrderSearchReaderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function searchOrders(OrderListTransfer $orderListTransfer): OrderListTransfer;
 }

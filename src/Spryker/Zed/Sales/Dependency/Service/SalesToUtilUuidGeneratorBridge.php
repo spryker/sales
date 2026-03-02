@@ -24,11 +24,6 @@ class SalesToUtilUuidGeneratorBridge implements SalesToUtilUuidGeneratorInterfac
         $this->utilUuidGeneratorService = $utilUuidGeneratorService;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\IdGeneratorSettingsTransfer $idGeneratorSettingsTransfer
-     *
-     * @return string
-     */
     public function generateUniqueRandomId(IdGeneratorSettingsTransfer $idGeneratorSettingsTransfer): string
     {
         return $this->utilUuidGeneratorService->generateUniqueRandomId($idGeneratorSettingsTransfer);

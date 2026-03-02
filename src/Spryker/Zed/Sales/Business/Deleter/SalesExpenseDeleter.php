@@ -28,11 +28,6 @@ class SalesExpenseDeleter implements SalesExpenseDeleterInterface
     ) {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesExpenseCollectionDeleteCriteriaTransfer $salesExpenseCollectionDeleteCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\SalesExpenseCollectionResponseTransfer
-     */
     public function deleteSalesExpenseCollection(
         SalesExpenseCollectionDeleteCriteriaTransfer $salesExpenseCollectionDeleteCriteriaTransfer
     ): SalesExpenseCollectionResponseTransfer {
@@ -65,11 +60,6 @@ class SalesExpenseDeleter implements SalesExpenseDeleterInterface
         return $salesExpenseIds;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesExpenseCollectionTransfer $salesExpenseCollectionTransfer
-     *
-     * @return void
-     */
     protected function executeSalesExpensePreDeletePlugins(SalesExpenseCollectionTransfer $salesExpenseCollectionTransfer): void
     {
         foreach ($this->salesExpensePreDeletePlugins as $salesExpensePreDeletePlugin) {

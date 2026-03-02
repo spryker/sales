@@ -12,10 +12,5 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
 interface CustomerOrderOverviewHydratorInterface
 {
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function hydrateOrderTransfer(SpySalesOrder $orderEntity): OrderTransfer;
 }

@@ -54,11 +54,6 @@ class OffsetPaginatedCustomerOrderListReader implements OffsetPaginatedCustomerO
         $this->searchOrderExpanderPlugins = $searchOrderExpanderPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListRequestTransfer $orderListRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     public function getOrders(OrderListRequestTransfer $orderListRequestTransfer): OrderListTransfer
     {
         $orderListRequestTransfer->requireCustomerReference();
@@ -75,11 +70,6 @@ class OffsetPaginatedCustomerOrderListReader implements OffsetPaginatedCustomerO
         return $orderListTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderListTransfer $orderListTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderListTransfer
-     */
     protected function hydrateOrderTransfersInOrderListTransfer(OrderListTransfer $orderListTransfer): OrderListTransfer
     {
         $orderTransfers = new ArrayObject();

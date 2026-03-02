@@ -34,11 +34,6 @@ class IndexController extends AbstractController
         ];
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
     public function tableAction(Request $request): JsonResponse
     {
         [$table] = $this->prepareTableWithFilterForm($request);
@@ -48,11 +43,6 @@ class IndexController extends AbstractController
         );
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
-     */
     protected function prepareTableWithFilterForm(Request $request): array
     {
         $tableFilterForm = $this->getFactory()

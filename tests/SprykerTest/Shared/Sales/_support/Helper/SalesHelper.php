@@ -50,11 +50,6 @@ class SalesHelper extends Module
      */
     protected array $salesOrderEntityIds = [];
 
-    /**
-     * @param \Codeception\TestInterface $test
-     *
-     * @return void
-     */
     public function _after(TestInterface $test): void
     {
         parent::_after($test);
@@ -62,11 +57,6 @@ class SalesHelper extends Module
         $this->salesOrderEntityIds = [];
     }
 
-    /**
-     * @param array $seed
-     *
-     * @return int
-     */
     public function createOrder(array $seed = []): int
     {
         $salesOrderBuilder = new OrderBuilder($seed);
@@ -103,9 +93,6 @@ class SalesHelper extends Module
         return $salesOrderEntity->getIdSalesOrder();
     }
 
-    /**
-     * @return void
-     */
     public function createOrderWithOneItem(): void
     {
         $i = $this;
@@ -113,23 +100,11 @@ class SalesHelper extends Module
         $i->createSalesOrderItemForOrder($idSalesOrder);
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer|null $orderTransfer
-     *
-     * @return int
-     */
     protected function addExpenses(SpySalesOrder $salesOrderEntity, ?OrderTransfer $orderTransfer = null): int
     {
         return $this->addShipmentExpense($salesOrderEntity, $orderTransfer);
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer|null $orderTransfer
-     *
-     * @return void
-     */
     protected function addOrderDetails(SpySalesOrder $salesOrderEntity, ?OrderTransfer $orderTransfer = null): void
     {
         // These are the default data when not changed from outside
@@ -148,11 +123,6 @@ class SalesHelper extends Module
         $salesOrderEntity->fromArray($orderTransfer->modifiedToArray());
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     *
-     * @return void
-     */
     protected function addAddresses(SpySalesOrder $salesOrderEntity): void
     {
         $billingAddressEntity = $salesOrderEntity->getBillingAddress();
@@ -171,9 +141,6 @@ class SalesHelper extends Module
         $salesOrderEntity->setShippingAddress($billingAddressEntity);
     }
 
-    /**
-     * @return \Orm\Zed\Country\Persistence\SpyCountry
-     */
     protected function getCountryEntity(): SpyCountry
     {
         $countryQuery = new SpyCountryQuery();
@@ -189,12 +156,6 @@ class SalesHelper extends Module
         return $countryEntity;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param int $idSalesExpense
-     *
-     * @return void
-     */
     protected function addShipment(SpySalesOrder $salesOrderEntity, int $idSalesExpense): void
     {
         $shipmentMethodTransfer = $this->getShipmentMethodDataHelper()->haveShipmentMethod(
@@ -215,12 +176,6 @@ class SalesHelper extends Module
         $salesOrderEntity->addSpySalesShipment($shipmentMethod);
     }
 
-    /**
-     * @param int $idSalesOrder
-     * @param array $salesOrderItem
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem
-     */
     public function createSalesOrderItemForOrder(int $idSalesOrder, array $salesOrderItem = []): SpySalesOrderItem
     {
         $salesOrderQuery = new SpySalesOrderQuery();
@@ -237,11 +192,6 @@ class SalesHelper extends Module
         return $salesOrderItem;
     }
 
-    /**
-     * @param array $salesOrderItem
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem
-     */
     protected function createSalesOrderItem(array $salesOrderItem): SpySalesOrderItem
     {
         $salesOrderItemEntity = new SpySalesOrderItem();
@@ -274,12 +224,6 @@ class SalesHelper extends Module
         return $salesOrderItemEntity;
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     * @param array $discount
-     *
-     * @return void
-     */
     public function createDiscountForSalesOrderItem(int $idSalesOrderItem, array $discount = []): void
     {
         $salesOrderDiscountEntity = new SpySalesDiscount();
@@ -298,11 +242,6 @@ class SalesHelper extends Module
         $salesOrderDiscountEntity->save();
     }
 
-    /**
-     * @param array $salesOrderItem
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemState
-     */
     protected function getOrderItemState(array $salesOrderItem): SpyOmsOrderItemState
     {
         $expectedState = (!empty($salesOrderItem['state'])) ? $salesOrderItem['state'] : 'new';
@@ -313,11 +252,6 @@ class SalesHelper extends Module
         return $omsOrderItemStateEntity;
     }
 
-    /**
-     * @param array $salesOrderItem
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderProcess
-     */
     protected function getOrderProcess(array $salesOrderItem): SpyOmsOrderProcess
     {
         $expectedProcess = (!empty($salesOrderItem['process'])) ? $salesOrderItem['process'] : 'Nopayment01';
@@ -328,9 +262,6 @@ class SalesHelper extends Module
         return $omsOrderProcessEntity;
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderAddress
-     */
     protected function createBillingAddress(): SpySalesOrderAddress
     {
         $billingAddressEntity = new SpySalesOrderAddress();
@@ -354,12 +285,6 @@ class SalesHelper extends Module
         return $billingAddressEntity;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer|null $orderTransfer
-     *
-     * @return int
-     */
     protected function addShipmentExpense(SpySalesOrder $salesOrderEntity, ?OrderTransfer $orderTransfer = null): int
     {
         $shipmentExpense = new SpySalesExpense();
@@ -382,11 +307,6 @@ class SalesHelper extends Module
         return $shipmentExpense->getIdSalesExpense();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\ExpenseTransfer|null
-     */
     protected function findShipmentExpense(OrderTransfer $orderTransfer): ?ExpenseTransfer
     {
         foreach ($orderTransfer->getExpenses() as $expenseTransfer) {
@@ -400,12 +320,6 @@ class SalesHelper extends Module
         return null;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer|null $orderTransfer
-     *
-     * @return void
-     */
     protected function addOrderTotals(SpySalesOrder $salesOrderEntity, ?OrderTransfer $orderTransfer = null): void
     {
         $salesOrderTotals = new SpySalesOrderTotals();

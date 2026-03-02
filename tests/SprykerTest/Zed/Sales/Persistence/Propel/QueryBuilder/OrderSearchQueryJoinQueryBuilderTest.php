@@ -44,9 +44,6 @@ class OrderSearchQueryJoinQueryBuilderTest extends Unit
      */
     protected const COLUMN_FULL_NAME = "CONCAT(first_name, ' ', last_name)";
 
-    /**
-     * @return void
-     */
     public function testAddSalesOrderQueryFiltersShouldBindFilterValues(): void
     {
         // Arrange

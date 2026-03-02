@@ -16,9 +16,6 @@ class ItemCurrencyExpander implements ItemCurrencyExpanderInterface
      */
     protected $salesRepository;
 
-    /**
-     * @param \Spryker\Zed\Sales\Persistence\SalesRepositoryInterface $salesRepository
-     */
     public function __construct(SalesRepositoryInterface $salesRepository)
     {
         $this->salesRepository = $salesRepository;
