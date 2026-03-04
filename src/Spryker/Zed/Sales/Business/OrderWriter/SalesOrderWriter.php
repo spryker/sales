@@ -16,16 +16,25 @@ use Generated\Shared\Transfer\SpySalesOrderAddressEntityTransfer;
 use Generated\Shared\Transfer\SpySalesOrderEntityTransfer;
 use Spryker\Shared\Kernel\StrategyResolverInterface;
 use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
+use Spryker\Zed\Sales\Business\Exception\DuplicateOrderReferenceException;
 use Spryker\Zed\Sales\Business\Model\Order\OrderReferenceGeneratorInterface;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToCountryInterface;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToLocaleInterface;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToStoreInterface;
 use Spryker\Zed\Sales\Persistence\SalesEntityManagerInterface;
 use Spryker\Zed\Sales\SalesConfig;
+use Throwable;
 
 class SalesOrderWriter implements SalesOrderWriterInterface
 {
     use DatabaseTransactionHandlerTrait;
+
+    /**
+     * The SQL state class '23' indicates an integrity constraint violation.
+     */
+    protected const string DB_INTEGRITY_VIOLATION_ERROR_CODE_PREFIX = '23';
+
+    protected const string DB_KEY_ORDER_REFERENCE_NAME = 'spy_sales_order-order_reference';
 
     /**
      * @var \Spryker\Zed\Sales\Dependency\Facade\SalesToCountryInterface
@@ -137,7 +146,26 @@ class SalesOrderWriter implements SalesOrderWriterInterface
         $salesOrderEntityTransfer = $this->hydrateSalesOrderEntityTransfer($quoteTransfer, $salesOrderEntityTransfer, $orderReference);
         $salesOrderEntityTransfer = $this->hydrateAddresses($quoteTransfer, $salesOrderEntityTransfer);
         $salesOrderEntityTransfer = $this->addLocale($salesOrderEntityTransfer);
-        $salesOrderEntityTransfer = $this->entityManager->saveOrderEntity($salesOrderEntityTransfer);
+        try {
+            $salesOrderEntityTransfer = $this->entityManager->saveOrderEntity($salesOrderEntityTransfer);
+        } catch (Throwable $exception) {
+            $previous = $exception->getPrevious();
+            $code = $previous ? $previous->getCode() : $exception->getCode();
+            $message = $previous ? $previous->getMessage() : $exception->getMessage();
+
+            if (
+                str_starts_with((string)$code, static::DB_INTEGRITY_VIOLATION_ERROR_CODE_PREFIX) &&
+                str_contains($message, static::DB_KEY_ORDER_REFERENCE_NAME)
+            ) {
+                throw new DuplicateOrderReferenceException(
+                    $message,
+                    $code,
+                    $previous ?: $exception,
+                );
+            }
+
+            throw $exception;
+        }
 
         return $salesOrderEntityTransfer;
     }

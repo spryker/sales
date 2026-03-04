@@ -9,6 +9,7 @@ namespace SprykerTest\Zed\Sales\Business;
 
 use Codeception\Test\Unit;
 use DateTime;
+use DivisionByZeroError;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\CountryTransfer;
@@ -34,6 +35,7 @@ use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Locale\Business\LocaleFacade;
 use Spryker\Zed\Oms\Business\OmsFacadeInterface;
 use Spryker\Zed\Oms\OmsConfig;
+use Spryker\Zed\Sales\Business\Exception\DuplicateOrderReferenceException;
 use Spryker\Zed\Sales\Business\SalesBusinessFactory;
 use Spryker\Zed\Sales\Business\SalesFacade;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToCountryBridge;
@@ -43,6 +45,8 @@ use Spryker\Zed\Sales\Dependency\Facade\SalesToOmsBridge;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToSequenceNumberBridge;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToStoreBridge;
 use Spryker\Zed\Sales\Dependency\Service\SalesToUtilUuidGeneratorBridge;
+use Spryker\Zed\Sales\Persistence\SalesEntityManager;
+use Spryker\Zed\Sales\Persistence\SalesPersistenceFactory;
 use Spryker\Zed\Sales\SalesConfig;
 use Spryker\Zed\Sales\SalesDependencyProvider;
 use Spryker\Zed\SalesExtension\Dependency\Plugin\OrderPostSavePluginInterface;
@@ -678,6 +682,49 @@ class SalesFacadeSaveOrderTest extends Unit
         //Assert
         $this->salesBusinessFactory->setConfig($this->salesConfig);
         $this->tester->assertRegExp('/^\w{2}--\d{6}-\d{6}-\d{4}$/', $saveOrderTransfer->getOrderReference());
+    }
+
+    public function testSaveOrderRawWithUniqueRandomIdOrderReferenceGeneratorWithOrderReferenceDuplicationWillThrowCustomException(): void
+    {
+        //Arrange
+        $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
+        $saveOrderTransfer = $this->createSaveOrderTransfer();
+        $salesConfigMock = $this->getMockBuilder(SalesConfig::class)
+            ->onlyMethods(['useUniqueRandomIdOrderReferenceGenerator'])
+            ->getMock();
+        $salesConfigMock->method('useUniqueRandomIdOrderReferenceGenerator')
+            ->willReturn(true);
+        $this->salesBusinessFactory->setConfig($salesConfigMock);
+        $this->salesFacade->saveOrderRaw((new QuoteTransfer())->fromArray($quoteTransfer->modifiedToArray()), $saveOrderTransfer);
+        $quoteTransfer->setOrderReference($saveOrderTransfer->getOrderReference());
+        $this->expectException(DuplicateOrderReferenceException::class);
+
+        //Act
+        $this->salesFacade->saveOrderRaw($quoteTransfer, $saveOrderTransfer);
+    }
+
+    public function testSaveOrderRawWithUniqueRandomIdOrderReferenceGeneratorWithOrderReferenceDuplicationWillThrowOriginalException(): void
+    {
+        //Arrange
+        $quoteTransfer = $this->tester->getValidBaseQuoteTransfer();
+        $saveOrderTransfer = $this->createSaveOrderTransfer();
+        $salesEntityManagerMock = $this->getMockBuilder(SalesEntityManager::class)
+            ->onlyMethods(['saveOrderEntity'])
+            ->getMock();
+        $salesEntityManagerMock->method('saveOrderEntity')
+            ->willThrowException(new DivisionByZeroError());
+        $salesEntityManagerMock->setFactory(new SalesPersistenceFactory());
+        $salesConfigMock = $this->getMockBuilder(SalesConfig::class)
+            ->onlyMethods(['useUniqueRandomIdOrderReferenceGenerator'])
+            ->getMock();
+        $salesConfigMock->method('useUniqueRandomIdOrderReferenceGenerator')
+            ->willReturn(true);
+        $this->salesBusinessFactory->setConfig($salesConfigMock)
+            ->setEntityManager($salesEntityManagerMock);
+        $this->expectException(DivisionByZeroError::class);
+
+        //Act
+        $this->salesFacade->saveOrderRaw($quoteTransfer, $saveOrderTransfer);
     }
 
     public function testSaveOrderRawUsesSequenceGeneratorByDefault(): void
