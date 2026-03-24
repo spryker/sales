@@ -119,6 +119,10 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
      */
     public const UI_SALES_TABLE_PLUGINS = 'UI_SALES_TABLE_PLUGINS';
 
+    public const string PLUGINS_SALES_ORDER_DETAIL_DATA_EXPANDER = 'PLUGINS_SALES_ORDER_DETAIL_DATA_EXPANDER';
+
+    public const string PLUGINS_SALES_DETAIL_BLOCK_RENDERER = 'PLUGINS_SALES_DETAIL_BLOCK_RENDERER';
+
     /**
      * @var string
      */
@@ -304,6 +308,8 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addCsrfProviderService($container);
         $container = $this->addStoreFacade($container);
         $container = $this->addTranslatorFacade($container);
+        $container = $this->addSalesOrderDetailDataExpanderPlugins($container);
+        $container = $this->addSalesDetailBlockRendererPlugins($container);
 
         return $container;
     }
@@ -991,6 +997,40 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
      * @return list<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrderItemInitialStateProviderPluginInterface>
      */
     protected function getOrderItemInitialStateProviderPluginsForOrderAmendmentAsync(): array
+    {
+        return [];
+    }
+
+    protected function addSalesOrderDetailDataExpanderPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_SALES_ORDER_DETAIL_DATA_EXPANDER, function () {
+            return $this->getSalesOrderDetailDataExpanderPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\SalesOrderDetailDataExpanderPluginInterface>
+     */
+    protected function getSalesOrderDetailDataExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    protected function addSalesDetailBlockRendererPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_SALES_DETAIL_BLOCK_RENDERER, function () {
+            return $this->getSalesDetailBlockRendererPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\SalesDetailBlockRendererPluginInterface>
+     */
+    protected function getSalesDetailBlockRendererPlugins(): array
     {
         return [];
     }

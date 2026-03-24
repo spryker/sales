@@ -339,6 +339,20 @@ class SalesConfig extends AbstractBundleConfig
 
     /**
      * Specification:
+     * - Returns a map of block URL to Twig template path used by OrderTransferBlockRendererPlugin.
+     * - Override on project level to register block URL to template mappings.
+     *
+     * @api
+     *
+     * @return array<string, string>
+     */
+    public function getOrderDetailBlockUrlToTemplateMap(): array
+    {
+        return [];
+    }
+
+    /**
+     * Specification:
      * - Returns the list of address fields to compare when checking if addresses differ.
      *
      * @api

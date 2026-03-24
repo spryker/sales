@@ -86,10 +86,14 @@
             <div class="col-md-12">
                 {% embed '@Gui/Partials/widget.twig' with { widget_title: 'Trigger all matching states inside this order' } %}
                     {% block widget_content %}
+                        {% if omsTriggerFormCollection is not defined %}
+                            {% set omsTriggerFormCollection = null %}
+                        {% endif %}
                         {% include '@Oms/RenderForm/_partial/order-actions.twig' with {
                             redirectUrl: changeStatusRedirectUrl,
                             idSalesOrder: order.idSalesOrder,
                             events: events,
+                            omsTriggerFormCollection: omsTriggerFormCollection,
                         } only %}
                     {% endblock %}
                 {% endembed %}

@@ -37,6 +37,8 @@ class CommentController extends AbstractController
     protected const PARAM_ID_SALES_ORDER = 'id-sales-order';
 
     /**
+     * @deprecated Exists for BC reasons. Use {@link \Spryker\Zed\Sales\Communication\Plugin\Sales\SalesCommentBlockRendererPlugin} instead.
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|array
@@ -61,6 +63,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * @deprecated use {@link \Spryker\Zed\Sales\Communication\Plugin\Sales\CommentsSalesOrderDetailDataExpanderPlugin} to fetch and display comments in the order detail page instead.
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return array

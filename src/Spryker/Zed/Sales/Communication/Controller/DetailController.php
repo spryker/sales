@@ -34,6 +34,8 @@ class DetailController extends AbstractController
     public const ROUTE_REDIRECT = '/sales/detail';
 
     /**
+     * @deprecated Will be removed without replacement.
+     *
      * @uses \Spryker\Zed\Http\Communication\Plugin\Application\HttpApplicationPlugin::SERVICE_SUB_REQUEST
      *
      * @var string
@@ -63,7 +65,7 @@ class DetailController extends AbstractController
         }
 
         $distinctOrderStates = $this->getFacade()->getDistinctOrderStates($idSalesOrder);
-        $eventsGroupedByShipment = $this->getFactory()->getOmsFacade()->getGroupedDistinctManualEventsByIdSalesOrder($idSalesOrder);
+        $eventsGroupedByShipment = $this->getFactory()->getOmsFacade()->getGroupedDistinctManualEventsBySalesOrderTransfer($orderTransfer);
         $eventsGroupedByItem = $this->getFactory()->getOmsFacade()->getManualEventsByIdSalesOrder($idSalesOrder);
         $orderItemSplitFormCollection = $this->getFactory()->createOrderItemSplitFormCollection($orderTransfer->getItems());
         $events = $this->getFactory()->getOmsFacade()->getDistinctManualEventsByIdSalesOrder($idSalesOrder);
@@ -76,7 +78,7 @@ class DetailController extends AbstractController
         $groupedOrderItems = $this->getFacade()
             ->getUniqueItemsFromOrder($orderTransfer);
 
-        return array_merge([
+        $orderDetailData = [
             'eventsGroupedByItem' => $eventsGroupedByItem,
             'events' => $events,
             'eventsGroupedByShipment' => $eventsGroupedByShipment,
@@ -88,7 +90,26 @@ class DetailController extends AbstractController
             'tableColumnHeaders' => $this->getFactory()->createOrderItemsTableExpander()->getColumnHeaders(),
             'tableColumnCellsContent' => $this->getFactory()->createOrderItemsTableExpander()->getColumnCellsContent($orderTransfer->getItems()),
             'eventsFormAttributeMap' => $this->getEventsFormAttributeMap($eventsGroupedByItem, $idSalesOrder),
-        ], $blockResponseData);
+        ];
+
+        $orderDetailData = $this->expandOrderDetailData($orderTransfer, $orderDetailData);
+
+        return array_merge($orderDetailData, $blockResponseData);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param array<string, mixed> $orderDetailData
+     *
+     * @return array<string, mixed>
+     */
+    protected function expandOrderDetailData(OrderTransfer $orderTransfer, array $orderDetailData): array
+    {
+        foreach ($this->getFactory()->getSalesOrderDetailDataExpanderPlugins() as $salesOrderDetailDataExpanderPlugin) {
+            $orderDetailData = $salesOrderDetailDataExpanderPlugin->expand($orderTransfer, $orderDetailData);
+        }
+
+        return $orderDetailData;
     }
 
     protected function createRedirectLink(int $idSalesOrder): string
@@ -108,7 +129,7 @@ class DetailController extends AbstractController
      */
     protected function renderSalesDetailBlocks(Request $request, OrderTransfer $orderTransfer)
     {
-        $addCommentBlock = $this->handleSubRequest($request, '/sales/comment/add');
+        $addCommentBlock = $this->renderBlockWithStrategy($request, $orderTransfer, '/sales/comment/add');
 
         if ($addCommentBlock instanceof RedirectResponse) {
             return $addCommentBlock;
@@ -124,6 +145,22 @@ class DetailController extends AbstractController
             'add_comments' => $addCommentBlock,
             'blocks' => $blockData,
         ];
+    }
+
+    protected function renderBlockWithStrategy(Request $request, OrderTransfer $orderTransfer, string $blockUrl): RedirectResponse|string
+    {
+        foreach ($this->getFactory()->getSalesDetailBlockRendererPlugins() as $salesDetailBlockRendererPlugin) {
+            if (!$salesDetailBlockRendererPlugin->isApplicable($blockUrl)) {
+                continue;
+            }
+
+            return $this->getTwig()->render(
+                $salesDetailBlockRendererPlugin->getTemplatePath($blockUrl),
+                $salesDetailBlockRendererPlugin->getData($request, $orderTransfer, $blockUrl),
+            );
+        }
+
+        return $this->handleSubRequest($request, $blockUrl);
     }
 
     /**
@@ -144,7 +181,7 @@ class DetailController extends AbstractController
 
         $responseData = [];
         foreach ($data as $blockName => $blockUrl) {
-            $responseData[$blockName] = $this->handleSubRequest($subRequest, $blockUrl);
+            $responseData[$blockName] = $this->renderBlockWithStrategy($subRequest, $orderTransfer, $blockUrl);
         }
 
         return $responseData;
@@ -171,6 +208,8 @@ class DetailController extends AbstractController
     }
 
     /**
+     * @deprecated Will be removed without replacement.
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $blockUrl
      *
@@ -187,6 +226,8 @@ class DetailController extends AbstractController
     }
 
     /**
+     * @deprecated Will be removed without replacement.
+     *
      * @return \Spryker\Zed\Application\Business\Model\Request\SubRequestHandlerInterface
      */
     protected function getSubRequestHandler()

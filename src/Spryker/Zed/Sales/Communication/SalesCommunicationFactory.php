@@ -305,4 +305,20 @@ class SalesCommunicationFactory extends AbstractCommunicationFactory
             $this->getUtilDateTimeService(),
         );
     }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\SalesOrderDetailDataExpanderPluginInterface>
+     */
+    public function getSalesOrderDetailDataExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(SalesDependencyProvider::PLUGINS_SALES_ORDER_DETAIL_DATA_EXPANDER);
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\SalesDetailBlockRendererPluginInterface>
+     */
+    public function getSalesDetailBlockRendererPlugins(): array
+    {
+        return $this->getProvidedDependency(SalesDependencyProvider::PLUGINS_SALES_DETAIL_BLOCK_RENDERER);
+    }
 }

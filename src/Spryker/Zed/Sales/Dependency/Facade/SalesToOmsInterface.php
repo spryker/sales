@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\Sales\Dependency\Facade;
 
+use Generated\Shared\Transfer\OrderTransfer;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderItemState;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderProcess;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
@@ -41,7 +42,7 @@ interface SalesToOmsInterface
 
     public function getDistinctManualEventsByIdSalesOrder(int $idSalesOrder): array;
 
-    public function getGroupedDistinctManualEventsByIdSalesOrder(int $idSalesOrder): array;
+    public function getGroupedDistinctManualEventsBySalesOrderTransfer(OrderTransfer $orderTransfer): array;
 
     /**
      * @deprecated Will be removed without replacement.

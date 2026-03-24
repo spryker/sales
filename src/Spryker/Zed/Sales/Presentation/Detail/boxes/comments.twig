@@ -3,7 +3,16 @@
     {% block widget_content %}
         <div class="row">
             <div class="col-xs-12 col-md-6">
-                {{ render(controller('/sales/comment/list', {'request': app.request})) }}
+                {% if comments is defined %}
+                    {# New optimized approach with CommentsSalesOrderDetailDataExpanderPlugin enabled: Direct template rendering without sub-request #}
+                    {# @var comments \ArrayObject<\Generated\Shared\Transfer\CommentTransfer> #}
+                    {% include '@Sales/Comment/list.twig' with {
+                        comments: comments,
+                    } only %}
+                {% else %}
+                    {# BC: Fallback to sub-request if plugin not registered #}
+                    {{ render(controller('/sales/comment/list', {'request': app.request})) }}
+                {% endif %}
                 {{ add_comments | raw }}
             </div>
         </div>

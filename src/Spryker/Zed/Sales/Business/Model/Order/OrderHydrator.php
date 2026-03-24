@@ -265,8 +265,10 @@ class OrderHydrator implements OrderHydratorInterface
         $orderTransfer = new OrderTransfer();
         $orderTransfer->fromArray((array)$orderEntity->toArray(), true);
         $orderTransfer->setCustomerReference($orderEntity->getCustomerReference());
-        // Deprecated: Using FK to customer is obsolete, but needed to prevent BC break.
-        $orderTransfer->setFkCustomer($orderEntity->getFkCustomer());
+        if ($orderTransfer->getFkCustomer() === null) {
+            // Deprecated: Using FK to customer is obsolete, but needed to prevent BC break.
+            $orderTransfer->setFkCustomer($orderEntity->getFkCustomer());
+        }
 
         return $orderTransfer;
     }
@@ -539,15 +541,9 @@ class OrderHydrator implements OrderHydratorInterface
         $orderTransfer->setTotals($totalsTransfer);
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return void
-     */
-    protected function hydrateMissingCustomer(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer)
+    protected function hydrateMissingCustomer(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): void
     {
-        if (!$orderEntity->getCustomer()) {
+        if ($orderTransfer->getCustomer() === null && !$orderEntity->getCustomer()) {
             $orderTransfer->setCustomerReference(null);
             // Deprecated: Using FK to customer is obsolete, but needed to prevent BC break.
             $orderTransfer->setFkCustomer(null);

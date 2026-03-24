@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\Sales\Dependency\Facade;
 
+use Generated\Shared\Transfer\OrderTransfer;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderItemState;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderProcess;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
@@ -82,9 +83,9 @@ class SalesToOmsBridge implements SalesToOmsInterface
         return $this->omsFacade->getDistinctManualEventsByIdSalesOrder($idSalesOrder);
     }
 
-    public function getGroupedDistinctManualEventsByIdSalesOrder(int $idSalesOrder): array
+    public function getGroupedDistinctManualEventsBySalesOrderTransfer(OrderTransfer $orderTransfer): array
     {
-        return $this->omsFacade->getGroupedDistinctManualEventsByIdSalesOrder($idSalesOrder);
+        return $this->omsFacade->getGroupedDistinctManualEventsBySalesOrderTransfer($orderTransfer);
     }
 
     public function isOrderFlaggedExcludeFromCustomer(int $idOrder): bool
