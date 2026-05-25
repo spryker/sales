@@ -123,6 +123,14 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
 
     public const string PLUGINS_SALES_DETAIL_BLOCK_RENDERER = 'PLUGINS_SALES_DETAIL_BLOCK_RENDERER';
 
+    public const string PLUGINS_ORDERS_TABLE_QUERY_EXPANDER = 'PLUGINS_ORDERS_TABLE_QUERY_EXPANDER';
+
+    public const string PLUGINS_ORDERS_TABLE_HEADER_EXPANDER = 'PLUGINS_ORDERS_TABLE_HEADER_EXPANDER';
+
+    public const string PLUGINS_ORDERS_TABLE_CRITERIA_FILTER_EXPANDER = 'PLUGINS_ORDERS_TABLE_CRITERIA_FILTER_EXPANDER';
+
+    public const string PLUGINS_ORDERS_TABLE_FILTER_FORM_EXPANDER = 'PLUGINS_ORDERS_TABLE_FILTER_FORM_EXPANDER';
+
     /**
      * @var string
      */
@@ -310,6 +318,10 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addTranslatorFacade($container);
         $container = $this->addSalesOrderDetailDataExpanderPlugins($container);
         $container = $this->addSalesDetailBlockRendererPlugins($container);
+        $container = $this->addOrdersTableQueryExpanderPlugins($container);
+        $container = $this->addOrdersTableHeaderExpanderPlugins($container);
+        $container = $this->addOrdersTableCriteriaFilterExpanderPlugins($container);
+        $container = $this->addOrdersTableFilterFormExpanderPlugins($container);
 
         return $container;
     }
@@ -1031,6 +1043,74 @@ class SalesDependencyProvider extends AbstractBundleDependencyProvider
      * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\SalesDetailBlockRendererPluginInterface>
      */
     protected function getSalesDetailBlockRendererPlugins(): array
+    {
+        return [];
+    }
+
+    protected function addOrdersTableQueryExpanderPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_ORDERS_TABLE_QUERY_EXPANDER, function () {
+            return $this->getOrdersTableQueryExpanderPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableQueryExpanderPluginInterface>
+     */
+    protected function getOrdersTableQueryExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    protected function addOrdersTableHeaderExpanderPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_ORDERS_TABLE_HEADER_EXPANDER, function () {
+            return $this->getOrdersTableHeaderExpanderPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableHeaderExpanderPluginInterface>
+     */
+    protected function getOrdersTableHeaderExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    protected function addOrdersTableCriteriaFilterExpanderPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_ORDERS_TABLE_CRITERIA_FILTER_EXPANDER, function () {
+            return $this->getOrdersTableCriteriaFilterExpanderPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableCriteriaFilterExpanderPluginInterface>
+     */
+    protected function getOrdersTableCriteriaFilterExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    protected function addOrdersTableFilterFormExpanderPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_ORDERS_TABLE_FILTER_FORM_EXPANDER, function () {
+            return $this->getOrdersTableFilterFormExpanderPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableFilterFormExpanderPluginInterface>
+     */
+    protected function getOrdersTableFilterFormExpanderPlugins(): array
     {
         return [];
     }

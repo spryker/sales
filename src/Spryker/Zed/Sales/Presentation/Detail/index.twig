@@ -16,6 +16,7 @@
 {% block content %}
 
     <div id="order-overview">{% include '@Sales/Detail/boxes/order-overview.twig' %}</div>
+    <div id="cost-center-and-budget">{% include '@PurchasingControl/Sales/cost-center-and-budget.twig' ignore missing %}</div>
     <div id="order-custom-reference">{% include '@OrderCustomReferenceGui/Sales/order-custom-reference.twig' ignore missing with {
             data: {
                 backUrl: changeStatusRedirectUrl,

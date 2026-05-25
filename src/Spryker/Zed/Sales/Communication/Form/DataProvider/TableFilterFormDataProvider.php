@@ -12,6 +12,7 @@ use Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface;
 use Spryker\Zed\Sales\Dependency\Facade\SalesToStoreInterface;
 use Spryker\Zed\Sales\Persistence\SalesQueryContainerInterface;
 use Spryker\Zed\Sales\Persistence\SalesRepositoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class TableFilterFormDataProvider
 {
@@ -30,11 +31,15 @@ class TableFilterFormDataProvider
      */
     public const OPTION_CURRENT_TIMEZONE = 'current_timezone';
 
+    /**
+     * @param array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableFilterFormExpanderPluginInterface> $ordersTableFilterFormExpanderPlugins
+     */
     public function __construct(
         protected SalesQueryContainerInterface $queryContainer,
         protected SalesToStoreInterface $storeFacade,
         protected SalesRepositoryInterface $salesRepository,
-        protected UtilDateTimeServiceInterface $utilDateTimeService
+        protected UtilDateTimeServiceInterface $utilDateTimeService,
+        protected array $ordersTableFilterFormExpanderPlugins = []
     ) {
     }
 
@@ -46,13 +51,19 @@ class TableFilterFormDataProvider
     /**
      * @return array<string, mixed>
      */
-    public function getOptions(): array
+    public function getOptions(Request $request): array
     {
-        return [
+        $options = [
             static::OPTION_STATUSES => $this->getStatusChoices(),
             static::OPTION_STORES => $this->getStoreChoices(),
             static::OPTION_CURRENT_TIMEZONE => $this->utilDateTimeService->getTimezone(),
         ];
+
+        foreach ($this->ordersTableFilterFormExpanderPlugins as $ordersTableFilterFormExpanderPlugin) {
+            $options = $ordersTableFilterFormExpanderPlugin->expandOptions($options, $request);
+        }
+
+        return $options;
     }
 
     /**

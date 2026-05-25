@@ -27,6 +27,7 @@ use Spryker\Zed\Sales\SalesDependencyProvider;
 use Spryker\Zed\SalesSplit\Communication\Form\DataProvider\OrderItemSplitDataProvider;
 use Spryker\Zed\SalesSplit\Communication\Form\OrderItemSplitForm;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
@@ -154,6 +155,9 @@ class SalesCommunicationFactory extends AbstractCommunicationFactory
             $this->getUtilDateTimeService(),
             $this->getProvidedDependency(SalesDependencyProvider::FACADE_CUSTOMER),
             $this->getSalesTablePlugins(),
+            $this->getOrdersTableQueryExpanderPlugins(),
+            $this->getOrdersTableHeaderExpanderPlugins(),
+            $this->getOrdersTableCriteriaFilterExpanderPlugins(),
         );
     }
 
@@ -285,24 +289,25 @@ class SalesCommunicationFactory extends AbstractCommunicationFactory
         return $this->getProvidedDependency(SalesDependencyProvider::SERVICE_DATE_FORMATTER);
     }
 
-    public function createTableFilterForm(): FormInterface
+    public function createTableFilterForm(Request $request): FormInterface
     {
         $dataProvider = $this->createTableFilterFormDataProvider();
 
         return $this->getFormFactory()->create(
             TableFilterForm::class,
             $dataProvider->getData(),
-            $dataProvider->getOptions(),
+            $dataProvider->getOptions($request),
         );
     }
 
-    protected function createTableFilterFormDataProvider(): TableFilterFormDataProvider
+    public function createTableFilterFormDataProvider(): TableFilterFormDataProvider
     {
         return new TableFilterFormDataProvider(
             $this->getQueryContainer(),
             $this->getStoreFacade(),
             $this->getRepository(),
             $this->getUtilDateTimeService(),
+            $this->getOrdersTableFilterFormExpanderPlugins(),
         );
     }
 
@@ -320,5 +325,37 @@ class SalesCommunicationFactory extends AbstractCommunicationFactory
     public function getSalesDetailBlockRendererPlugins(): array
     {
         return $this->getProvidedDependency(SalesDependencyProvider::PLUGINS_SALES_DETAIL_BLOCK_RENDERER);
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableQueryExpanderPluginInterface>
+     */
+    public function getOrdersTableQueryExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(SalesDependencyProvider::PLUGINS_ORDERS_TABLE_QUERY_EXPANDER);
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableHeaderExpanderPluginInterface>
+     */
+    public function getOrdersTableHeaderExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(SalesDependencyProvider::PLUGINS_ORDERS_TABLE_HEADER_EXPANDER);
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableCriteriaFilterExpanderPluginInterface>
+     */
+    public function getOrdersTableCriteriaFilterExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(SalesDependencyProvider::PLUGINS_ORDERS_TABLE_CRITERIA_FILTER_EXPANDER);
+    }
+
+    /**
+     * @return array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableFilterFormExpanderPluginInterface>
+     */
+    public function getOrdersTableFilterFormExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(SalesDependencyProvider::PLUGINS_ORDERS_TABLE_FILTER_FORM_EXPANDER);
     }
 }

@@ -46,7 +46,7 @@ class IndexController extends AbstractController
     protected function prepareTableWithFilterForm(Request $request): array
     {
         $tableFilterForm = $this->getFactory()
-            ->createTableFilterForm()
+            ->createTableFilterForm($request)
             ->handleRequest($request);
 
         $table = $this->getFactory()->createOrdersTable();

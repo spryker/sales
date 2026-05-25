@@ -100,6 +100,10 @@ class TableFilterForm extends AbstractType
             'data_class' => OrderTableCriteriaTransfer::class,
             'csrf_protection' => false,
         ]);
+
+        foreach ($this->getFactory()->getOrdersTableFilterFormExpanderPlugins() as $ordersTableFilterFormExpanderPlugin) {
+            $ordersTableFilterFormExpanderPlugin->expandConfigureOptions($resolver);
+        }
     }
 
     /**
@@ -117,6 +121,10 @@ class TableFilterForm extends AbstractType
             ->addStoreField($builder, $options)
             ->addOrderDateFromField($builder, $options)
             ->addOrderDateToField($builder, $options);
+
+        foreach ($this->getFactory()->getOrdersTableFilterFormExpanderPlugins() as $ordersTableFilterFormExpanderPlugin) {
+            $ordersTableFilterFormExpanderPlugin->expandForm($builder, $options);
+        }
     }
 
     /**

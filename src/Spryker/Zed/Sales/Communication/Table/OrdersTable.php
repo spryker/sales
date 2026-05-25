@@ -122,6 +122,9 @@ class OrdersTable extends AbstractTable
      * @param \Spryker\Service\UtilDateTime\UtilDateTimeServiceInterface $utilDateTimeService
      * @param \Spryker\Zed\Sales\Dependency\Facade\SalesToCustomerInterface $customerFacade
      * @param array<\Spryker\Zed\SalesExtension\Dependency\Plugin\SalesTablePluginInterface> $salesTablePlugins
+     * @param array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableQueryExpanderPluginInterface> $ordersTableQueryExpanderPlugins
+     * @param array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableHeaderExpanderPluginInterface> $ordersTableHeaderExpanderPlugins
+     * @param array<\Spryker\Zed\SalesExtension\Dependency\Plugin\OrdersTableCriteriaFilterExpanderPluginInterface> $ordersTableCriteriaFilterExpanderPlugins
      */
     public function __construct(
         OrdersTableQueryBuilderInterface $queryBuilder,
@@ -129,7 +132,10 @@ class OrdersTable extends AbstractTable
         SalesToUtilSanitizeInterface $sanitizeService,
         UtilDateTimeServiceInterface $utilDateTimeService,
         SalesToCustomerInterface $customerFacade,
-        array $salesTablePlugins = []
+        array $salesTablePlugins = [],
+        protected array $ordersTableQueryExpanderPlugins = [],
+        protected array $ordersTableHeaderExpanderPlugins = [],
+        protected array $ordersTableCriteriaFilterExpanderPlugins = []
     ) {
         $this->queryBuilder = $queryBuilder;
         $this->moneyFacade = $moneyFacade;
@@ -393,6 +399,10 @@ class OrdersTable extends AbstractTable
 
         $query = $this->queryBuilder->buildQuery($idOrderItemProcess, $idOrderItemItemState, $filter);
 
+        foreach ($this->ordersTableQueryExpanderPlugins as $ordersTableQueryExpanderPlugin) {
+            $query = $ordersTableQueryExpanderPlugin->expandQuery($query);
+        }
+
         if ($this->orderTableCriteriaTransfer) {
             $query = $this->applyOrderTableCriteriaFilters($query, $this->orderTableCriteriaTransfer);
         }
@@ -430,6 +440,10 @@ class OrdersTable extends AbstractTable
             $query->filterByCreatedAt(['max' => $orderTableCriteriaTransfer->getOrderDateTo()], Criteria::LESS_EQUAL);
         }
 
+        foreach ($this->ordersTableCriteriaFilterExpanderPlugins as $ordersTableCriteriaFilterExpanderPlugin) {
+            $query = $ordersTableCriteriaFilterExpanderPlugin->expandCriteria($query, $orderTableCriteriaTransfer);
+        }
+
         return $query;
     }
 
@@ -461,7 +475,7 @@ class OrdersTable extends AbstractTable
      */
     protected function getHeaderFields()
     {
-        return [
+        $headers = [
             SpySalesOrderTableMap::COL_ID_SALES_ORDER => '#',
             SpySalesOrderTableMap::COL_ORDER_REFERENCE => 'Order Reference',
             SpySalesOrderTableMap::COL_CREATED_AT => 'Created',
@@ -472,6 +486,12 @@ class OrdersTable extends AbstractTable
             static::NUMBER_OF_ORDER_ITEMS => 'Number of Items',
             static::URL => 'Actions',
         ];
+
+        foreach ($this->ordersTableHeaderExpanderPlugins as $ordersTableHeaderExpanderPlugin) {
+            $headers = $ordersTableHeaderExpanderPlugin->expandHeaders($headers);
+        }
+
+        return $headers;
     }
 
     /**
@@ -522,7 +542,7 @@ class OrdersTable extends AbstractTable
                 static::NUMBER_OF_ORDER_ITEMS => $item[OrdersTableQueryBuilder::FIELD_NUMBER_OF_ORDER_ITEMS],
                 static::URL => implode(' ', $this->createActionUrls($item)),
             ];
-            $itemLine = $this->applyUiPlugins($itemLine);
+            $itemLine = $this->applyUiPlugins(array_merge($item, $itemLine));
 
             $itemLine[SpySalesOrderTableMap::COL_ID_SALES_ORDER] = $this->formatInt($itemLine[SpySalesOrderTableMap::COL_ID_SALES_ORDER]);
             $itemLine[static::NUMBER_OF_ORDER_ITEMS] = $this->formatInt((int)$itemLine[static::NUMBER_OF_ORDER_ITEMS]);
