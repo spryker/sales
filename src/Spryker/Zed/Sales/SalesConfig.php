@@ -19,16 +19,22 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class SalesConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @var string
      */
     public const PARAM_ID_SALES_ORDER = 'id-sales-order';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const PARAM_CUSTOMER_REFERENCE = 'customer-reference';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const TEST_CUSTOMER_FIRST_NAME = 'test order';
@@ -54,16 +60,22 @@ class SalesConfig extends AbstractBundleConfig
     public const PATTERN_LAST_NAME = '/^[^:\/<>]+$/';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const UNIQUE_RANDOM_ID_ORDER_REFERENCE_ALPHABET = '0123456789';
 
     /**
+     * @api
+     *
      * @var int
      */
     public const UNIQUE_RANDOM_ID_ORDER_REFERENCE_SIZE = 16;
 
     /**
+     * @api
+     *
      * @var int
      */
     public const UNIQUE_RANDOM_ID_ORDER_REFERENCE_SPLIT_LENGTH = 6;
