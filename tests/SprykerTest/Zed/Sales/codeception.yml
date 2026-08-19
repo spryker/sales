@@ -61,29 +61,6 @@ suites:
                 - \SprykerTest\Shared\Store\Helper\StoreDataHelper
                 - \SprykerTest\Zed\Oms\Helper\OmsHelper
 
-    Presentation:
-        path: Presentation
-        actor: SalesPresentationTester
-        modules:
-            enabled:
-                - Asserts
-                - \SprykerTest\Shared\Testify\Helper\Environment
-                - \SprykerTest\Shared\Config\Helper\ConfigInit
-                - \SprykerTest\Shared\Testify\Helper\LocatorHelper
-                - WebDriver:
-                      url: ''
-                      browser: chrome
-                      window_size: 1920x1080
-                      host: 0.0.0.0
-                      restart: false
-                - \SprykerTest\Shared\Testify\Helper\DataCleanupHelper
-                - \SprykerTest\Shared\Application\Helper\ZedHelper
-                - \SprykerTest\Zed\ZedNavigation\Helper\BreadcrumbHelper
-                - \SprykerTest\Zed\Gui\Helper\DataTableActionHelper
-                - \SprykerTest\Zed\Sales\Helper\PresentationHelper
-                - \SprykerTest\Shared\Sales\Helper\SalesHelper
-                - \SprykerTest\Shared\Shipment\Helper\ShipmentMethodDataHelper
-                - \SprykerTest\Shared\Shipment\Helper\ShipmentCarrierDataHelper
     Persistence:
         path: Persistence
         actor: SalesPersistenceTester

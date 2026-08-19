@@ -45,8 +45,7 @@
         "spryker/ramsey-uuid": "*",
         "spryker/shipment": "*",
         "spryker/stock": "*",
-        "spryker/testify": "*",
-        "spryker/zed-navigation": "*"
+        "spryker/testify": "*"
     },
     "suggest": {
         "spryker/checkout": "If you want to use Checkout plugins, minimum required version: ^4.0.0. If you want to use UniqueRandomIdOrderReferenceGenerator, minimum recommended version: ^6.7.0.",
