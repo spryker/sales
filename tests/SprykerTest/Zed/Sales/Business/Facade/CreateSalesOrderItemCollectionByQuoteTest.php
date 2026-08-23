@@ -352,7 +352,6 @@ class CreateSalesOrderItemCollectionByQuoteTest extends Unit
 
         $reflection = new ReflectionClass($this->salesFacade);
         $method = $reflection->getMethod('getEntityManager');
-        $method->setAccessible(true);
 
         $entityManager = $method->invoke($this->salesFacade, 'getEntityManager');
         $persistenceFactory->setConfig($salesConfigMock);

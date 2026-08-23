@@ -180,11 +180,9 @@ class SalesDataHelper extends Module
         $reflectedClass = new ReflectionClass(PersistenceManager::class);
 
         $stateCache = $reflectedClass->getProperty('stateCache');
-        $stateCache->setAccessible(true);
         $stateCache->setValue(null);
 
         $processCache = $reflectedClass->getProperty('processCache');
-        $processCache->setAccessible(true);
         $processCache->setValue(null);
     }
 
