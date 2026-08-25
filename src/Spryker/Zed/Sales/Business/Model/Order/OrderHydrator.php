@@ -414,6 +414,7 @@ class OrderHydrator implements OrderHydratorInterface
             $expenseTransfer->setSumNetPrice($expenseEntity->getNetPrice());
             $expenseTransfer->setSumPrice($expenseEntity->getPrice());
             $expenseTransfer->setSumPriceToPayAggregation($expenseEntity->getPriceToPayAggregation());
+            $expenseTransfer->setSumDiscountAmountAggregation($expenseEntity->getDiscountAmountAggregation());
             $expenseTransfer->setSumTaxAmount($expenseEntity->getTaxAmount());
 
             $expenseTransfer->setIsOrdered(true);
