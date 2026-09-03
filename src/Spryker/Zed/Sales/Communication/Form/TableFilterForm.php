@@ -9,6 +9,7 @@ namespace Spryker\Zed\Sales\Communication\Form;
 
 use DateTime;
 use Generated\Shared\Transfer\OrderTableCriteriaTransfer;
+use Spryker\Zed\Gui\Communication\Form\Type\DateTimePickerType;
 use Spryker\Zed\Kernel\Communication\Form\AbstractType;
 use Spryker\Zed\Sales\Communication\Form\DataProvider\TableFilterFormDataProvider;
 use Symfony\Component\Form\CallbackTransformer;
@@ -82,6 +83,21 @@ class TableFilterForm extends AbstractType
      * @var string
      */
     protected const DATE_TIME_FORMAT = 'Y-m-d\TH:i';
+
+    /**
+     * @var string
+     */
+    protected const RANGE_ROLE_START = 'start';
+
+    /**
+     * @var string
+     */
+    protected const RANGE_ROLE_END = 'end';
+
+    /**
+     * @var string
+     */
+    protected const RANGE_GROUP_ORDER_DATE = 'sales-order-date';
 
     public function getBlockPrefix(): string
     {
@@ -185,13 +201,15 @@ class TableFilterForm extends AbstractType
      */
     protected function addOrderDateFromField(FormBuilderInterface $builder, array $options)
     {
-        $builder->add(static::FIELD_ORDER_DATE_FROM, DateTimeType::class, [
-            'label' => static::LABEL_ORDER_DATE_FROM,
-            'widget' => 'single_text',
-            'required' => false,
-            'html5' => true,
-            'view_timezone' => $options[TableFilterFormDataProvider::OPTION_CURRENT_TIMEZONE],
-        ]);
+        $builder->add(
+            static::FIELD_ORDER_DATE_FROM,
+            $this->getDateTimeFieldType(),
+            $this->getDateTimeFieldOptions(
+                static::LABEL_ORDER_DATE_FROM,
+                static::RANGE_ROLE_START,
+                $options[TableFilterFormDataProvider::OPTION_CURRENT_TIMEZONE],
+            ),
+        );
 
         $builder->get(static::FIELD_ORDER_DATE_FROM)
             ->addModelTransformer($this->createDateTimeTransformer());
@@ -207,18 +225,63 @@ class TableFilterForm extends AbstractType
      */
     protected function addOrderDateToField(FormBuilderInterface $builder, array $options)
     {
-        $builder->add(static::FIELD_ORDER_DATE_TO, DateTimeType::class, [
-            'label' => static::LABEL_ORDER_DATE_TO,
-            'widget' => 'single_text',
-            'required' => false,
-            'html5' => true,
-            'view_timezone' => $options[TableFilterFormDataProvider::OPTION_CURRENT_TIMEZONE],
-        ]);
+        $builder->add(
+            static::FIELD_ORDER_DATE_TO,
+            $this->getDateTimeFieldType(),
+            $this->getDateTimeFieldOptions(
+                static::LABEL_ORDER_DATE_TO,
+                static::RANGE_ROLE_END,
+                $options[TableFilterFormDataProvider::OPTION_CURRENT_TIMEZONE],
+            ),
+        );
 
         $builder->get(static::FIELD_ORDER_DATE_TO)
             ->addModelTransformer($this->createDateTimeTransformer());
 
         return $this;
+    }
+
+    protected function getDateTimeFieldType(): string
+    {
+        if ($this->isGuiDateTimePickerTypeAvailable()) {
+            return DateTimePickerType::class;
+        }
+
+        return DateTimeType::class;
+    }
+
+    /**
+     * @param string $label
+     * @param string $rangeRole
+     * @param string $viewTimezone
+     *
+     * @return array<string, mixed>
+     */
+    protected function getDateTimeFieldOptions(string $label, string $rangeRole, string $viewTimezone): array
+    {
+        $options = [
+            'label' => $label,
+            'required' => false,
+            'view_timezone' => $viewTimezone,
+        ];
+
+        // The picker keeps both ends of the range consistent, which the native control cannot do.
+        if ($this->isGuiDateTimePickerTypeAvailable()) {
+            return $options + [
+                'range_group' => static::RANGE_GROUP_ORDER_DATE,
+                'range_role' => $rangeRole,
+            ];
+        }
+
+        return $options + [
+            'widget' => 'single_text',
+            'html5' => true,
+        ];
+    }
+
+    protected function isGuiDateTimePickerTypeAvailable(): bool
+    {
+        return class_exists(DateTimePickerType::class);
     }
 
     /**
