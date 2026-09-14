@@ -61,7 +61,7 @@ class CustomerController extends AbstractController
     {
         // @deprecated Exists for BC reasons. Will be removed in the next major release.
         if ($request->request->has('customerTransfer')) {
-            /** @phpstan-var \Generated\Shared\Transfer\CustomerTransfer */
+            // @phpstan-ignore return.type (BC-only branch; InputBag::get() is scalar-only, so this can never actually yield an object at runtime under current Symfony versions)
             return $request->request->get('customerTransfer');
         }
 

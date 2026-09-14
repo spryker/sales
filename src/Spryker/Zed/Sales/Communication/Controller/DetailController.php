@@ -200,8 +200,9 @@ class DetailController extends AbstractController
         // symfony/http-foundation: <6.0.0
         // @phpstan-ignore if.alwaysFalse (BC for symfony/http-foundation <6.0.0)
         if (method_exists(JsonResponse::class, 'create')) {
-            // @phpstan-ignore argument.type (BC for symfony/http-foundation <6.0.0 expects array)
-            $subRequest->request->set('orderTransfer', $orderTransfer);
+            // `request` is an InputBag in symfony/http-foundation 7.x and only accepts scalar values, so the
+            // OrderTransfer object is stored on `attributes` instead (still readable via the same BC fallback below).
+            $subRequest->attributes->set('orderTransfer', $orderTransfer);
         }
 
         return $subRequest;

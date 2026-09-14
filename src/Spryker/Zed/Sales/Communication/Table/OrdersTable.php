@@ -454,9 +454,9 @@ class OrdersTable extends AbstractTable
      */
     protected function persistFilters(TableConfiguration $config)
     {
-        $idOrderItemProcess = $this->request->query->getInt(static::ID_ORDER_ITEM_PROCESS);
+        $idOrderItemProcess = (int)$this->request->query->get(static::ID_ORDER_ITEM_PROCESS, 0);
         if ($idOrderItemProcess) {
-            $idOrderItemState = $this->request->query->getInt(static::ID_ORDER_ITEM_STATE);
+            $idOrderItemState = (int)$this->request->query->get(static::ID_ORDER_ITEM_STATE, 0);
             $filter = $this->request->query->get(static::FILTER);
 
             $config->setUrl(
