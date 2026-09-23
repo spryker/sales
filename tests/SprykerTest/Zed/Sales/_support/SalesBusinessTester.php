@@ -150,6 +150,33 @@ class SalesBusinessTester extends Actor
         return $salesOrderTotalsEntity;
     }
 
+    /**
+     * @param array<int, int> $idSalesOrderItems Limits the change to these items; every item of the order when empty.
+     */
+    public function setOrderItemStates(int $idSalesOrder, string $stateName, array $idSalesOrderItems = []): void
+    {
+        $omsStateEntity = SpyOmsOrderItemStateQuery::create()
+            ->filterByName($stateName)
+            ->findOneOrCreate();
+        $omsStateEntity->save();
+
+        $salesOrderItemQuery = $this->getSalesOrderItemQuery()->filterByFkSalesOrder($idSalesOrder);
+
+        if ($idSalesOrderItems !== []) {
+            $salesOrderItemQuery->filterByIdSalesOrderItem_In($idSalesOrderItems);
+        }
+
+        foreach ($salesOrderItemQuery->find() as $salesOrderItemEntity) {
+            $salesOrderItemEntity->setFkOmsOrderItemState($omsStateEntity->getIdOmsOrderItemState());
+            $salesOrderItemEntity->save();
+        }
+    }
+
+    public function getSalesOrderItemCount(int $idSalesOrder): int
+    {
+        return $this->getSalesOrderItemQuery()->filterByFkSalesOrder($idSalesOrder)->count();
+    }
+
     public function createInitialState(): SpyOmsOrderItemState
     {
         $initialState = SpyOmsOrderItemStateQuery::create()

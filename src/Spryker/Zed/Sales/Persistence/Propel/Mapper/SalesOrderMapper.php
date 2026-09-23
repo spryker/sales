@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\Sales\Persistence\Propel\Mapper;
 
+use Generated\Shared\Transfer\ItemStateTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\OrderListTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
@@ -122,6 +123,44 @@ class SalesOrderMapper
         SpySalesOrderItem $salesOrderItemEntity,
         ItemTransfer $itemTransfer
     ): ItemTransfer {
-        return $itemTransfer->fromArray($salesOrderItemEntity->toArray(), true);
+        $itemTransfer->fromArray($salesOrderItemEntity->toArray(), true);
+        $itemTransfer = $this->mapSalesOrderItemEntityToItemPrices($salesOrderItemEntity, $itemTransfer);
+
+        return $this->mapSalesOrderItemEntityToItemState($salesOrderItemEntity, $itemTransfer);
+    }
+
+    protected function mapSalesOrderItemEntityToItemPrices(
+        SpySalesOrderItem $salesOrderItemEntity,
+        ItemTransfer $itemTransfer
+    ): ItemTransfer {
+        return $itemTransfer
+            ->setSumGrossPrice($salesOrderItemEntity->getGrossPrice())
+            ->setSumNetPrice($salesOrderItemEntity->getNetPrice())
+            ->setSumPrice($salesOrderItemEntity->getPrice())
+            ->setSumSubtotalAggregation($salesOrderItemEntity->getSubtotalAggregation())
+            ->setSumDiscountAmountAggregation($salesOrderItemEntity->getDiscountAmountAggregation())
+            ->setSumDiscountAmountFullAggregation($salesOrderItemEntity->getDiscountAmountFullAggregation())
+            ->setSumExpensePriceAggregation($salesOrderItemEntity->getExpensePriceAggregation())
+            ->setSumProductOptionPriceAggregation($salesOrderItemEntity->getProductOptionPriceAggregation())
+            ->setSumTaxAmount($salesOrderItemEntity->getTaxAmount())
+            ->setSumTaxAmountFullAggregation($salesOrderItemEntity->getTaxAmountFullAggregation())
+            ->setSumPriceToPayAggregation($salesOrderItemEntity->getPriceToPayAggregation());
+    }
+
+    protected function mapSalesOrderItemEntityToItemState(
+        SpySalesOrderItem $salesOrderItemEntity,
+        ItemTransfer $itemTransfer
+    ): ItemTransfer {
+        $itemTransfer->setState(
+            (new ItemStateTransfer())->fromArray($salesOrderItemEntity->getState()->toArray(), true),
+        );
+
+        $omsOrderProcessEntity = $salesOrderItemEntity->getProcess();
+
+        if ($omsOrderProcessEntity === null) {
+            return $itemTransfer;
+        }
+
+        return $itemTransfer->setProcess($omsOrderProcessEntity->getName());
     }
 }

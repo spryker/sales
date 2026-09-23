@@ -51,6 +51,13 @@ class SearchOrdersTest extends Unit
     protected const FILTER_TYPE_ALL = 'all';
 
     /**
+     * @uses \Spryker\Zed\Sales\Persistence\Propel\QueryBuilder\OrderSearchFilterFieldQueryBuilder::FILTER_FIELD_TYPE_CUSTOMER_REFERENCE
+     *
+     * @var string
+     */
+    protected const FILTER_TYPE_CUSTOMER_REFERENCE = 'customerReference';
+
+    /**
      * @uses \Spryker\Zed\Sales\Persistence\Propel\QueryBuilder\OrderSearchFilterFieldQueryBuilder::CONDITION_GROUP_ALL
      *
      * @var string
@@ -107,6 +114,7 @@ class SearchOrdersTest extends Unit
 
         $orderListTransfer = (new OrderListTransfer())
             ->setCustomerReference($customerTransfer->getCustomerReference())
+            ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_CUSTOMER_REFERENCE)->setValue($customerTransfer->getCustomerReference()))
             ->setFormat((new OrderListFormatTransfer())->setExpandWithItems(false))
             ->setPagination((new PaginationTransfer())->setPage(1)->setMaxPerPage(10))
             ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_ALL)->setValue(mb_strtolower($orderTransfer->getOrderReference())));
@@ -138,6 +146,7 @@ class SearchOrdersTest extends Unit
 
         $orderListTransfer = (new OrderListTransfer())
             ->setCustomerReference($customerTransfer->getCustomerReference())
+            ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_CUSTOMER_REFERENCE)->setValue($customerTransfer->getCustomerReference()))
             ->setFormat((new OrderListFormatTransfer())->setExpandWithItems(false))
             ->setPagination((new PaginationTransfer())->setPage(1)->setMaxPerPage(10))
             ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_ALL)->setValue($orderTransfer->getOrderReference()));
@@ -165,6 +174,7 @@ class SearchOrdersTest extends Unit
 
         $orderListTransfer = (new OrderListTransfer())
             ->setCustomerReference($customerTransfer->getCustomerReference())
+            ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_CUSTOMER_REFERENCE)->setValue($customerTransfer->getCustomerReference()))
             ->setFormat((new OrderListFormatTransfer())->setExpandWithItems(false))
             ->setPagination((new PaginationTransfer())->setPage(1)->setMaxPerPage(10))
             ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_ALL)->setValue(ucfirst(mb_strtolower($orderTransfer->getOrderReference()))));
@@ -187,6 +197,7 @@ class SearchOrdersTest extends Unit
 
         $orderListTransfer = (new OrderListTransfer())
             ->setCustomerReference($customerTransfer->getCustomerReference())
+            ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_CUSTOMER_REFERENCE)->setValue($customerTransfer->getCustomerReference()))
             ->setFormat((new OrderListFormatTransfer())->setExpandWithItems(false))
             ->setPagination((new PaginationTransfer())->setPage(1)->setMaxPerPage(10))
             ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_ALL)->setValue(static::FAKE_LIKE_ORDER_REFERENCE));
@@ -221,6 +232,7 @@ class SearchOrdersTest extends Unit
 
         $orderListTransfer = (new OrderListTransfer())
             ->setCustomerReference($customerTransfer->getCustomerReference())
+            ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_CUSTOMER_REFERENCE)->setValue($customerTransfer->getCustomerReference()))
             ->setFormat((new OrderListFormatTransfer())->setExpandWithItems(false))
             ->setPagination((new PaginationTransfer())->setPage(1)->setMaxPerPage(10))
             ->addFilterField((new FilterFieldTransfer())->setType(static::FILTER_TYPE_ALL)->setValue($customerTransfer->getCustomerReference()));

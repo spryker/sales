@@ -11,6 +11,7 @@ use ArrayObject;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\ExpenseTransfer;
 use Generated\Shared\Transfer\FilterTransfer;
+use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\OrderCollectionTransfer;
 use Generated\Shared\Transfer\OrderCriteriaTransfer;
 use Generated\Shared\Transfer\OrderFilterTransfer;
@@ -257,13 +258,8 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         ModelCriteria $query,
         PaginationTransfer $paginationTransfer
     ): ModelCriteria {
-        $page = $paginationTransfer
-            ->requirePage()
-            ->getPage();
-
-        $maxPerPage = $paginationTransfer
-            ->requireMaxPerPage()
-            ->getMaxPerPage();
+        $page = $paginationTransfer->getPageOrFail();
+        $maxPerPage = $paginationTransfer->getMaxPerPageOrFail();
 
         $propelModelPager = $query->paginate($page, $maxPerPage);
 
@@ -432,7 +428,8 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
             ->leftJoinWith('SpySalesOrder.BillingAddress billingAddress')
             ->leftJoinWith('billingAddress.Country billingCountry')
             ->leftJoinWith('SpySalesOrder.ShippingAddress shippingAddress')
-            ->leftJoinWith('shippingAddress.Country shippingCountry');
+            ->leftJoinWith('shippingAddress.Country shippingCountry')
+            ->leftJoinWithLocale();
         $salesOrderQuery = $this->applySalesOrderFilters($salesOrderQuery, $orderCriteriaTransfer);
 
         /** @var \ArrayObject<array-key, \Generated\Shared\Transfer\SortTransfer> $sortTransfers */
@@ -474,9 +471,14 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
             return null;
         }
 
+        $idSalesOrder = $salesOrderEntity->getIdSalesOrder();
+        $salesOrderEntitiesIndexedByIdSalesOrder = $this->expandSalesOrdersWithSalesOrderItems([
+            $idSalesOrder => $salesOrderEntity,
+        ]);
+
         return $this->getFactory()
             ->createSalesOrderMapper()
-            ->mapSalesOrderEntityToSalesOrderTransfer($salesOrderEntity, new OrderTransfer());
+            ->mapSalesOrderEntityToSalesOrderTransfer($salesOrderEntitiesIndexedByIdSalesOrder[$idSalesOrder], new OrderTransfer());
     }
 
     /**
@@ -531,7 +533,8 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
             ->innerJoinWith('order.BillingAddress billingAddress')
             ->innerJoinWith('billingAddress.Country billingCountry')
             ->leftJoinWith('order.ShippingAddress shippingAddress')
-            ->leftJoinWith('shippingAddress.Country shippingCountry');
+            ->leftJoinWith('shippingAddress.Country shippingCountry')
+            ->leftJoinWithLocale();
         $salesOrderQuery = $this->setOrderFilters($salesOrderQuery, $orderFilterTransfer);
         $salesOrderQuery = $this->buildQueryFromCriteria(
             $salesOrderQuery,
@@ -549,7 +552,12 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
             );
         }
 
-        return $orderEntity;
+        $idSalesOrder = $orderEntity->getIdSalesOrder();
+        $salesOrderEntitiesIndexedByIdSalesOrder = $this->expandSalesOrdersWithSalesOrderItems([
+            $idSalesOrder => $orderEntity,
+        ]);
+
+        return $salesOrderEntitiesIndexedByIdSalesOrder[$idSalesOrder];
     }
 
     protected function createOrderTransfer(SpySalesOrder $salesOrderEntity): OrderTransfer
@@ -563,7 +571,20 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         $orderTransfer = $this->setOrderExpenses($salesOrderEntity, $orderTransfer);
         $orderTransfer = $this->setMissingCustomer($salesOrderEntity, $orderTransfer);
 
-        return $orderTransfer;
+        return $this->setLocale($salesOrderEntity, $orderTransfer);
+    }
+
+    protected function setLocale(SpySalesOrder $salesOrderEntity, OrderTransfer $orderTransfer): OrderTransfer
+    {
+        $localeEntity = $salesOrderEntity->getLocale();
+
+        if ($localeEntity === null) {
+            return $orderTransfer;
+        }
+
+        return $orderTransfer->setLocale(
+            (new LocaleTransfer())->fromArray($localeEntity->toArray(), true),
+        );
     }
 
     protected function setOrderFilters(SpySalesOrderQuery $salesOrderQuery, OrderFilterTransfer $orderFilterTransfer): SpySalesOrderQuery
@@ -670,6 +691,43 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
             $salesOrderQuery->filterByCustomerReference_In($orderConditionsTransfer->getCustomerReferences());
         }
 
+        if ($orderConditionsTransfer->getStoreNames() !== []) {
+            $salesOrderQuery->filterByStore_In($orderConditionsTransfer->getStoreNames());
+        }
+
+        if ($orderConditionsTransfer->getCreatedAtFrom() !== null) {
+            $salesOrderQuery->filterByCreatedAt($orderConditionsTransfer->getCreatedAtFrom(), Criteria::GREATER_EQUAL);
+        }
+
+        if ($orderConditionsTransfer->getCreatedAtTo() !== null) {
+            $salesOrderQuery->filterByCreatedAt($orderConditionsTransfer->getCreatedAtTo(), Criteria::LESS_EQUAL);
+        }
+
+        if ($orderConditionsTransfer->getItemStates() !== []) {
+            $salesOrderQuery = $this->applyItemStateFilter($salesOrderQuery, $orderConditionsTransfer->getItemStates());
+        }
+
+        return $salesOrderQuery;
+    }
+
+    /**
+     * @module Oms
+     *
+     * @param array<int, string> $itemStates
+     */
+    protected function applyItemStateFilter(SpySalesOrderQuery $salesOrderQuery, array $itemStates): SpySalesOrderQuery
+    {
+        /** @var \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery $salesOrderItemQuery */
+        $salesOrderItemQuery = $salesOrderQuery->useExistsQuery('Item');
+
+        /** @var \Orm\Zed\Oms\Persistence\SpyOmsOrderItemStateQuery $salesOrderItemStateQuery */
+        $salesOrderItemStateQuery = $salesOrderItemQuery->useStateQuery();
+        $salesOrderItemStateQuery
+            ->filterByName_In($itemStates)
+            ->endUse();
+
+        $salesOrderItemQuery->endUse();
+
         return $salesOrderQuery;
     }
 
@@ -735,6 +793,8 @@ class SalesRepository extends AbstractRepository implements SalesRepositoryInter
         $salesOrderItemEntities = $this->getFactory()
             ->createSalesOrderItemQuery()
             ->filterByFkSalesOrder_In(array_keys($salesOrderEntitiesIndexedByIdSalesOrder))
+            ->joinWith('SpySalesOrderItem.State', Criteria::LEFT_JOIN)
+            ->joinWith('SpySalesOrderItem.Process', Criteria::LEFT_JOIN)
             ->find();
 
         foreach ($salesOrderItemEntities as $salesOrderItemEntity) {

@@ -8,7 +8,9 @@
 namespace Spryker\Zed\Sales\Communication\Plugin\Sales;
 
 use Generated\Shared\Transfer\OrderTransfer;
+use Spryker\Service\UtilText\Model\Url\Url;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use Spryker\Zed\Sales\SalesConfig;
 use Spryker\Zed\SalesExtension\Dependency\Plugin\SalesDetailBlockRendererPluginInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -64,8 +66,22 @@ class SalesCommentBlockRendererPlugin extends AbstractPlugin implements SalesDet
         $formDataProvider = $this->getFactory()->createCommentFormDataProvider();
         $form = $this->getFactory()->getCommentForm(
             $formDataProvider->getData($orderTransfer->getIdSalesOrder()),
+            ['action' => $this->buildFormAction($orderTransfer)],
         );
 
         return ['form' => $form->createView()];
+    }
+
+    protected function buildFormAction(OrderTransfer $orderTransfer): string
+    {
+        $idSalesOrder = $orderTransfer->getIdSalesOrder();
+
+        if ($idSalesOrder === null) {
+            return (string)Url::generate(static::BLOCK_URL);
+        }
+
+        return (string)Url::generate(static::BLOCK_URL, [
+            SalesConfig::PARAM_ID_SALES_ORDER => $idSalesOrder,
+        ]);
     }
 }

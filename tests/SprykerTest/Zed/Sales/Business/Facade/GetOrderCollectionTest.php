@@ -8,10 +8,13 @@
 namespace SprykerTest\Zed\Sales\Business\Facade;
 
 use Codeception\Test\Unit;
+use Generated\Shared\DataBuilder\QuoteBuilder;
+use Generated\Shared\Transfer\OrderCollectionTransfer;
 use Generated\Shared\Transfer\OrderConditionsTransfer;
 use Generated\Shared\Transfer\OrderCriteriaTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaginationTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SortTransfer;
 use Spryker\Zed\Sales\SalesDependencyProvider;
 use Spryker\Zed\SalesExtension\Dependency\Plugin\OrderExpanderPluginInterface;
@@ -36,6 +39,21 @@ class GetOrderCollectionTest extends Unit
     protected const DEFAULT_OMS_PROCESS_NAME = 'Test01';
 
     /**
+     * @var string
+     */
+    protected const ITEM_STATE_SHIPPED = 'test-item-state-shipped';
+
+    /**
+     * @var string
+     */
+    protected const ITEM_STATE_CANCELLED = 'test-item-state-cancelled';
+
+    /**
+     * @var string
+     */
+    protected const ITEM_STATE_UNRELATED = 'test-item-state-unrelated';
+
+    /**
      * @var \SprykerTest\Zed\Sales\SalesBusinessTester
      */
     protected SalesBusinessTester $tester;
@@ -45,6 +63,27 @@ class GetOrderCollectionTest extends Unit
         parent::setUp();
 
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
+    }
+
+    public function testGetOrderCollectionReturnsOrdersExpandedWithTheirLocale(): void
+    {
+        // Arrange
+        $orderTransfer = $this->tester->haveOrder([], static::DEFAULT_OMS_PROCESS_NAME);
+        $orderCriteriaTransfer = (new OrderCriteriaTransfer())->setOrderConditions(
+            (new OrderConditionsTransfer())->addOrderReference($orderTransfer->getOrderReferenceOrFail()),
+        );
+
+        // Act
+        $orderCollectionTransfer = $this->tester->getFacade()->getOrderCollection($orderCriteriaTransfer);
+
+        // Assert
+        $localeTransfer = $orderCollectionTransfer->getOrders()->offsetGet(0)->getLocale();
+
+        $this->assertNotNull($localeTransfer);
+        $this->assertSame(
+            $this->tester->getLocator()->locale()->facade()->getCurrentLocale()->getLocaleName(),
+            $localeTransfer->getLocaleName(),
+        );
     }
 
     public function testShouldReturnCollectionOfOrders(): void
@@ -132,6 +171,166 @@ class GetOrderCollectionTest extends Unit
             $orderTransfer->getOrderReferenceOrFail(),
             $orderCollectionTransfer->getOrders()->getIterator()->current()->getOrderReference(),
         );
+    }
+
+    public function testShouldReturnCollectionOfOrdersFilteredByItemState(): void
+    {
+        // Arrange
+        $matchingOrderTransfer = $this->tester->haveOrder([], static::DEFAULT_OMS_PROCESS_NAME);
+        $otherOrderTransfer = $this->tester->haveOrder([], static::DEFAULT_OMS_PROCESS_NAME);
+
+        $this->tester->setOrderItemStates($matchingOrderTransfer->getIdSalesOrderOrFail(), static::ITEM_STATE_SHIPPED);
+        $this->tester->setOrderItemStates($otherOrderTransfer->getIdSalesOrderOrFail(), static::ITEM_STATE_CANCELLED);
+
+        $orderCriteriaTransfer = (new OrderCriteriaTransfer())->setOrderConditions(
+            (new OrderConditionsTransfer())->addItemState(static::ITEM_STATE_SHIPPED),
+        );
+
+        // Act
+        $orderCollectionTransfer = $this->tester->getFacade()->getOrderCollection($orderCriteriaTransfer);
+
+        // Assert
+        $orderReferences = $this->extractOrderReferences($orderCollectionTransfer);
+
+        $this->assertContains($matchingOrderTransfer->getOrderReferenceOrFail(), $orderReferences);
+        $this->assertNotContains($otherOrderTransfer->getOrderReferenceOrFail(), $orderReferences);
+    }
+
+    public function testShouldReturnCollectionOfOrdersMatchingAnyOfTheGivenItemStates(): void
+    {
+        // Arrange
+        $shippedOrderTransfer = $this->tester->haveOrder([], static::DEFAULT_OMS_PROCESS_NAME);
+        $cancelledOrderTransfer = $this->tester->haveOrder([], static::DEFAULT_OMS_PROCESS_NAME);
+        $unrelatedOrderTransfer = $this->tester->haveOrder([], static::DEFAULT_OMS_PROCESS_NAME);
+
+        $this->tester->setOrderItemStates($shippedOrderTransfer->getIdSalesOrderOrFail(), static::ITEM_STATE_SHIPPED);
+        $this->tester->setOrderItemStates($cancelledOrderTransfer->getIdSalesOrderOrFail(), static::ITEM_STATE_CANCELLED);
+        $this->tester->setOrderItemStates($unrelatedOrderTransfer->getIdSalesOrderOrFail(), static::ITEM_STATE_UNRELATED);
+
+        $orderCriteriaTransfer = (new OrderCriteriaTransfer())->setOrderConditions(
+            (new OrderConditionsTransfer())->setItemStates([static::ITEM_STATE_SHIPPED, static::ITEM_STATE_CANCELLED]),
+        );
+
+        // Act
+        $orderCollectionTransfer = $this->tester->getFacade()->getOrderCollection($orderCriteriaTransfer);
+
+        // Assert
+        $orderReferences = $this->extractOrderReferences($orderCollectionTransfer);
+
+        $this->assertContains($shippedOrderTransfer->getOrderReferenceOrFail(), $orderReferences);
+        $this->assertContains($cancelledOrderTransfer->getOrderReferenceOrFail(), $orderReferences);
+        $this->assertNotContains($unrelatedOrderTransfer->getOrderReferenceOrFail(), $orderReferences);
+    }
+
+    public function testShouldReturnOrderOnceWhenSeveralOfItsItemsAreInTheFilteredState(): void
+    {
+        // Arrange
+        $orderTransfer = $this->tester->haveOrderFromQuote(
+            $this->buildTwoItemQuote(),
+            static::DEFAULT_OMS_PROCESS_NAME,
+        );
+
+        $this->tester->setOrderItemStates($orderTransfer->getIdSalesOrderOrFail(), static::ITEM_STATE_SHIPPED);
+
+        $orderCriteriaTransfer = (new OrderCriteriaTransfer())->setOrderConditions(
+            (new OrderConditionsTransfer())
+                ->addOrderReference($orderTransfer->getOrderReferenceOrFail())
+                ->addItemState(static::ITEM_STATE_SHIPPED),
+        );
+
+        // Act
+        $orderCollectionTransfer = $this->tester->getFacade()->getOrderCollection($orderCriteriaTransfer);
+
+        // Assert
+        $this->assertGreaterThan(
+            1,
+            $this->tester->getSalesOrderItemCount($orderTransfer->getIdSalesOrderOrFail()),
+            'The fixture must carry more than one item for this test to mean anything.',
+        );
+        $this->assertCount(1, $orderCollectionTransfer->getOrders());
+    }
+
+    public function testShouldReportPaginationTotalMatchingTheItemStateFilter(): void
+    {
+        // Arrange
+        $firstOrderTransfer = $this->tester->haveOrderFromQuote(
+            $this->buildTwoItemQuote(),
+            static::DEFAULT_OMS_PROCESS_NAME,
+        );
+        $secondOrderTransfer = $this->tester->haveOrderFromQuote(
+            $this->buildTwoItemQuote(),
+            static::DEFAULT_OMS_PROCESS_NAME,
+        );
+
+        $this->tester->setOrderItemStates($firstOrderTransfer->getIdSalesOrderOrFail(), static::ITEM_STATE_SHIPPED);
+        $this->tester->setOrderItemStates($secondOrderTransfer->getIdSalesOrderOrFail(), static::ITEM_STATE_SHIPPED);
+
+        $orderCriteriaTransfer = (new OrderCriteriaTransfer())
+            ->setOrderConditions(
+                (new OrderConditionsTransfer())
+                    ->setOrderReferences([
+                        $firstOrderTransfer->getOrderReferenceOrFail(),
+                        $secondOrderTransfer->getOrderReferenceOrFail(),
+                    ])
+                    ->addItemState(static::ITEM_STATE_SHIPPED),
+            )
+            ->setPagination((new PaginationTransfer())->setOffset(0)->setLimit(1));
+
+        // Act
+        $orderCollectionTransfer = $this->tester->getFacade()->getOrderCollection($orderCriteriaTransfer);
+
+        // Assert
+        $this->assertCount(1, $orderCollectionTransfer->getOrders());
+        $this->assertSame(2, $orderCollectionTransfer->getPaginationOrFail()->getNbResults());
+    }
+
+    public function testShouldReturnEmptyCollectionForAnUnknownItemState(): void
+    {
+        // Arrange
+        $orderTransfer = $this->tester->haveOrder([], static::DEFAULT_OMS_PROCESS_NAME);
+
+        $orderCriteriaTransfer = (new OrderCriteriaTransfer())->setOrderConditions(
+            (new OrderConditionsTransfer())
+                ->addOrderReference($orderTransfer->getOrderReferenceOrFail())
+                ->addItemState('no-such-state'),
+        );
+
+        // Act
+        $orderCollectionTransfer = $this->tester->getFacade()->getOrderCollection($orderCriteriaTransfer);
+
+        // Assert
+        $this->assertCount(0, $orderCollectionTransfer->getOrders());
+    }
+
+    protected function buildTwoItemQuote(): QuoteTransfer
+    {
+        /** @var \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer */
+        $quoteTransfer = (new QuoteBuilder())
+            ->withStore()
+            ->withItem()
+            ->withAnotherItem()
+            ->withCustomer()
+            ->withTotals()
+            ->withShippingAddress()
+            ->withBillingAddress()
+            ->withCurrency()
+            ->build();
+
+        return $quoteTransfer;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function extractOrderReferences(OrderCollectionTransfer $orderCollectionTransfer): array
+    {
+        $orderReferences = [];
+
+        foreach ($orderCollectionTransfer->getOrders() as $orderTransfer) {
+            $orderReferences[] = $orderTransfer->getOrderReferenceOrFail();
+        }
+
+        return $orderReferences;
     }
 
     public function testShouldReturnOrderCollectionSortedByFieldAsc(): void
