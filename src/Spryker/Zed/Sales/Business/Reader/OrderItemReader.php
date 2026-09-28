@@ -80,6 +80,10 @@ class OrderItemReader implements OrderItemReaderInterface
      */
     protected function executeOrderItemExpanderPlugins(array $itemTransfers): array
     {
+        if ($itemTransfers === []) {
+            return $itemTransfers;
+        }
+
         foreach ($this->orderItemExpanderPlugins as $orderItemExpanderPlugin) {
             $itemTransfers = $orderItemExpanderPlugin->expand($itemTransfers);
         }

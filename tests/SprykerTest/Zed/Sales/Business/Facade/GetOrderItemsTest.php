@@ -195,6 +195,30 @@ class GetOrderItemsTest extends Unit
         $this->assertSame(static::FAKE_ID_SALES_ORDER_ITEM, $itemTransfers->getIterator()->current()->getIdSalesOrderItem());
     }
 
+    public function testGetOrderItemsDoesNotExecuteExpanderPluginStackWhenNoOrderItemsAreFound(): void
+    {
+        // Arrange
+        $orderItemExpanderPluginMock = $this->getMockBuilder(OrderItemExpanderPluginInterface::class)->getMock();
+        $orderItemExpanderPluginMock->expects($this->never())->method('expand');
+
+        $this->tester->setDependency(
+            SalesDependencyProvider::PLUGINS_ORDER_ITEM_EXPANDER,
+            [$orderItemExpanderPluginMock],
+        );
+
+        $orderItemFilterTransfer = (new OrderItemFilterTransfer())
+            ->addSalesOrderItemId(static::FAKE_ID_SALES_ORDER_ITEM);
+
+        // Act
+        $itemTransfers = $this->tester
+            ->getFacade()
+            ->getOrderItems($orderItemFilterTransfer)
+            ->getItems();
+
+        // Assert
+        $this->assertCount(0, $itemTransfers);
+    }
+
     /**
      * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\SalesExtension\Dependency\Plugin\OrderItemExpanderPluginInterface
      */
