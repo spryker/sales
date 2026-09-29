@@ -40,7 +40,7 @@ $colorUrlHover: #1cbb9e;
         line-height: 80px;
         color: $colorUrl;
 
-        @media (max-width: 550px) {
+        @media (width <= 550px) {
             font-size: 25px;
             line-height: 50px;
         }
@@ -50,11 +50,11 @@ $colorUrlHover: #1cbb9e;
 .overview-nav .nav-item .text {
     font-size: 18px;
 
-    @media (max-width: 900px) {
+    @media (width <= 900px) {
         font-size: 12px !important;
     }
 
-    @media (max-width: 550px) {
+    @media (width <= 550px) {
         display: none;
     }
 }
@@ -64,7 +64,7 @@ $colorUrlHover: #1cbb9e;
     max-height: 250px;
     overflow-y: auto;
     margin-bottom: 16px;
-    background: rgba(var(--ins-light-rgb), 0.75);
+    background: rgb(var(--ins-light-rgb), 0.75);
     padding: 8px;
 }
 
@@ -87,7 +87,7 @@ $colorUrlHover: #1cbb9e;
     margin-bottom: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    box-shadow: inset 0 0 0 9999px rgba(var(--ins-light-rgb), 0.75);
+    box-shadow: inset 0 0 0 9999px rgb(var(--ins-light-rgb), 0.75);
 }
 
 .grandTotal-row {
@@ -95,7 +95,7 @@ $colorUrlHover: #1cbb9e;
     margin-bottom: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    box-shadow: inset 0 0 0 9999px rgba(var(--ins-light-rgb), 0.75);
+    box-shadow: inset 0 0 0 9999px rgb(var(--ins-light-rgb), 0.75);
 }
 
 .table > tbody.single-item {
