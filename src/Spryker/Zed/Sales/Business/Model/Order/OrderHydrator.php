@@ -14,6 +14,7 @@ use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\ExpenseTransfer;
 use Generated\Shared\Transfer\ItemStateTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
+use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\TaxTotalTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
@@ -202,6 +203,7 @@ class OrderHydrator implements OrderHydratorInterface
         $this->hydrateShippingAddressToOrderTransfer($orderEntity, $orderTransfer);
         $this->hydrateExpensesToOrderTransfer($orderEntity, $orderTransfer);
         $this->hydrateMissingCustomer($orderEntity, $orderTransfer);
+        $this->hydrateLocaleToOrderTransfer($orderEntity, $orderTransfer);
 
         $orderTransfer->setTotalOrderCount(0);
         if ($orderTransfer->getCustomerReference()) {
@@ -553,6 +555,19 @@ class OrderHydrator implements OrderHydratorInterface
             // Deprecated: Using FK to customer is obsolete, but needed to prevent BC break.
             $orderTransfer->setFkCustomer(null);
         }
+    }
+
+    protected function hydrateLocaleToOrderTransfer(SpySalesOrder $orderEntity, OrderTransfer $orderTransfer): void
+    {
+        $localeEntity = $orderEntity->getLocale();
+
+        if ($localeEntity === null) {
+            return;
+        }
+
+        $orderTransfer->setLocale(
+            (new LocaleTransfer())->fromArray($localeEntity->toArray(), true),
+        );
     }
 
     /**

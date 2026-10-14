@@ -10,6 +10,7 @@ namespace SprykerTest\Zed\Sales\Business\Facade;
 use Codeception\Test\Unit;
 use DateTime;
 use Generated\Shared\Transfer\OrderTransfer;
+use Orm\Zed\Sales\Persistence\SpySalesOrderQuery;
 use Propel\Runtime\Exception\PropelException;
 use Spryker\Zed\Sales\Business\Exception\InvalidSalesOrderException;
 use Spryker\Zed\Sales\SalesDependencyProvider;
@@ -74,6 +75,43 @@ class GetCustomerOrderTest extends Unit
 
         // Assert
         $this->assertSame($orderTransfer->getIdSalesOrder(), $storedOrderTransfer->getIdSalesOrder());
+    }
+
+    public function testGivenOrderWithLocaleWhenGettingCustomerOrderThenOrderTransferLocaleIsHydrated(): void
+    {
+        // Arrange
+        $orderTransfer = $this->tester->createOrderByStateMachineProcessName(static::DEFAULT_OMS_PROCESS_NAME);
+        $orderTransfer->setFkCustomer($orderTransfer->getCustomer()->getIdCustomer());
+        $idLocale = $this->tester->getLocator()->locale()->facade()->getCurrentLocale()->getIdLocale();
+
+        // Act
+        $storedOrderTransfer = $this->tester
+            ->getFacade()
+            ->getCustomerOrder($orderTransfer);
+
+        // Assert
+        $this->assertNotNull($storedOrderTransfer->getLocale());
+        $this->assertSame($idLocale, $storedOrderTransfer->getLocale()->getIdLocale());
+    }
+
+    public function testGivenOrderWithoutLocaleWhenGettingCustomerOrderThenOrderTransferLocaleIsNull(): void
+    {
+        // Arrange
+        $orderTransfer = $this->tester->createOrderByStateMachineProcessName(static::DEFAULT_OMS_PROCESS_NAME);
+        $orderTransfer->setFkCustomer($orderTransfer->getCustomer()->getIdCustomer());
+        SpySalesOrderQuery::create()
+            ->findOneByIdSalesOrder($orderTransfer->getIdSalesOrder())
+            ->setFkLocale(null)
+            ->save();
+
+        // Act
+        $storedOrderTransfer = $this->tester
+            ->getFacade()
+            ->getCustomerOrder($orderTransfer);
+
+        // Assert
+        $this->assertSame($orderTransfer->getIdSalesOrder(), $storedOrderTransfer->getIdSalesOrder());
+        $this->assertNull($storedOrderTransfer->getLocale());
     }
 
     public function testGetCustomerOrderThrowsExceptionForOtherCustomer(): void
