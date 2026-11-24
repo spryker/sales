@@ -72,7 +72,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "11.0.x-dev"
+            "dev-master": "11.85.x-dev"
         }
     },
     "config": {
@@ -80,5 +80,19 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
+    },
+    "conflict": {
+        "spryker/cart-note": "<1.1.0",
+        "spryker/cart-note-product-bundle-connector": "<1.1.0",
+        "spryker/comment-sales-connector": "<1.1.0",
+        "spryker/discount": "<9.29.0",
+        "spryker/gift-card": "<1.7.0",
+        "spryker/manual-order-entry": "<1.1.4",
+        "spryker/payment": "<5.10.2",
+        "spryker/refund": "<5.6.0",
+        "spryker/sales-payment-detail": "<1.1.0",
+        "spryker/sales-payment-gui": "<1.1.0",
+        "spryker/sales-return-gui": "<1.5.0",
+        "spryker/shipment": "<8.10.2"
     }
 }
